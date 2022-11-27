@@ -1,37 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
-const Home = () => import('@/pages/Home.vue')
-const About = () => import('@/pages/About.vue')
-const Articles = () => import('@/pages/Articles.vue')
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
-    meta: {
-      enterClass: 'animate__animated animate__fadeInLeft',
-      leaveClass: 'animate__animated animate__fadeOutRight'
-    }
+    component: () => import('@/pages/Home.vue'),
   },
   {
     path: '/about',
     name: 'About',
-    component: About,
-    meta: {
-      enterClass: 'animate__animated animate__fadeInRight',
-      leaveClass: 'animate__animated animate__fadeOutLeft'
-    }
+    component: () => import('@/pages/About.vue'),
   },
   {
     path: '/articles',
     name: 'Articles',
-    component: Articles
-  }
+    component: () => import('@/pages/Articles.vue'),
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 export default router
