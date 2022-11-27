@@ -20,4 +20,5 @@ export default defineConfig({
   css: {
     devSourcemap: true,
   },
+  envPrefix: 'APP',
 })
