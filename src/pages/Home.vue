@@ -1,5 +1,9 @@
 <template>
-  <section class="page"></section>
+  <Canvas />
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+import Canvas from '@/components/Canvas.vue'
+</script>
+
+<style lang="scss"></style>

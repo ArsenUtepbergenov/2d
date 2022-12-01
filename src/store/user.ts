@@ -1,20 +1,20 @@
 import { defineStore } from 'pinia'
 
+export type userState = {
+  name: string
+}
+
 export const useUserStore = defineStore('userStore', {
-  state: () => {
-    return {
+  state: () =>
+    ({
       name: '',
-    }
-  },
+    } as userState),
   actions: {
-    setName(payload) {
+    setName(payload: string) {
       this.name = payload
     },
     clear() {
       this.$reset()
     },
-  },
-  getters: {
-    bio: state => `${state.name} is good man.`,
   },
 })
