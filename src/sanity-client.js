@@ -11,4 +11,7 @@ export const client = sanityClient({
 
 const builder = imageUrlBuilder(client)
 
-export const urlFor = (source) => builder.image(source)
+export const urlFor = source => builder.image(source)
+
+export const projectId = import.meta.env.APP_PROJECT_ID
+export const token = import.meta.env.APP_TOKEN

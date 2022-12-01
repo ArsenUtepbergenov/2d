@@ -3,21 +3,18 @@ import { defineStore } from 'pinia'
 export const useUserStore = defineStore('userStore', {
   state: () => {
     return {
-      name: 'Arsen',
+      name: '',
     }
   },
   actions: {
-    saveName(payload) {
-      this.setName(payload)
-    },
     setName(payload) {
       this.name = payload
     },
-    clearUser() {
+    clear() {
       this.$reset()
     },
   },
   getters: {
-    firstAndLastName: (state) => `${state.name} Utepbergenov`,
+    bio: state => `${state.name} is good man.`,
   },
 })
