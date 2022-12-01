@@ -8,7 +8,7 @@ export default class Canvas {
 
   constructor(ref: HTMLCanvasElement, { width, height }: CanvasParams) {
     this.instance = ref
-    this.context2d = this.instance.getContext('2d')!
+    this.context2d = this.instance.getContext('2d', { alpha: false })!
 
     this.init({ width, height })
   }

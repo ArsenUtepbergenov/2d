@@ -1,3 +1,8 @@
+export interface ISize {
+  w: number
+  h: number
+}
+
 export interface IRect {
   x: number
   y: number
@@ -5,13 +10,13 @@ export interface IRect {
   h: number
 }
 
-export interface IVec2 {
+export interface IVector2 {
   x: number
   y: number
 }
 
 export interface IFillCircle {
-  position: IVec2
+  position: IVector2
   radius: number
   color?: string
 }

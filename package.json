@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview",
-    "vpatch": "npm version patch"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@sanity/client": "^3.4.1",

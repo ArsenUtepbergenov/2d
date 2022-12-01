@@ -12,7 +12,8 @@ import {
   ref,
 } from 'vue'
 import Canvas from '../entities/Canvas'
-import { Colors } from '../models/enums'
+import Drawer from '../entities/Drawer'
+import { System, Colors } from '../models/enums'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({
@@ -20,11 +21,17 @@ const size = reactive({
   h: window.innerHeight,
 })
 let canvas: Canvas
+let drawer: Drawer
+let timer: number
 
 function resize() {
-  size.w = window.innerWidth
-  size.h = window.innerHeight
-  canvas.setSize(size.w, size.h)
+  window.clearTimeout(timer)
+
+  timer = window.setTimeout(() => {
+    size.w = window.innerWidth
+    size.h = window.innerHeight
+    canvas.setSize(size.w, size.h)
+  }, System.RESIZE_TIME)
 }
 
 onBeforeMount(() => {
@@ -37,11 +44,14 @@ onUnmounted(() => {
 
 onMounted(() => {
   canvas = new Canvas(canvasRef.value!, { width: size.w, height: size.h })
+  drawer = new Drawer()
   canvas.fill(Colors.lightGrey)
+  drawer.drawCoordinateSystem(canvas.c2d, { w: size.w, h: size.h })
 })
 
 onUpdated(() => {
   canvas.fill(Colors.lightGrey)
+  drawer.drawCoordinateSystem(canvas.c2d, { w: size.w, h: size.h })
 })
 </script>
 
