@@ -7,6 +7,7 @@ export type CanvasParams = {
 export type DrawerParams = {
   isCartesian: boolean
   strokeStyle: string | CanvasGradient | CanvasPattern
+  fillStyle: string | CanvasGradient | CanvasPattern
 }
 
 export type TextParams = {
@@ -14,6 +15,13 @@ export type TextParams = {
   y: number
   fillStyle?: string | CanvasGradient | CanvasPattern
   align?: CanvasTextAlign
+}
+
+export type CircleParams = {
+  radius: number
+  startAngle?: number
+  endAngle?: number
+  counterclockwise?: boolean | undefined
 }
 
 export type EventHandler =

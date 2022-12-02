@@ -28,6 +28,10 @@ export abstract class System {
   public static convertToCm({ x, y }: IPoint): IPoint {
     return { x: x * System.CM, y: y * System.CM }
   }
+
+  public static getCMs(number: number): number {
+    return number * System.CM
+  }
 }
 
 /**
@@ -54,19 +58,19 @@ export abstract class CS {
    * @param size original size (width, height)
    */
   public static setCenter({ w, h }: ISize) {
-    CS.cX = CS.getCenterOfAxis(CS.getCMs(w))
-    CS.cY = CS.getCenterOfAxis(CS.getCMs(h))
+    CS.cX = CS.getCenterOfAxis(CS.getNumberCMs(w))
+    CS.cY = CS.getCenterOfAxis(CS.getNumberCMs(h))
   }
   /**
-   * Get centimeters by the window dimension.
-   * @param dimension [width, height]
+   * Get centimeters by size's attribute.
+   * @param attribute size's attribute = width or height
    * @returns number centimeters
    */
-  public static getCMs(dimension: number): number {
-    return Math.floor(dimension / System.CM)
+  public static getNumberCMs(attribute: number): number {
+    return Math.floor(attribute / System.CM)
   }
   /**
-   * Get axis center by centimeters
+   * Get axis center by centimeters.
    * @param cms number centimeters
    * @returns axis's center
    */

@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import { System } from '@/utils'
 import {
   onBeforeMount,
   onMounted,
@@ -12,9 +13,7 @@ import {
   ref,
 } from 'vue'
 import Canvas from '@/entities/Canvas'
-import { System } from '@/utils'
-import Vector from '@/entities/math/Vector'
-import VectorDrawer from '@/entities/drawers/VectorDrawer'
+import TrigonometryDrawer from '@/entities/drawers/TrigonometryDrawer'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({
@@ -22,9 +21,8 @@ const size = reactive({
   h: window.innerHeight,
 })
 let canvas: Canvas
-let vectorDrawer: VectorDrawer
 let timer: number
-const vectors = [new Vector(2, 3), new Vector(-4, 6)]
+let drawer: TrigonometryDrawer
 
 function resize() {
   window.clearTimeout(timer)
@@ -50,14 +48,13 @@ onMounted(() => {
     height: size.h,
     alpha: true,
   })
-  vectorDrawer = new VectorDrawer(canvas.c2d)
-  vectors.forEach(v => vectorDrawer.draw2(v))
+  drawer = new TrigonometryDrawer(canvas.c2d)
+
+  drawer.drawSin()
+  drawer.drawCos()
 })
 
-onUpdated(() => {
-  vectorDrawer.update()
-  vectors.forEach(v => vectorDrawer.draw2(v))
-})
+onUpdated(() => {})
 </script>
 
 <style lang="scss" scoped>

@@ -4,20 +4,26 @@ import { CS, System } from '@/utils'
 import { IPoint } from '@/models/types'
 
 export default class Drawer {
-  private params: DrawerParams = {
+  private params: Partial<DrawerParams> = {
     isCartesian: false,
     strokeStyle: '',
+    fillStyle: '',
   }
   protected c2d: CanvasRenderingContext2D
 
-  constructor(
-    c2d: CanvasRenderingContext2D,
-    params: DrawerParams = { isCartesian: false, strokeStyle: '' },
-  ) {
+  constructor(c2d: CanvasRenderingContext2D, params?: Partial<DrawerParams>) {
     this.c2d = c2d
+
+    if (!params) return
+
     params.isCartesian && this.toCartesian()
-    this.c2d.strokeStyle = params.strokeStyle
+    this.c2d.strokeStyle = params.strokeStyle || ''
+    this.c2d.fillStyle = params.fillStyle || ''
     this.params = params
+  }
+
+  public drawPoint({ x, y }: IPoint): void {
+    this.c2d.fillRect(x, y, 1, 1)
   }
 
   public drawArrow(
@@ -68,7 +74,8 @@ export default class Drawer {
 
   public update(): void {
     this.params.isCartesian && this.toCartesian()
-    this.c2d.strokeStyle = this.params.strokeStyle
+    this.c2d.strokeStyle = this.params.strokeStyle || ''
+    this.c2d.fillStyle = this.params.fillStyle || ''
   }
 
   protected scale({ x, y }: IPoint): void {
