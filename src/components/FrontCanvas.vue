@@ -41,8 +41,6 @@ onBeforeMount(() => {
 })
 
 onUnmounted(() => {
-  console.log('onUnmounted')
-
   window.removeEventListener('resize', resize)
 })
 

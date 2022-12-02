@@ -9,6 +9,13 @@ export type DrawerParams = {
   strokeStyle: string | CanvasGradient | CanvasPattern
 }
 
+export type TextParams = {
+  x: number
+  y: number
+  fillStyle?: string | CanvasGradient | CanvasPattern
+  align?: CanvasTextAlign
+}
+
 export type EventHandler =
   | ((this: GlobalEventHandlers, ev: Event) => any)
   | null

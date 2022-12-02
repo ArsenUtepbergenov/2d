@@ -1,4 +1,5 @@
-import { DrawerParams } from '@/models'
+import { Colors } from '@/models/enums'
+import { DrawerParams, TextParams } from '@/models'
 import { CS, System } from '@/utils'
 import { IPoint } from '@/models/types'
 
@@ -38,6 +39,18 @@ export default class Drawer {
     c.lineTo(to.x - offsetX(right), to.y - offsetY(right))
 
     c.stroke()
+  }
+
+  public fillText(
+    text: string,
+    { x = 0, y = 0, fillStyle = Colors.dark, align = 'center' }: TextParams,
+  ): void {
+    const c = this.c2d
+
+    c.font = '1rem Calibri'
+    c.fillStyle = fillStyle
+    c.textAlign = align
+    c.fillText(text, x, y)
   }
 
   public strokeLine(

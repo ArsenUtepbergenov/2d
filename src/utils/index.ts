@@ -1,40 +1,76 @@
 import { IPoint, ISize } from '@/models/types'
 
 /**
- * The global system
+ * The global system.
  */
 export abstract class System {
+  /**
+   * The delay of window resizing
+   */
   public static RESIZE_TIME = 500 // ms
-  public static CM = 37.8 // One centimeter = ~37.8px
-  public static HCM = 18.9 // Half of centimeter = ~19.9px
-  public static ARROWHEAD = 7 // The length of arrowhead (for vectors, etc.)
-
-  public static convertToCm({ x, y }: IPoint) {
+  /**
+   * One centimeter = ~37.8px
+   */
+  public static CM = 37.8
+  /**
+   * Half of one centimeter = ~19.9px
+   */
+  public static HCM = 18.9
+  /**
+   * The length of arrowhead (for vectors, etc.)
+   */
+  public static ARROWHEAD = 7
+  /**
+   * Convert coordinate (x, y) to centimeters.
+   * @param point the original coordinate (x, y)
+   * @returns original coordinate (x, y) in centimeters
+   */
+  public static convertToCm({ x, y }: IPoint): IPoint {
     return { x: x * System.CM, y: y * System.CM }
   }
 }
 
 /**
- * Coordinate system
+ * Coordinate system.
  */
 export abstract class CS {
+  /**
+   * The CS's center on x
+   */
   public static cX = 0
+  /**
+   * The CS's center on y
+   */
   public static cY = 0
-
+  /**
+   * Get center of the coordinate system.
+   * @returns center coordinate (x, y)
+   */
   public static getCenter(): IPoint {
     return { x: CS.cX, y: CS.cY }
   }
-
+  /**
+   * Set center of the coordinate system by window's size.
+   * @param size original size (width, height)
+   */
   public static setCenter({ w, h }: ISize) {
     CS.cX = CS.getCenterOfAxis(CS.getCMs(w))
     CS.cY = CS.getCenterOfAxis(CS.getCMs(h))
   }
-
-  private static getCMs(dimension: number) {
-    return Math.floor(dimension / System.HCM / 2)
+  /**
+   * Get centimeters by the window dimension.
+   * @param dimension [width, height]
+   * @returns number centimeters
+   */
+  public static getCMs(dimension: number): number {
+    return Math.floor(dimension / System.CM)
   }
-
-  private static getCenterOfAxis(cms: number) {
+  /**
+   * Get axis center by centimeters
+   * @param cms number centimeters
+   * @returns axis's center
+   */
+  private static getCenterOfAxis(cms: number): number {
     return cms * System.HCM
   }
 }

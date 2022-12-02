@@ -1,7 +1,8 @@
 export const enum Colors {
   light = 'white',
-  dark = '#a1a1a1',
-  lightCoral = 'lightcoral',
+  grey = '#a1a1a1',
+  dark = '#442132',
+  brown = '#795548',
   green = 'green',
 }
 
