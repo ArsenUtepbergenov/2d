@@ -6,9 +6,12 @@ export default class Canvas {
   private context2d: CanvasRenderingContext2D
   private instance: HTMLCanvasElement
 
-  constructor(ref: HTMLCanvasElement, { width, height }: CanvasParams) {
+  constructor(
+    ref: HTMLCanvasElement,
+    { width, height, alpha = false }: CanvasParams,
+  ) {
     this.instance = ref
-    this.context2d = this.instance.getContext('2d', { alpha: false })!
+    this.context2d = this.instance.getContext('2d', { alpha })!
 
     this.init({ width, height })
   }

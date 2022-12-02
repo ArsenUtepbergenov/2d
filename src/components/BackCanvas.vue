@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvasRef" :width="size.w" :height="size.h" tabindex="0" />
+  <canvas ref="canvasRef" :width="size.w" :height="size.h" />
 </template>
 
 <script setup lang="ts">
@@ -11,9 +11,10 @@ import {
   reactive,
   ref,
 } from 'vue'
-import Canvas from '../entities/Canvas'
-import Drawer from '../entities/Drawer'
-import { System, Colors } from '../models/enums'
+import Canvas from '@/entities/Canvas'
+import CoordinateSystemDrawer from '@/entities/drawers/CoordinateSystemDrawer'
+import { Colors } from '@/models/enums'
+import { System } from '@/utils'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({
@@ -21,7 +22,7 @@ const size = reactive({
   h: window.innerHeight,
 })
 let canvas: Canvas
-let drawer: Drawer
+let csd: CoordinateSystemDrawer
 let timer: number
 
 function resize() {
@@ -44,14 +45,14 @@ onUnmounted(() => {
 
 onMounted(() => {
   canvas = new Canvas(canvasRef.value!, { width: size.w, height: size.h })
-  drawer = new Drawer()
-  canvas.fill(Colors.lightGrey)
-  drawer.drawCoordinateSystem(canvas.c2d, { w: size.w, h: size.h })
+  csd = new CoordinateSystemDrawer(canvas.c2d)
+  canvas.fill(Colors.light)
+  csd.draw({ w: size.w, h: size.h })
 })
 
 onUpdated(() => {
-  canvas.fill(Colors.lightGrey)
-  drawer.drawCoordinateSystem(canvas.c2d, { w: size.w, h: size.h })
+  canvas.fill(Colors.light)
+  csd.draw({ w: size.w, h: size.h })
 })
 </script>
 

@@ -1,9 +1,17 @@
 <template>
-  <Canvas />
+  <section class="canvases">
+    <BackCanvas />
+    <FrontCanvas />
+  </section>
 </template>
 
 <script setup lang="ts">
-import Canvas from '@/components/Canvas.vue'
+import BackCanvas from '@/components/BackCanvas.vue'
+import FrontCanvas from '@/components/FrontCanvas.vue'
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.canvases {
+  position: relative;
+}
+</style>

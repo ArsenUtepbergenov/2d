@@ -1,6 +1,12 @@
 export type CanvasParams = {
   width: number
   height: number
+  alpha?: boolean
+}
+
+export type DrawerParams = {
+  isCartesian: boolean
+  strokeStyle: string | CanvasGradient | CanvasPattern
 }
 
 export type EventHandler =
