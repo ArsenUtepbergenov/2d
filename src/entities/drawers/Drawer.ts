@@ -1,7 +1,7 @@
-import { Colors } from '@/models/enums'
+import { Colors, Config } from '@/models/enums'
 import { DrawerParams, TextParams } from '@/models'
-import { CS, System } from '@/utils'
-import { IPoint } from '@/models/types'
+import { CS } from '@/utils'
+import { Point } from '../math/Point'
 
 export default class Drawer {
   private params: Partial<DrawerParams> = {
@@ -22,29 +22,8 @@ export default class Drawer {
     this.params = params
   }
 
-  public drawPoint({ x, y }: IPoint): void {
+  public drawPoint({ x, y }: Point): void {
     this.c2d.fillRect(x, y, 1, 1)
-  }
-
-  public drawArrow(
-    to: IPoint = { x: 0, y: 0 },
-    from: IPoint = { x: 0, y: 0 },
-  ): void {
-    const c = this.c2d
-
-    const offsetX = (a: number) => System.ARROWHEAD * Math.cos(a)
-    const offsetY = (a: number) => System.ARROWHEAD * Math.sin(a)
-
-    const angle = Math.atan2(to.y - from.y, to.x - from.x)
-    const left = angle - Math.PI / 6
-    const right = angle + Math.PI / 6
-
-    this.strokeLine(to, from)
-    c.lineTo(to.x - offsetX(left), to.y - offsetY(left))
-    c.moveTo(to.x, to.y)
-    c.lineTo(to.x - offsetX(right), to.y - offsetY(right))
-
-    c.stroke()
   }
 
   public fillText(
@@ -53,15 +32,15 @@ export default class Drawer {
   ): void {
     const c = this.c2d
 
-    c.font = '1rem Calibri'
+    c.font = Config.FONT
     c.fillStyle = fillStyle
     c.textAlign = align
     c.fillText(text, x, y)
   }
 
   public strokeLine(
-    to: IPoint = { x: 0, y: 0 },
-    from: IPoint = { x: 0, y: 0 },
+    to: Point = { x: 0, y: 0 },
+    from: Point = { x: 0, y: 0 },
   ): void {
     const c = this.c2d
 
@@ -78,11 +57,11 @@ export default class Drawer {
     this.c2d.fillStyle = this.params.fillStyle || ''
   }
 
-  protected scale({ x, y }: IPoint): void {
+  protected scale({ x, y }: Point): void {
     this.c2d.scale(x, y)
   }
 
-  protected translate({ x, y }: IPoint): void {
+  protected translate({ x, y }: Point): void {
     this.c2d.translate(x, y)
   }
 
@@ -91,7 +70,7 @@ export default class Drawer {
   }
 
   protected toCartesian(): void {
-    this.translate(CS.getCenter())
+    this.translate(CS.center)
     this.scale({ x: 1, y: -1 })
   }
 }

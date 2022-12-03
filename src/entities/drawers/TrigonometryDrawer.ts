@@ -1,9 +1,11 @@
 import Drawer from './Drawer'
 import { Colors } from '@/models/enums'
 import { System } from '@/utils'
-import { IPoint } from '@/models/types'
+import { Point } from '../math/Point'
 
 export default class TrigonometryDrawer extends Drawer {
+  private points: Point[] = []
+
   constructor(c2d: CanvasRenderingContext2D) {
     super(c2d, { isCartesian: true, fillStyle: Colors.green })
   }
@@ -13,13 +15,13 @@ export default class TrigonometryDrawer extends Drawer {
     endAngle: number = Math.PI,
     amplitude: number = System.CM,
   ): void {
-    const points: IPoint[] = []
+    this.points = []
 
     for (let angle = startAngle; angle < endAngle; angle += 0.01) {
-      points.push({ x: angle * amplitude, y: Math.sin(angle) * amplitude })
+      this.points.push({ x: angle * amplitude, y: Math.sin(angle) * amplitude })
     }
 
-    points.forEach(p => this.drawPoint(p))
+    this.points.forEach(p => this.drawPoint(p))
   }
 
   public drawCos(
@@ -27,12 +29,12 @@ export default class TrigonometryDrawer extends Drawer {
     endAngle: number = Math.PI,
     amplitude: number = System.CM,
   ): void {
-    const points: IPoint[] = []
+    this.points = []
 
     for (let angle = startAngle; angle < endAngle; angle += 0.01) {
-      points.push({ x: angle * amplitude, y: Math.cos(angle) * amplitude })
+      this.points.push({ x: angle * amplitude, y: Math.cos(angle) * amplitude })
     }
 
-    points.forEach(p => this.drawPoint(p))
+    this.points.forEach(p => this.drawPoint(p))
   }
 }

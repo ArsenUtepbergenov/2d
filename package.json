@@ -11,10 +11,12 @@
     "@sanity/client": "^3.4.1",
     "@sanity/image-url": "^1.0.1",
     "pinia": "^2.0.27",
+    "uuid": "^9.0.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vue/eslint-config-typescript": "^11.0.2",

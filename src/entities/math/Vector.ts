@@ -1,4 +1,4 @@
-import { IPoint } from '@/models/types'
+import { Point } from './Point'
 import { areEqual, toDegrees } from './common'
 
 export default class Vector {
@@ -87,7 +87,7 @@ export default class Vector {
     )
   }
 
-  public get xy(): IPoint {
+  public get xy(): Point {
     return { x: this.components[0], y: this.components[1] }
   }
 }

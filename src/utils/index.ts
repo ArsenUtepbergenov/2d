@@ -1,4 +1,5 @@
-import { IPoint, ISize } from '@/models/types'
+import { Point } from '@/entities/math/Point'
+import { ISize } from '@/models/types'
 
 /**
  * The global system.
@@ -25,7 +26,7 @@ export abstract class System {
    * @param point the original coordinate (x, y)
    * @returns original coordinate (x, y) in centimeters
    */
-  public static convertToCm({ x, y }: IPoint): IPoint {
+  public static convertToCm({ x, y }: Point): Point {
     return { x: x * System.CM, y: y * System.CM }
   }
 
@@ -50,7 +51,7 @@ export abstract class CS {
    * Get center of the coordinate system.
    * @returns center coordinate (x, y)
    */
-  public static getCenter(): IPoint {
+  public static get center(): Point {
     return { x: CS.cX, y: CS.cY }
   }
   /**

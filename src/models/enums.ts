@@ -6,14 +6,6 @@ export const enum Colors {
   green = 'green',
 }
 
-export const enum Orientation {
-  Horizontal = 'horizontal',
-  Vertical = 'vertical',
-}
-
-export const enum ColorType {
-  DEFAULT,
-  ERROR,
-  SUCCESS,
-  INFO,
+export const enum Config {
+  FONT = '1rem Calibri',
 }

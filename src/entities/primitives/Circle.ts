@@ -1,7 +1,12 @@
-export default class Circle {
-  private radius: number = 1.0
+import { ICircle } from '@/models/types'
+import { Point } from '../math/Point'
 
-  public get r(): number {
-    return this.radius
+export default class Circle implements ICircle {
+  public position: Point = new Point(0, 0)
+  public radius: number = 1
+
+  constructor(position: Point, radius: number) {
+    this.position = position
+    this.radius = radius
   }
 }

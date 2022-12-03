@@ -1,7 +1,7 @@
-import { IPoint } from '@/models/types'
 import Drawer from './Drawer'
 import { Colors } from '@/models/enums'
 import { CircleParams } from '@/models'
+import { Point } from '../math/Point'
 
 export default class PrimitivesDrawer extends Drawer {
   constructor(c2d: CanvasRenderingContext2D) {
@@ -9,7 +9,7 @@ export default class PrimitivesDrawer extends Drawer {
   }
 
   public strokeCircle(
-    { x, y }: IPoint,
+    { x, y }: Point,
     { radius = 0, startAngle = 0, endAngle = Math.PI * 2 }: CircleParams,
   ): void {
     const c = this.c2d

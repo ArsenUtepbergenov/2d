@@ -1,7 +1,4 @@
-export interface IPoint {
-  x: number
-  y: number
-}
+import { Point } from '@/entities/math/Point'
 
 export interface ISize {
   w: number
@@ -9,6 +6,19 @@ export interface ISize {
 }
 
 export interface IRect {
-  position: IPoint
+  position: Point
   size: ISize
+}
+
+export interface ICircle {
+  position: Point
+  radius: number
+}
+
+export type IPrimitive = ICircle
+
+export type TraitName = 'PhysicsTrait'
+
+export interface ITrait {
+  readonly name: TraitName
 }

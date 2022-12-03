@@ -13,7 +13,10 @@ import {
   ref,
 } from 'vue'
 import Canvas from '@/entities/Canvas'
-import TrigonometryDrawer from '@/entities/drawers/TrigonometryDrawer'
+import PrimitivesDrawer from '@/entities/drawers/PrimitivesDrawer'
+import Particle from '@/entities/physics/Particles'
+import Engine from '@/entities/physics/Engine'
+import Renderer from '@/entities/Renderer'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({
@@ -22,7 +25,9 @@ const size = reactive({
 })
 let canvas: Canvas
 let timer: number
-let drawer: TrigonometryDrawer
+let drawer: PrimitivesDrawer
+let engine: Engine
+let renderer: Renderer
 
 function resize() {
   window.clearTimeout(timer)
@@ -48,10 +53,16 @@ onMounted(() => {
     height: size.h,
     alpha: true,
   })
-  drawer = new TrigonometryDrawer(canvas.c2d)
+  drawer = new PrimitivesDrawer(canvas.c2d)
+  engine = new Engine()
+  renderer = new Renderer()
 
-  drawer.drawSin()
-  drawer.drawCos()
+  const particle = new Particle()
+  particle.addTrait(engine.getPhysicsTrait())
+  particle.position = System.convertToCm({ x: 5, y: 6 })
+
+  renderer.applyDrawer(drawer)
+  renderer.drawParticle(particle)
 })
 
 onUpdated(() => {})
