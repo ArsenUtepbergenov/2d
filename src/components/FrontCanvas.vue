@@ -12,22 +12,18 @@ import {
   reactive,
   ref,
 } from 'vue'
-import Canvas from '@/entities/Canvas'
+import Renderer from '@/entities/Renderer'
 import PrimitivesDrawer from '@/entities/drawers/PrimitivesDrawer'
 import Particle from '@/entities/physics/Particles'
-import Engine from '@/entities/physics/Engine'
-import Renderer from '@/entities/Renderer'
+import getPoint from '@/entities/math/Point'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({
   w: window.innerWidth,
   h: window.innerHeight,
 })
-let canvas: Canvas
-let timer: number
-let drawer: PrimitivesDrawer
-let engine: Engine
 let renderer: Renderer
+let timer: number
 
 function resize() {
   window.clearTimeout(timer)
@@ -35,7 +31,7 @@ function resize() {
   timer = window.setTimeout(() => {
     size.w = window.innerWidth
     size.h = window.innerHeight
-    canvas.setSize(size.w, size.h)
+    renderer.setSize(size.w, size.h)
   }, System.RESIZE_TIME)
 }
 
@@ -48,21 +44,20 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-  canvas = new Canvas(canvasRef.value!, {
-    width: size.w,
-    height: size.h,
+  renderer = new Renderer(canvasRef.value!, {
+    w: size.w,
+    h: size.h,
     alpha: true,
   })
-  drawer = new PrimitivesDrawer(canvas.c2d)
-  engine = new Engine()
-  renderer = new Renderer()
+  renderer.applyDrawer(new PrimitivesDrawer(renderer.c2d))
+  const params = {
+    w: System.CM,
+    h: System.CM,
+    radius: System.CM,
+  }
+  const particle = new Particle(params)
 
-  const particle = new Particle()
-  particle.addTrait(engine.getPhysicsTrait())
-  particle.position = System.convertToCm({ x: 5, y: 6 })
-
-  renderer.applyDrawer(drawer)
-  renderer.drawParticle(particle)
+  renderer.render(particle)
 })
 
 onUpdated(() => {})

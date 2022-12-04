@@ -9,3 +9,12 @@ export const enum Colors {
 export const enum Config {
   FONT = '1rem Calibri',
 }
+
+export const Sides = {
+  TOP: Symbol('top'),
+  BOTTOM: Symbol('bottom'),
+  LEFT: Symbol('left'),
+  RIGHT: Symbol('right'),
+}
+
+export const Primitives = ['rect', 'circle'] as const

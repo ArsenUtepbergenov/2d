@@ -1,3 +1,5 @@
+import { System } from '@/utils'
+
 export class Point {
   public x
   public y
@@ -8,6 +10,6 @@ export class Point {
   }
 }
 
-export default function getPoint(x: number = 0, y: number = 0): Point {
-  return new Point(x, y)
+export default function getPoint(x = 0, y = 0, inCM = false) {
+  return inCM ? System.convertToCM({ x, y }) : { x, y }
 }

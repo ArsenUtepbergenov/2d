@@ -1,30 +1,33 @@
-import { Point } from '../math/Point'
-import Vector from '../math/Vector'
 import Entity from './Entity'
-import PhysicsTrait from './traits/PhysicsTrait'
+import { EntityFormType } from '@/models/types'
+import { ParticleParams } from '@/models'
 
 export default class Particle extends Entity {
-  constructor() {
+  public form: EntityFormType = 'circle'
+  private _params: ParticleParams = {
+    w: 0,
+    h: 0,
+    radius: 0,
+  }
+
+  constructor(params: Partial<ParticleParams>) {
     super()
+    this._params = {
+      ...this._params,
+      ...params,
+    }
   }
 
-  public get position(): Point {
-    return this.trait.position
-  }
+  public get params(): Partial<ParticleParams> {
+    const { w, h, radius } = this._params
 
-  public set position(value: Point) {
-    this.trait.position = value
-  }
-
-  public get velocity(): Vector {
-    return this.trait.velocity
-  }
-
-  public set velocity(value: Vector) {
-    this.trait.velocity = value
-  }
-
-  private get trait(): PhysicsTrait {
-    return this.traits.get('PhysicsTrait') as PhysicsTrait
+    switch (this.form) {
+      case 'circle':
+        return { radius }
+      case 'rect':
+        return { w, h }
+      default:
+        return this._params
+    }
   }
 }

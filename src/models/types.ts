@@ -1,24 +1,24 @@
-import { Point } from '@/entities/math/Point'
-
 export interface ISize {
   w: number
   h: number
 }
 
-export interface IRect {
-  position: Point
-  size: ISize
-}
+export interface IRect extends ISize {}
 
-export interface ICircle {
-  position: Point
+export interface ICircleArc {
   radius: number
+  startAngle?: number
+  endAngle?: number
+  counterclockwise?: boolean
 }
 
-export type IPrimitive = ICircle
+export type EntityFormType = 'rect' | 'circle'
 
-export type TraitName = 'PhysicsTrait'
+export interface IDrawable {
+  draw(): void
+}
 
 export interface ITrait {
-  readonly name: TraitName
+  readonly name: string
+  update(): void
 }

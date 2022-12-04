@@ -44,7 +44,7 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-  canvas = new Canvas(canvasRef.value!, { width: size.w, height: size.h })
+  canvas = new Canvas(canvasRef.value!, { w: size.w, h: size.h })
   csd = new CoordinateSystemDrawer(canvas.c2d)
   canvas.fill(Colors.light)
   csd.draw({ w: size.w, h: size.h })

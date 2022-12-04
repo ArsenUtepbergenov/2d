@@ -22,6 +22,11 @@ export default class Drawer {
     this.params = params
   }
 
+  public applyContext2d(c2d: CanvasRenderingContext2D): void {
+    this.c2d = c2d
+    this.update()
+  }
+
   public drawPoint({ x, y }: Point): void {
     this.c2d.fillRect(x, y, 1, 1)
   }

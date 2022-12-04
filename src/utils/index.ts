@@ -26,13 +26,15 @@ export abstract class System {
    * @param point the original coordinate (x, y)
    * @returns original coordinate (x, y) in centimeters
    */
-  public static convertToCm({ x, y }: Point): Point {
+  public static convertToCM({ x, y }: Point) {
     return { x: x * System.CM, y: y * System.CM }
   }
 
   public static getCMs(number: number): number {
     return number * System.CM
   }
+
+  // public static getPointInCM()
 }
 
 /**

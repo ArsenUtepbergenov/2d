@@ -10,7 +10,7 @@ export default class VectorDrawer extends Drawer {
   }
 
   public draw2(vector: Vector): void {
-    this.drawArrow(System.convertToCm(vector.xy))
+    this.drawArrow(System.convertToCM(vector.xy))
   }
 
   public drawArrow(

@@ -6,14 +6,11 @@ export default class Canvas {
   private context2d: CanvasRenderingContext2D
   private instance: HTMLCanvasElement
 
-  constructor(
-    ref: HTMLCanvasElement,
-    { width, height, alpha = false }: CanvasParams,
-  ) {
+  constructor(ref: HTMLCanvasElement, { w, h, alpha = false }: CanvasParams) {
     this.instance = ref
     this.context2d = this.instance.getContext('2d', { alpha })!
 
-    this.init({ width, height })
+    this.init({ w, h })
   }
 
   public setCursor(cursor: string = 'default'): void {
@@ -62,9 +59,9 @@ export default class Canvas {
     this.instance.oncontextmenu = fn
   }
 
-  private init({ width, height }: CanvasParams): void {
+  private init({ w, h }: CanvasParams): void {
     try {
-      this.setSize(width, height)
+      this.setSize(w, h)
     } catch (error) {
       console.error(error)
     }

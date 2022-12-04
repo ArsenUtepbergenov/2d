@@ -1,6 +1,6 @@
 export type CanvasParams = {
-  width: number
-  height: number
+  w: number
+  h: number
   alpha?: boolean
 }
 
@@ -17,13 +17,6 @@ export type TextParams = {
   align?: CanvasTextAlign
 }
 
-export type CircleParams = {
-  radius: number
-  startAngle?: number
-  endAngle?: number
-  counterclockwise?: boolean | undefined
-}
-
 export type EventHandler =
   | ((this: GlobalEventHandlers, ev: Event) => any)
   | null
@@ -33,3 +26,9 @@ export type MouseEventHandler =
 export type KeyboardEventHandler =
   | ((this: GlobalEventHandlers, ev: KeyboardEvent) => any)
   | null
+
+export type ParticleParams = {
+  w: number
+  h: number
+  radius: number
+}
