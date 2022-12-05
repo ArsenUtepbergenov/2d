@@ -2,10 +2,12 @@ import Vector from '../math/Vector'
 import { Sides } from '@/models/enums'
 import { EntityFormType, ITrait } from '@/models/types'
 import getPoint, { Point } from '../math/Point'
+import BoundingBox from '../BoundingBox'
 
 export default abstract class Entity {
   public abstract form: EntityFormType
   public abstract params: any
+  public abstract bounds: BoundingBox
   protected traits: Map<string, ITrait> = new Map()
   protected lifeTime = 0
   protected _position = getPoint()
@@ -21,11 +23,11 @@ export default abstract class Entity {
   }
 
   protected update(): void {
-    this.x += this.velocity.xy.x
-    this.y += this.velocity.xy.y
+    this.x += this.velocity.x
+    this.y += this.velocity.y
   }
 
-  protected obstruct(side: Sides) {
+  public obstruct(side: Sides) {
     this.traits.forEach(t => t.obstruct(this, side))
   }
 

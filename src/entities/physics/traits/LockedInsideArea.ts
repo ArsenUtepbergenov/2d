@@ -2,9 +2,9 @@ import Trait from './Trait'
 import Entity from '../Entity'
 import { Sides } from '@/models/enums'
 
-export default class Locked extends Trait {
+export default class LockedInsideArea extends Trait {
   constructor() {
-    super('Locked')
+    super('LockedInsideArea')
   }
 
   public obstruct(entity: Entity, side: Sides): void {

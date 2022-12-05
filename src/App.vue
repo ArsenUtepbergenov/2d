@@ -5,10 +5,14 @@
 </template>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+  max-height: 100vh;
+}
+
 html,
 body,
 main {
-  height: 100vh;
   overflow: hidden;
 }
 </style>

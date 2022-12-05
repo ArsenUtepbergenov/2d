@@ -58,7 +58,6 @@ onUpdated(() => {
 
 <style lang="scss" scoped>
 canvas {
-  width: 100%;
-  height: 100%;
+  border: 2px solid #795548;
 }
 </style>

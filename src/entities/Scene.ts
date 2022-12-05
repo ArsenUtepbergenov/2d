@@ -1,12 +1,13 @@
 import Renderer from './Renderer'
 import Vector from './math/Vector'
-import Particle, { getParticle } from './physics/Particles'
+import Particle from './physics/Particles'
 import PrimitivesDrawer from './drawers/PrimitivesDrawer'
 import { CS, System } from '@/utils'
 import { Colors } from '@/models/enums'
 import { CanvasParams } from '@/models'
 import Utils from '@/utils/general'
-import Locked from './physics/traits/Locked'
+import LockedInsideArea from './physics/traits/LockedInsideArea'
+import AreaLimiter from './AreaLimiter'
 
 export default class Scene {
   private renderer: Renderer
@@ -20,14 +21,21 @@ export default class Scene {
     w: System.CM,
     h: System.CM,
     radius: System.HCM,
-    velocity: new Vector(3, -3),
+    velocity: new Vector(3, 3),
   }
   private particles: Particle[] = []
   private c2d: CanvasRenderingContext2D
+  private areaLimiter: AreaLimiter
 
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {
     this.renderer = new Renderer(ref, params)
     this.c2d = this.renderer.c2d
+    this.areaLimiter = new AreaLimiter({
+      x: 0,
+      y: 0,
+      w: params.w,
+      h: params.h,
+    })
   }
 
   private update = () => {
@@ -47,15 +55,19 @@ export default class Scene {
     )
     this.particleParams.x = x
     this.particleParams.y = y
-    const particle = getParticle(this.particleParams)
-    particle.addTrait(new Locked())
+    const particle = new Particle(this.particleParams)
+    particle.addTrait(new LockedInsideArea())
 
     this.particles.push(particle)
     this.update()
   }
 
   private updateParticles(): void {
-    this.particles.forEach(p => p.update())
+    this.particles.forEach(p => {
+      this.areaLimiter.limit(p)
+
+      p.update()
+    })
   }
 
   private renderParticles(): void {
