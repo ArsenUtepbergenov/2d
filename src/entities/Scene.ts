@@ -1,28 +1,13 @@
 import Renderer from './Renderer'
-import Vector from './math/Vector'
-import Particle from './physics/Particles'
+import Particle, { getRandomParticle } from './physics/Particles'
 import PrimitivesDrawer from './drawers/PrimitivesDrawer'
-import { CS, System } from '@/utils'
 import { Colors } from '@/models/enums'
 import { CanvasParams } from '@/models'
-import Utils from '@/utils/general'
 import LockedInsideArea from './physics/traits/LockedInsideArea'
 import AreaLimiter from './AreaLimiter'
 
 export default class Scene {
   private renderer: Renderer
-  private drawerParams = {
-    isCartesian: false,
-    strokeStyle: Colors.green,
-  }
-  private particleParams = {
-    x: CS.cX,
-    y: CS.cY,
-    w: System.CM,
-    h: System.CM,
-    radius: System.HCM,
-    velocity: new Vector(3, 3),
-  }
   private particles: Particle[] = []
   private c2d: CanvasRenderingContext2D
   private areaLimiter: AreaLimiter
@@ -30,12 +15,7 @@ export default class Scene {
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {
     this.renderer = new Renderer(ref, params)
     this.c2d = this.renderer.c2d
-    this.areaLimiter = new AreaLimiter({
-      x: 0,
-      y: 0,
-      w: params.w,
-      h: params.h,
-    })
+    this.areaLimiter = new AreaLimiter(this.renderer.rect)
   }
 
   private update = () => {
@@ -48,14 +28,13 @@ export default class Scene {
   }
 
   public show(): void {
-    this.renderer.applyDrawer(new PrimitivesDrawer(this.c2d, this.drawerParams))
-    const { x, y } = Utils.getRandomPositionInsideArea(
-      { w: System.CM, h: System.CM },
-      this.renderer.rect,
+    this.renderer.applyDrawer(
+      new PrimitivesDrawer(this.c2d, {
+        isCartesian: false,
+        fillStyle: Colors.green,
+      }),
     )
-    this.particleParams.x = x
-    this.particleParams.y = y
-    const particle = new Particle(this.particleParams)
+    const particle = getRandomParticle(this.renderer.rect)
     particle.addTrait(new LockedInsideArea())
 
     this.particles.push(particle)

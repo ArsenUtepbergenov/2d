@@ -8,6 +8,7 @@ export default class Drawer {
     isCartesian: false,
     strokeStyle: '',
     fillStyle: '',
+    globalAlpha: 1,
   }
   protected c2d: CanvasRenderingContext2D
 
@@ -19,7 +20,23 @@ export default class Drawer {
     params.isCartesian && this.toCartesian()
     this.c2d.strokeStyle = params.strokeStyle || ''
     this.c2d.fillStyle = params.fillStyle || ''
-    this.params = params
+    this.c2d.globalAlpha = params.globalAlpha || 1
+    this.params = {
+      ...this.params,
+      ...params,
+    }
+  }
+
+  public setStrokeStyle(style: string | CanvasGradient | CanvasPattern): void {
+    this.c2d.strokeStyle = style
+  }
+
+  public setFillStyle(style: string | CanvasGradient | CanvasPattern): void {
+    this.c2d.fillStyle = style
+  }
+
+  public setGlobalAlpha(value: number = 1): void {
+    this.c2d.globalAlpha = value
   }
 
   public applyContext2d(c2d: CanvasRenderingContext2D): void {
@@ -60,6 +77,7 @@ export default class Drawer {
     this.params.isCartesian && this.toCartesian()
     this.c2d.strokeStyle = this.params.strokeStyle || ''
     this.c2d.fillStyle = this.params.fillStyle || ''
+    this.c2d.globalAlpha = this.params.globalAlpha || 1
   }
 
   protected scale({ x, y }: Point): void {

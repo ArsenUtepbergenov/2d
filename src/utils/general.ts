@@ -1,25 +1,43 @@
-import { Rectangle, Circle, ISize } from './../models/types'
+import Vector from '@/entities/math/Vector'
+import { Rectangle, Circle, ISize } from '@/models/types'
+
 /**
  * The general utilities.
  */
-export default class Utils {
+export default abstract class Utils {
   public static div(numerator: number, denominator: number) {
     return (numerator - (numerator % denominator)) / denominator
   }
 
-  public static randomIntByInterval(min: number, max: number) {
+  public static getRandomBoolean(): boolean {
+    return Math.random() < 0.5
+  }
+
+  public static getRandomColor(): string {
+    return (
+      '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7)
+    )
+  }
+
+  public static getRandomIntByInterval(min: number, max: number) {
     return Math.floor(min + Math.random() * (max + 1 - min))
+  }
+
+  public static getRandomVector2(min: number = 0, max: number = 1): Vector {
+    const x = Utils.getRandomIntByInterval(min, max)
+    const y = Utils.getRandomIntByInterval(min, max)
+    return new Vector(x, y)
   }
 
   public static getRandomPositionInsideArea(
     objectSize: ISize,
     area: Rectangle,
   ) {
-    const x = Utils.randomIntByInterval(
+    const x = Utils.getRandomIntByInterval(
       area.x + objectSize.w / 2,
       area.w - objectSize.w / 2,
     )
-    const y = Utils.randomIntByInterval(
+    const y = Utils.getRandomIntByInterval(
       area.y + objectSize.h / 2,
       area.h - objectSize.h / 2,
     )

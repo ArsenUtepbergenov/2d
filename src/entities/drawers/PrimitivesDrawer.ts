@@ -11,19 +11,19 @@ export default class PrimitivesDrawer extends Drawer {
   public rect(
     { x, y }: Point,
     rect: IRect,
-    style: 'fill' | 'stroke' = 'stroke',
+    mode: 'fill' | 'stroke' = 'stroke',
   ): void {
     const c = this.c2d
     const { w, h } = rect
     c.beginPath()
     c.rect(x, y, w, h)
-    style === 'stroke' ? c.stroke() : c.fill()
+    mode === 'stroke' ? c.stroke() : c.fill()
   }
 
   public arc(
     { x, y }: Point,
     arc: ICircleArc,
-    style: 'fill' | 'stroke' = 'stroke',
+    mode: 'fill' | 'stroke' = 'stroke',
   ): void {
     const c = this.c2d
     const {
@@ -34,6 +34,6 @@ export default class PrimitivesDrawer extends Drawer {
     } = arc
     c.beginPath()
     c.arc(x, y, radius, startAngle, endAngle, counterclockwise)
-    style === 'stroke' ? c.stroke() : c.fill()
+    mode === 'stroke' ? c.stroke() : c.fill()
   }
 }

@@ -1,10 +1,9 @@
 import Canvas from './Canvas'
 import Drawer from './drawers/Drawer'
 import Entity from './physics/Entity'
+import Entities from '@/utils/entities'
 import PrimitivesDrawer from './drawers/PrimitivesDrawer'
 import { CanvasParams } from '@/models'
-import { EntityFormType, ICircleArc, IRect } from '@/models/types'
-import { Primitives } from '@/models/enums'
 
 export default class Renderer {
   private canvas: Canvas
@@ -14,24 +13,26 @@ export default class Renderer {
     this.canvas = new Canvas(ref, params)
   }
 
-  public clear(): void {
-    this.canvas.clear()
+  public render(entity: Entity): void {
+    if (Entities.isPrimitive(entity.form)) {
+      this.renderPrimitive(entity)
+    }
   }
 
-  public render(entity: Entity): void {
-    const { position, form } = entity
+  private renderPrimitive(entity: Entity): void {
+    const drawer = this.getDrawer('PrimitivesDrawer') as PrimitivesDrawer
+    const { position, form, params } = entity
+    const { mode, style, alpha, w, h, radius } = params
+    drawer.setFillStyle(style)
+    drawer.setGlobalAlpha(alpha)
 
-    if (this.isPrimitive(form)) {
-      const drawer = this.getDrawer('PrimitivesDrawer') as PrimitivesDrawer
-
-      switch (form) {
-        case 'rect':
-          drawer.rect(position, entity.params as IRect)
-          break
-        case 'circle':
-          drawer.arc(position, entity.params as ICircleArc)
-          break
-      }
+    switch (form) {
+      case 'rect':
+        drawer.rect(position, { w, h }, mode)
+        break
+      case 'circle':
+        drawer.arc(position, { radius }, mode)
+        break
     }
   }
 
@@ -51,16 +52,16 @@ export default class Renderer {
     }
   }
 
-  private isPrimitive(form: EntityFormType): boolean {
-    return Primitives.includes(form)
-  }
-
   private hasDrawer(name: string): boolean {
     return this.drawers.has(name) && this.drawers.get(name) !== undefined
   }
 
   public setSize(w: number = 0, h: number = 0): void {
     this.canvas.setSize(w, h)
+  }
+
+  public clear(): void {
+    this.canvas.clear()
   }
 
   public get c2d(): CanvasRenderingContext2D {

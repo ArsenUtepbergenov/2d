@@ -10,6 +10,7 @@ export type DrawerParams = {
   isCartesian: boolean
   strokeStyle: string | CanvasGradient | CanvasPattern
   fillStyle: string | CanvasGradient | CanvasPattern
+  globalAlpha: 1
 }
 
 export type TextParams = {
@@ -36,4 +37,7 @@ export type ParticleParams = {
   h: number
   radius: number
   velocity: Vector
+  mode: 'fill' | 'stroke'
+  style: string | CanvasGradient | CanvasPattern
+  alpha: number
 }
