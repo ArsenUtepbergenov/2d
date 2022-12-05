@@ -66,4 +66,8 @@ export default class Renderer {
   public get c2d(): CanvasRenderingContext2D {
     return this.canvas.c2d
   }
+
+  public get rect() {
+    return this.canvas.rect
+  }
 }

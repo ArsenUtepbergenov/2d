@@ -34,6 +34,10 @@ export default class Canvas {
     this._c2d.restore()
   }
 
+  public get rect() {
+    return { x: 0, y: 0, w: this.w, h: this.h }
+  }
+
   public get c2d(): CanvasRenderingContext2D {
     return this._c2d!
   }

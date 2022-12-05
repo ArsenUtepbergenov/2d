@@ -1,4 +1,5 @@
 import Vector from '../math/Vector'
+import { Sides } from '@/models/enums'
 import { EntityFormType, ITrait } from '@/models/types'
 import getPoint, { Point } from '../math/Point'
 
@@ -19,17 +20,13 @@ export default abstract class Entity {
     return this.traits.has(name) && this.traits.get(name) !== undefined
   }
 
-  protected update(dTime: number): void {
-    //TODO: update(this, dTime)
-    // this.traits.forEach(trait => trait.update())
-    this.lifeTime += dTime
-
+  protected update(): void {
     this.x += this.velocity.xy.x
     this.y += this.velocity.xy.y
   }
 
-  protected obstruct() {
-    //TODO:
+  protected obstruct(side: Sides) {
+    this.traits.forEach(t => t.obstruct(this, side))
   }
 
   public get velocity(): Vector {

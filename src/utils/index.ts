@@ -6,19 +6,19 @@ import { ISize } from '@/models/types'
  */
 export abstract class System {
   /**
-   * The delay of window resizing
+   * The delay of window resizing.
    */
   public static RESIZE_TIME = 500 // ms
   /**
-   * One centimeter = ~37.8px
+   * One centimeter = ~37.8px.
    */
   public static CM = 37.8
   /**
-   * Half of one centimeter = ~19.9px
+   * Half of one centimeter = ~19.9px.
    */
   public static HCM = 18.9
   /**
-   * The length of arrowhead (for vectors, etc.)
+   * The length of arrowhead (for vectors, etc.).
    */
   public static ARROWHEAD = 7
   /**
@@ -29,12 +29,12 @@ export abstract class System {
   public static convertToCM({ x, y }: Point) {
     return { x: x * System.CM, y: y * System.CM }
   }
-
+  /**
+   * Get number centimeters.
+   */
   public static getCMs(number: number): number {
     return number * System.CM
   }
-
-  // public static getPointInCM()
 }
 
 /**
@@ -42,11 +42,11 @@ export abstract class System {
  */
 export abstract class CS {
   /**
-   * The CS's center on x
+   * The CS's center on x.
    */
   public static cX = 0
   /**
-   * The CS's center on y
+   * The CS's center on y.
    */
   public static cY = 0
   /**
@@ -75,7 +75,6 @@ export abstract class CS {
   /**
    * Get axis center by centimeters.
    * @param cms number centimeters
-   * @returns axis's center
    */
   private static getCenterOfAxis(cms: number): number {
     return cms * System.HCM

@@ -1,10 +1,12 @@
 import Renderer from './Renderer'
 import Vector from './math/Vector'
-import Particle from './physics/Particles'
+import Particle, { getParticle } from './physics/Particles'
 import PrimitivesDrawer from './drawers/PrimitivesDrawer'
 import { CS, System } from '@/utils'
 import { Colors } from '@/models/enums'
 import { CanvasParams } from '@/models'
+import Utils from '@/utils/general'
+import Locked from './physics/traits/Locked'
 
 export default class Scene {
   private renderer: Renderer
@@ -18,7 +20,7 @@ export default class Scene {
     w: System.CM,
     h: System.CM,
     radius: System.HCM,
-    velocity: new Vector(2, 2),
+    velocity: new Vector(3, -3),
   }
   private particles: Particle[] = []
   private c2d: CanvasRenderingContext2D
@@ -29,7 +31,7 @@ export default class Scene {
   }
 
   private update = () => {
-    this.particles.forEach(p => p.update())
+    this.updateParticles()
 
     this.renderer.clear()
     this.renderParticles()
@@ -39,8 +41,21 @@ export default class Scene {
 
   public show(): void {
     this.renderer.applyDrawer(new PrimitivesDrawer(this.c2d, this.drawerParams))
-    this.particles.push(new Particle(this.particleParams))
+    const { x, y } = Utils.getRandomPositionInsideArea(
+      { w: System.CM, h: System.CM },
+      this.renderer.rect,
+    )
+    this.particleParams.x = x
+    this.particleParams.y = y
+    const particle = getParticle(this.particleParams)
+    particle.addTrait(new Locked())
+
+    this.particles.push(particle)
     this.update()
+  }
+
+  private updateParticles(): void {
+    this.particles.forEach(p => p.update())
   }
 
   private renderParticles(): void {
