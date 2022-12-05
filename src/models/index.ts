@@ -1,3 +1,5 @@
+import Vector from '@/entities/math/Vector'
+
 export type CanvasParams = {
   w: number
   h: number
@@ -28,7 +30,10 @@ export type KeyboardEventHandler =
   | null
 
 export type ParticleParams = {
+  x: number
+  y: number
   w: number
   h: number
   radius: number
+  velocity: Vector
 }

@@ -70,10 +70,6 @@ export default class Drawer {
     this.c2d.translate(x, y)
   }
 
-  protected reset(): void {
-    this.c2d.setTransform(1, 0, 0, 1, 0, 0)
-  }
-
   protected toCartesian(): void {
     this.translate(CS.center)
     this.scale({ x: 1, y: -1 })

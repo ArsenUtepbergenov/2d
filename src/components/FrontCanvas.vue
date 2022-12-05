@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { System } from '@/utils'
 import {
   onBeforeMount,
   onMounted,
@@ -12,18 +11,16 @@ import {
   reactive,
   ref,
 } from 'vue'
-import Renderer from '@/entities/Renderer'
-import PrimitivesDrawer from '@/entities/drawers/PrimitivesDrawer'
-import Particle from '@/entities/physics/Particles'
-import getPoint from '@/entities/math/Point'
+import { System } from '@/utils'
+import Scene from '@/entities/Scene'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({
   w: window.innerWidth,
   h: window.innerHeight,
 })
-let renderer: Renderer
 let timer: number
+let scene: Scene
 
 function resize() {
   window.clearTimeout(timer)
@@ -31,9 +28,21 @@ function resize() {
   timer = window.setTimeout(() => {
     size.w = window.innerWidth
     size.h = window.innerHeight
-    renderer.setSize(size.w, size.h)
+    scene.setSize(size.w, size.h)
   }, System.RESIZE_TIME)
 }
+
+onMounted(() => {
+  scene = new Scene(canvasRef.value!, {
+    w: size.w,
+    h: size.h,
+    alpha: true,
+  })
+
+  scene.show()
+})
+
+onUpdated(() => {})
 
 onBeforeMount(() => {
   window.addEventListener('resize', resize)
@@ -42,25 +51,6 @@ onBeforeMount(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', resize)
 })
-
-onMounted(() => {
-  renderer = new Renderer(canvasRef.value!, {
-    w: size.w,
-    h: size.h,
-    alpha: true,
-  })
-  renderer.applyDrawer(new PrimitivesDrawer(renderer.c2d))
-  const params = {
-    w: System.CM,
-    h: System.CM,
-    radius: System.CM,
-  }
-  const particle = new Particle(params)
-
-  renderer.render(particle)
-})
-
-onUpdated(() => {})
 </script>
 
 <style lang="scss" scoped>

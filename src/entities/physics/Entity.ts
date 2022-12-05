@@ -1,5 +1,4 @@
 import Vector from '../math/Vector'
-import getVelocity from './props/Velocity'
 import { EntityFormType, ITrait } from '@/models/types'
 import getPoint, { Point } from '../math/Point'
 
@@ -9,7 +8,7 @@ export default abstract class Entity {
   protected traits: Map<string, ITrait> = new Map()
   protected lifeTime = 0
   protected _position = getPoint()
-  protected _velocity = getVelocity()
+  protected _velocity = new Vector(0, 0)
 
   public addTrait(trait: ITrait): void {
     if (this.hasTrait(trait.name)) return
@@ -22,8 +21,11 @@ export default abstract class Entity {
 
   protected update(dTime: number): void {
     //TODO: update(this, dTime)
-    this.traits.forEach(trait => trait.update())
+    // this.traits.forEach(trait => trait.update())
     this.lifeTime += dTime
+
+    this.x += this.velocity.xy.x
+    this.y += this.velocity.xy.y
   }
 
   protected obstruct() {
@@ -31,11 +33,11 @@ export default abstract class Entity {
   }
 
   public get velocity(): Vector {
-    return this._velocity.value
+    return this._velocity
   }
 
   public set velocity(vector: Vector) {
-    this._velocity.value = vector
+    this._velocity = vector
   }
 
   public get position(): Point {
@@ -59,6 +61,6 @@ export default abstract class Entity {
   }
 
   public stop(): void {
-    this._velocity.reset()
+    this._velocity = new Vector(0, 0)
   }
 }

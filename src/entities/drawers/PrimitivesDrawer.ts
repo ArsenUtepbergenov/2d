@@ -1,11 +1,11 @@
 import Drawer from './Drawer'
 import { Point } from '../math/Point'
-import { Colors } from '@/models/enums'
 import { ICircleArc, IRect } from '@/models/types'
+import { DrawerParams } from '@/models'
 
 export default class PrimitivesDrawer extends Drawer {
-  constructor(c2d: CanvasRenderingContext2D) {
-    super(c2d, { isCartesian: true, strokeStyle: Colors.green })
+  constructor(c2d: CanvasRenderingContext2D, params?: Partial<DrawerParams>) {
+    super(c2d, params)
   }
 
   public rect(

@@ -14,6 +14,10 @@ export default class Renderer {
     this.canvas = new Canvas(ref, params)
   }
 
+  public clear(): void {
+    this.canvas.clear()
+  }
+
   public render(entity: Entity): void {
     const { position, form } = entity
 
