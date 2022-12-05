@@ -1,5 +1,10 @@
 <template>
-  <canvas ref="canvasRef" :width="size.w" :height="size.h" tabindex="0" />
+  <canvas
+    ref="canvasRef"
+    :width="size.w"
+    :height="System.CANVAS_HEIGHT"
+    tabindex="0"
+  />
 </template>
 
 <script setup lang="ts">
@@ -14,10 +19,13 @@ import {
 import { System } from '@/utils'
 import Scene from '@/entities/Scene'
 
+const props = withDefaults(defineProps<{ animated?: boolean }>(), {
+  animated: true,
+})
+
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({
   w: window.innerWidth,
-  h: window.innerHeight,
 })
 let timer: number
 let scene: Scene
@@ -27,22 +35,24 @@ function resize() {
 
   timer = window.setTimeout(() => {
     size.w = window.innerWidth
-    size.h = window.innerHeight
-    scene.setSize(size.w, size.h)
+    scene.setSize(size.w, System.CANVAS_HEIGHT)
   }, System.RESIZE_TIME)
 }
 
 onMounted(() => {
   scene = new Scene(canvasRef.value!, {
     w: size.w,
-    h: size.h,
+    h: System.CANVAS_HEIGHT,
     alpha: true,
   })
 
   scene.show()
 })
 
-onUpdated(() => {})
+onUpdated(() => {
+  if (props.animated) scene.unfreeze()
+  else scene.freeze()
+})
 
 onBeforeMount(() => {
   window.addEventListener('resize', resize)

@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvasRef" :width="size.w" :height="size.h" />
+  <canvas ref="canvasRef" :width="size.w" :height="System.CANVAS_HEIGHT" />
 </template>
 
 <script setup lang="ts">
@@ -19,7 +19,6 @@ import { System } from '@/utils'
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({
   w: window.innerWidth,
-  h: window.innerHeight,
 })
 let canvas: Canvas
 let csd: CoordinateSystemDrawer
@@ -30,8 +29,7 @@ function resize() {
 
   timer = window.setTimeout(() => {
     size.w = window.innerWidth
-    size.h = window.innerHeight
-    canvas.setSize(size.w, size.h)
+    canvas.setSize(size.w, System.CANVAS_HEIGHT)
   }, System.RESIZE_TIME)
 }
 
@@ -44,15 +42,15 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-  canvas = new Canvas(canvasRef.value!, { w: size.w, h: size.h })
+  canvas = new Canvas(canvasRef.value!, { w: size.w, h: System.CANVAS_HEIGHT })
   csd = new CoordinateSystemDrawer(canvas.c2d)
   canvas.fill(Colors.light)
-  csd.draw({ w: size.w, h: size.h })
+  csd.draw({ w: size.w, h: System.CANVAS_HEIGHT })
 })
 
 onUpdated(() => {
   canvas.fill(Colors.light)
-  csd.draw({ w: size.w, h: size.h })
+  csd.draw({ w: size.w, h: System.CANVAS_HEIGHT })
 })
 </script>
 

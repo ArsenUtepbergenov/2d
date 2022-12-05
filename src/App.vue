@@ -10,6 +10,24 @@
   max-height: 100vh;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+button {
+  border: 0;
+  background: #8bc34a;
+  padding: 6px 22px;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #79af3c;
+}
+
 html,
 body,
 main {

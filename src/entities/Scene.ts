@@ -11,11 +11,20 @@ export default class Scene {
   private particles: Particle[] = []
   private c2d: CanvasRenderingContext2D
   private areaLimiter: AreaLimiter
+  private rafId: number = 0
 
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {
     this.renderer = new Renderer(ref, params)
     this.c2d = this.renderer.c2d
     this.areaLimiter = new AreaLimiter(this.renderer.rect)
+  }
+
+  public freeze(): void {
+    cancelAnimationFrame(this.rafId)
+  }
+
+  public unfreeze(): void {
+    this.update()
   }
 
   private update = () => {
@@ -24,7 +33,7 @@ export default class Scene {
     this.renderer.clear()
     this.renderParticles()
 
-    requestAnimationFrame(this.update)
+    this.rafId = requestAnimationFrame(this.update)
   }
 
   public show(): void {

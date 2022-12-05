@@ -1,10 +1,11 @@
-import { Point } from '@/entities/math/Point'
 import { ISize } from '@/models/types'
+import { Point } from '@/entities/math/Point'
 
 /**
  * The global system.
  */
 export abstract class System {
+  public static CANVAS_HEIGHT = 700
   /**
    * The delay of window resizing.
    */
