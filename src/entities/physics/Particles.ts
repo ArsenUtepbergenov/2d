@@ -83,29 +83,25 @@ export default class Particle extends Entity {
 }
 
 export function getRandomParticle(areaRect: Rectangle): Particle {
+  const size = Utils.getRandomIntByInterval(System.HCM, System.CM)
   const { x, y } = Utils.getRandomPositionInsideArea(
-    { w: System.CM, h: System.CM },
+    { w: size, h: size },
     areaRect,
   )
-  const size = Utils.getRandomIntByInterval(System.HCM, System.CM * 2)
-  const radius = Utils.getRandomIntByInterval(System.HCM, System.CM)
-  const velocity = Utils.getRandomVector2(-4, 4)
-  const style = Utils.getRandomColor()
-  const alpha = parseFloat((Math.random() + 0.1).toFixed(1))
   const params: EntityParams = {
     x,
     y,
     w: size,
     h: size,
-    radius,
-    velocity,
+    radius: Utils.getRandomIntByInterval(System.HCM, System.CM),
+    velocity: new Vector2(0, 0),
     acceleration: new Vector2(0, 0),
-    speed: 0,
-    direction: 0,
+    speed: 3,
+    direction: Math.random() * (Math.PI * 2),
     mass: 0,
     mode: 'fill',
-    style,
-    alpha,
+    style: Utils.getRandomColor(),
+    alpha: 1,
   }
 
   return new Particle(params)

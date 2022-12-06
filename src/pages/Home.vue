@@ -1,7 +1,7 @@
 <template>
   <section class="canvases">
-    <BackCanvas />
-    <FrontCanvas :animated="animated" />
+    <BackCanvas :w="size.w" :h="size.h" />
+    <FrontCanvas :w="size.w" :h="size.h" :animated="animated" />
   </section>
   <section class="controls">
     <button type="button" @click="toggle">Toggle animation</button>
@@ -9,11 +9,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref, onBeforeMount, onUnmounted } from 'vue'
 import BackCanvas from '@/components/BackCanvas.vue'
 import FrontCanvas from '@/components/FrontCanvas.vue'
+import { System } from '@/utils'
 
 const animated = ref<boolean>(true)
+const size = reactive({ w: window.innerWidth, h: System.CANVAS_HEIGHT })
+let timer: number
+
+function resize() {
+  window.clearTimeout(timer)
+
+  timer = window.setTimeout(() => {
+    size.w = window.innerWidth
+    size.h = System.CANVAS_HEIGHT
+  }, System.RESIZE_TIME)
+}
+
+onBeforeMount(() => {
+  window.addEventListener('resize', resize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resize)
+})
 
 function toggle() {
   animated.value = !animated.value
