@@ -3,7 +3,8 @@ export const enum Colors {
   grey = '#a1a1a1',
   dark = '#442132',
   brown = '#795548',
-  green = 'green',
+  green = '#8bc34a',
+  sun = '#F28C38',
 }
 
 export const enum Config {

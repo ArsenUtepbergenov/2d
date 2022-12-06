@@ -8,9 +8,7 @@ export default class LockedInsideArea extends Trait {
   }
 
   public obstruct(entity: Entity, side: Sides): void {
-    if (side === Sides.LEFT || side === Sides.RIGHT)
-      entity.velocity = entity.velocity.negateX()
-    if (side === Sides.TOP || side === Sides.BOTTOM)
-      entity.velocity = entity.velocity.negateY()
+    if (side === Sides.LEFT || side === Sides.RIGHT) entity.velocity.negateX()
+    if (side === Sides.TOP || side === Sides.BOTTOM) entity.velocity.negateY()
   }
 }

@@ -1,4 +1,4 @@
-import Vector from '@/entities/math/Vector'
+import Vector2 from '@/entities/math/Vector2'
 
 export type CanvasParams = {
   w: number
@@ -36,8 +36,11 @@ export type EntityParams = {
   w: number
   h: number
   radius: number
-  velocity: Vector
-  acceleration: Vector
+  velocity: Vector2
+  acceleration: Vector2
+  speed: number
+  direction: number
+  mass: number
   mode: 'fill' | 'stroke'
   style: string | CanvasGradient | CanvasPattern
   alpha: number

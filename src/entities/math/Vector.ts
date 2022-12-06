@@ -1,4 +1,3 @@
-import { Point } from './Point'
 import { areEqual, toDegrees } from './common'
 
 export default class Vector {
@@ -72,14 +71,6 @@ export default class Vector {
     return this.scaleBy(-1)
   }
 
-  public negateX(): Vector {
-    return new Vector(-this.x, this.y)
-  }
-
-  public negateY(): Vector {
-    return new Vector(this.x, -this.y)
-  }
-
   public projectOn(other: Vector): Vector {
     const normalized = other.normalize()
     return normalized.scaleBy(this.dotProduct(normalized))
@@ -93,17 +84,5 @@ export default class Vector {
     return components.every((component, index) =>
       areEqual(component, this.components[index]),
     )
-  }
-
-  public get xy(): Point {
-    return { x: this.components[0], y: this.components[1] }
-  }
-
-  public get x(): number {
-    return this.components[0]
-  }
-
-  public get y(): number {
-    return this.components[1]
   }
 }

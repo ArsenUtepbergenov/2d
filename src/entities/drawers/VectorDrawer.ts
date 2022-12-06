@@ -1,6 +1,6 @@
-import { Colors } from '@/models/enums'
 import Drawer from './Drawer'
-import Vector from '../math/Vector'
+import Vector2 from '../math/Vector2'
+import { Colors } from '@/models/enums'
 import { System } from '@/utils'
 import { Point } from '../math/Point'
 
@@ -9,7 +9,7 @@ export default class VectorDrawer extends Drawer {
     super(c2d, { isCartesian: true, strokeStyle: Colors.green })
   }
 
-  public draw2(vector: Vector): void {
+  public draw2(vector: Vector2): void {
     this.drawArrow(System.convertToCM(vector.xy))
   }
 

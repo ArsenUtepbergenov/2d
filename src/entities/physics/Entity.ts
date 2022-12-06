@@ -1,4 +1,4 @@
-import Vector from '../math/Vector'
+import Vector2 from '../math/Vector2'
 import BoundingBox from '../BoundingBox'
 import getPoint, { Point } from '../math/Point'
 import { Sides } from '@/models/enums'
@@ -11,10 +11,12 @@ export default abstract class Entity {
   public abstract formParams: FormParams
   public abstract bounds: BoundingBox
   private traits: Map<string, ITrait> = new Map()
-  private lifeTime = 0
   private _position = getPoint()
-  private _velocity = new Vector(0, 0)
-  private _acceleration = new Vector(0, 0)
+  private _velocity = new Vector2(0, 0)
+  private _acceleration = new Vector2(0, 0)
+  private _mass = 0
+
+  public abstract update(): void
 
   public addTrait(trait: ITrait): void {
     if (this.hasTrait(trait.name)) return
@@ -25,29 +27,28 @@ export default abstract class Entity {
     return this.traits.has(name) && this.traits.get(name) !== undefined
   }
 
-  protected update(): void {
-    this._velocity = this._velocity.add(this._acceleration)
-    this.x += this._velocity.x
-    this.y += this._velocity.y
+  public stop(): void {
+    this._velocity = new Vector2(0, 0)
+    this._acceleration = new Vector2(0, 0)
   }
 
   public obstruct(side: Sides) {
     this.traits.forEach(t => t.obstruct(this, side))
   }
 
-  public get acceleration(): Vector {
+  public get acceleration(): Vector2 {
     return this._acceleration
   }
 
-  public set acceleration(vector: Vector) {
+  public set acceleration(vector: Vector2) {
     this._acceleration = vector
   }
 
-  public get velocity(): Vector {
+  public get velocity(): Vector2 {
     return this._velocity
   }
 
-  public set velocity(vector: Vector) {
+  public set velocity(vector: Vector2) {
     this._velocity = vector
   }
 
@@ -71,7 +72,11 @@ export default abstract class Entity {
     this._position.y = value
   }
 
-  public stop(): void {
-    this._velocity = new Vector(0, 0)
+  public get mass(): number {
+    return this._mass
+  }
+
+  public set mass(value: number) {
+    this._mass = value
   }
 }

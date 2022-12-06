@@ -1,8 +1,9 @@
 import Renderer from './Renderer'
 import AreaLimiter from './AreaLimiter'
+import Particle from './physics/Particles'
 import PrimitivesDrawer from './drawers/PrimitivesDrawer'
 import LockedInsideArea from './physics/traits/LockedInsideArea'
-import Particle, { getRandomParticle } from './physics/Particles'
+import { CS } from '@/utils'
 import { Colors } from '@/models/enums'
 import { CanvasParams } from '@/models'
 
@@ -27,10 +28,28 @@ export default class Scene {
         fillStyle: Colors.green,
       }),
     )
-    const particle = getRandomParticle(this.renderer.rect)
-    particle.addTrait(new LockedInsideArea())
 
-    this.particles.push(particle)
+    const planet = new Particle({
+      x: CS.cX + 170,
+      y: CS.cY,
+      radius: 5,
+      speed: 5,
+      direction: -Math.PI / 2,
+      mode: 'fill',
+      style: Colors.dark,
+    })
+    const sun = new Particle({
+      x: CS.cX,
+      y: CS.cY,
+      radius: 20,
+      mass: 5000,
+      mode: 'fill',
+      style: Colors.sun,
+    })
+    planet.addTrait(new LockedInsideArea())
+
+    this.particles.push(planet)
+    this.particles.push(sun)
   }
 
   public freeze(): void {
@@ -47,9 +66,10 @@ export default class Scene {
     const that = this
 
     function loop() {
-      that.updateParticles()
-
       that.renderer.clear()
+
+      that.particles[0].gravitateTo(that.particles[1])
+      that.updateParticles()
       that.renderParticles()
 
       that.rafId = requestAnimationFrame(loop)

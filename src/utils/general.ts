@@ -1,14 +1,10 @@
-import Vector from '@/entities/math/Vector'
+import Vector2 from '@/entities/math/Vector2'
 import { Rectangle, Circle, ISize } from '@/models/types'
 
 /**
  * The general utilities.
  */
 export default abstract class Utils {
-  public static div(numerator: number, denominator: number) {
-    return (numerator - (numerator % denominator)) / denominator
-  }
-
   public static getRandomBoolean(): boolean {
     return Math.random() < 0.5
   }
@@ -23,10 +19,10 @@ export default abstract class Utils {
     return Math.floor(min + Math.random() * (max + 1 - min))
   }
 
-  public static getRandomVector2(min: number = 0, max: number = 1): Vector {
+  public static getRandomVector2(min: number = 0, max: number = 1): Vector2 {
     const x = Utils.getRandomIntByInterval(min, max)
     const y = Utils.getRandomIntByInterval(min, max)
-    return new Vector(x, y)
+    return new Vector2(x, y)
   }
 
   public static getRandomPositionInsideArea(
