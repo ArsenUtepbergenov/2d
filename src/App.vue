@@ -8,12 +8,7 @@
 * {
   box-sizing: border-box;
   max-height: 100vh;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  margin: 0;
 }
 
 button {

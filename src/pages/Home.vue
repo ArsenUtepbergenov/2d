@@ -21,23 +21,19 @@ function toggle() {
 </script>
 
 <style lang="scss">
+$height: 700px;
+
 main {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: $height 1fr;
+  align-items: center;
+  justify-items: center;
   height: 100vh;
 }
 
 canvas {
   width: 100%;
-  height: 700px;
-}
-
-.canvases {
-  position: relative;
-  max-height: 700px;
-}
-
-.controls {
-  margin: auto;
+  height: $height;
 }
 </style>
