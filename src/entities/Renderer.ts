@@ -21,8 +21,8 @@ export default class Renderer {
 
   private renderPrimitive(entity: Entity): void {
     const drawer = this.getDrawer('PrimitivesDrawer') as PrimitivesDrawer
-    const { position, form, params } = entity
-    const { mode, style, alpha, w, h, radius } = params
+    const { position, form, formParams } = entity
+    const { w, h, radius, mode, style, alpha } = formParams
     drawer.setFillStyle(style)
     drawer.setGlobalAlpha(alpha)
 

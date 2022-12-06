@@ -9,6 +9,10 @@ export default class AreaLimiter {
     this.rectArea = rectArea
   }
 
+  public setRectArea(rectArea: Rectangle): void {
+    this.rectArea = rectArea
+  }
+
   public limit(entity: Entity) {
     this.limitX(entity)
     this.limitY(entity)

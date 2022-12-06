@@ -30,14 +30,20 @@ export type KeyboardEventHandler =
   | ((this: GlobalEventHandlers, ev: KeyboardEvent) => any)
   | null
 
-export type ParticleParams = {
+export type EntityParams = {
   x: number
   y: number
   w: number
   h: number
   radius: number
   velocity: Vector
+  acceleration: Vector
   mode: 'fill' | 'stroke'
   style: string | CanvasGradient | CanvasPattern
   alpha: number
 }
+
+export type FormParams = Pick<
+  EntityParams,
+  'w' | 'h' | 'radius' | 'mode' | 'style' | 'alpha'
+>
