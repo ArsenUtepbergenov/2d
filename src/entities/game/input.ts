@@ -1,5 +1,5 @@
 import Player from './Player'
-import KeyboardState from './KeyboardState'
+import KeyboardState from '../KeyboardState'
 
 export function setupPlayerKeyboard(player: Player) {
   const input = new KeyboardState()

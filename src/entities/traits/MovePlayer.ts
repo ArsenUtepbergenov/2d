@@ -1,4 +1,4 @@
-import Player from '../Player.js'
+import Player from '../game/Player.js'
 import PlayerTrait from './PlayerTrait.js'
 
 export default class MovePlayer extends PlayerTrait {

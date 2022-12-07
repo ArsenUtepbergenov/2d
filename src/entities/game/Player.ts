@@ -1,7 +1,7 @@
-import Vector2 from './math/Vector2'
-import BoundingBox from './BoundingBox'
-import PlayerTrait from './traits/PlayerTrait'
-import { Point } from './math/Point'
+import Vector2 from '../math/Vector2'
+import BoundingBox from '../BoundingBox'
+import PlayerTrait from '../traits/PlayerTrait'
+import { Point } from '../math/Point'
 import { ISize } from '@/models/types'
 
 export default class Player {

@@ -1,6 +1,6 @@
 import Player from './Player'
 import GameRenderer from './GameRenderer'
-import MovePlayer from './traits/MovePlayer'
+import MovePlayer from '../traits/MovePlayer'
 import { CanvasParams } from '@/models'
 import { setupPlayerKeyboard } from './input'
 

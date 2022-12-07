@@ -1,5 +1,5 @@
 import Player from './Player'
-import Renderer from './Renderer'
+import Renderer from '../Renderer'
 import { CanvasParams } from '@/models'
 
 export default class GameRenderer extends Renderer {

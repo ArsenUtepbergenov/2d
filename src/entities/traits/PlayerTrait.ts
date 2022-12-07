@@ -1,4 +1,4 @@
-import Player from '../Player'
+import Player from '../game/Player'
 
 export default abstract class PlayerTrait {
   public name: string
