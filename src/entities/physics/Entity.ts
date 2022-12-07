@@ -4,7 +4,7 @@ import getPoint, { Point } from '../math/Point'
 import { Sides } from '@/models/enums'
 import { EntityParams, FormParams } from '@/models'
 import { EntityFormType } from '@/models/types'
-import Trait from './traits/Trait'
+import Trait from '../traits/Trait'
 
 export default abstract class Entity {
   public form: EntityFormType
@@ -21,8 +21,6 @@ export default abstract class Entity {
     this.form = form
   }
 
-  [key: string]: any
-
   public update(): void {
     this.traits.forEach(t => t.update(this))
   }
@@ -30,7 +28,6 @@ export default abstract class Entity {
   public addTrait(trait: Trait): void {
     if (this.hasTrait(trait.name)) return
     this.traits.set(trait.name, trait)
-    this[trait.name] = trait
   }
 
   protected hasTrait(name: string): boolean {

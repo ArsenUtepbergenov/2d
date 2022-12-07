@@ -1,16 +1,16 @@
-import Entity from './physics/Entity'
+import Player from './Player'
 import KeyboardState from './KeyboardState'
 
-export function setupKeyboard(entity: Entity) {
+export function setupPlayerKeyboard(player: Player) {
   const input = new KeyboardState()
 
   input.addMapping(
     'ArrowLeft',
-    keyState => (entity.move.direction = keyState ? -1 : 0),
+    keyState => (player.move.direction = keyState ? -1 : 0),
   )
   input.addMapping(
     'ArrowRight',
-    keyState => (entity.move.direction = keyState ? 1 : 0),
+    keyState => (player.move.direction = keyState ? 1 : 0),
   )
 
   return input

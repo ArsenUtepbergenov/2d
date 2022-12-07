@@ -1,5 +1,5 @@
 import Trait from './Trait'
-import Entity from '../Entity'
+import Entity from '../physics/Entity'
 import { Sides } from '@/models/enums'
 
 export default class LockedInsideArea extends Trait {
