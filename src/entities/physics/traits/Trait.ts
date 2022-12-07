@@ -8,5 +8,6 @@ export default abstract class Trait {
     this.name = name
   }
 
+  public abstract update(entity: Entity): void
   public abstract obstruct(entity: Entity, side: Sides): void
 }

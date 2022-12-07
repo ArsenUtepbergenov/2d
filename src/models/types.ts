@@ -1,6 +1,3 @@
-import Entity from '@/entities/physics/Entity'
-import { Sides } from './enums'
-
 export interface IPoint2 {
   x: number
   y: number
@@ -27,9 +24,4 @@ export type EntityFormType = 'rect' | 'circle'
 
 export interface IDrawable {
   draw(): void
-}
-
-export interface ITrait {
-  name: string
-  obstruct(entity: Entity, side: Sides): void
 }

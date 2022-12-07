@@ -4,8 +4,10 @@ import { Sides } from '@/models/enums'
 
 export default class LockedInsideArea extends Trait {
   constructor() {
-    super('LockedInsideArea')
+    super('lockedInsideArea')
   }
+
+  public update(entity: Entity): void {}
 
   public obstruct(entity: Entity, side: Sides): void {
     if (side === Sides.LEFT || side === Sides.RIGHT) entity.velocity.negateX()

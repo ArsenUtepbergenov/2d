@@ -28,4 +28,8 @@ body,
 main {
   overflow: hidden;
 }
+
+canvas:focus {
+  outline: 0;
+}
 </style>

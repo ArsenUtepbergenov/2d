@@ -8,7 +8,6 @@ import { EntityFormType, Rectangle } from '@/models/types'
 import { distanceTo } from '../math/common'
 
 export default class Particle extends Entity {
-  public form: EntityFormType = 'circle'
   public bounds: BoundingBox
   public params: EntityParams = {
     x: 0,
@@ -26,8 +25,8 @@ export default class Particle extends Entity {
     alpha: 1,
   }
 
-  constructor(params: Partial<EntityParams>) {
-    super()
+  constructor(form: EntityFormType, params: Partial<EntityParams>) {
+    super(form)
     this.params = {
       ...this.params,
       ...params,
@@ -43,6 +42,7 @@ export default class Particle extends Entity {
   }
 
   public update(): void {
+    super.update()
     this.x += this.velocity.x
     this.y += this.velocity.y
   }
@@ -82,7 +82,10 @@ export default class Particle extends Entity {
   }
 }
 
-export function getRandomParticle(areaRect: Rectangle): Particle {
+export function getRandomParticle(
+  form: EntityFormType = 'circle',
+  areaRect: Rectangle,
+): Particle {
   const size = Utils.getRandomIntByInterval(System.HCM, System.CM)
   const { x, y } = Utils.getRandomPositionInsideArea(
     { w: size, h: size },
@@ -104,5 +107,5 @@ export function getRandomParticle(areaRect: Rectangle): Particle {
     alpha: 1,
   }
 
-  return new Particle(params)
+  return new Particle(form, params)
 }

@@ -3,33 +3,38 @@ import BoundingBox from '../BoundingBox'
 import getPoint, { Point } from '../math/Point'
 import { Sides } from '@/models/enums'
 import { EntityParams, FormParams } from '@/models'
-import { EntityFormType, ITrait } from '@/models/types'
+import { EntityFormType } from '@/models/types'
+import Trait from './traits/Trait'
 
 export default abstract class Entity {
-  public abstract form: EntityFormType
+  public form: EntityFormType
   public abstract params: EntityParams
   public abstract formParams: FormParams
   public abstract bounds: BoundingBox
-  private traits: Map<string, ITrait> = new Map()
+  private traits: Map<string, Trait> = new Map()
   private _position = getPoint()
   private _velocity = new Vector2(0, 0)
   private _acceleration = new Vector2(0, 0)
   private _mass = 0
 
-  public abstract update(): void
+  constructor(form: EntityFormType) {
+    this.form = form
+  }
 
-  public addTrait(trait: ITrait): void {
+  [key: string]: any
+
+  public update(): void {
+    this.traits.forEach(t => t.update(this))
+  }
+
+  public addTrait(trait: Trait): void {
     if (this.hasTrait(trait.name)) return
     this.traits.set(trait.name, trait)
+    this[trait.name] = trait
   }
 
   protected hasTrait(name: string): boolean {
     return this.traits.has(name) && this.traits.get(name) !== undefined
-  }
-
-  public stop(): void {
-    this._velocity = new Vector2(0, 0)
-    this._acceleration = new Vector2(0, 0)
   }
 
   public obstruct(side: Sides) {
