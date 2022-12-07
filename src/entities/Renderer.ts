@@ -1,39 +1,13 @@
 import Canvas from './Canvas'
 import Drawer from './drawers/Drawer'
-import Entity from './physics/Entity'
-import Entities from '@/utils/entities'
-import PrimitivesDrawer from './drawers/PrimitivesDrawer'
 import { CanvasParams } from '@/models'
 
 export default class Renderer {
-  private canvas: Canvas
-  private drawers: Map<string, Drawer> = new Map()
+  protected canvas: Canvas
+  protected drawers: Map<string, Drawer> = new Map()
 
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {
     this.canvas = new Canvas(ref, params)
-  }
-
-  public render(entity: Entity): void {
-    if (Entities.isPrimitive(entity.form)) {
-      this.renderPrimitive(entity)
-    }
-  }
-
-  private renderPrimitive(entity: Entity): void {
-    const drawer = this.getDrawer('PrimitivesDrawer') as PrimitivesDrawer
-    const { position, form, formParams } = entity
-    const { w, h, radius, mode, style, alpha } = formParams
-    drawer.setFillStyle(style)
-    drawer.setGlobalAlpha(alpha)
-
-    switch (form) {
-      case 'rect':
-        drawer.rect(position, { w, h }, mode)
-        break
-      case 'circle':
-        drawer.arc(position, { radius }, mode)
-        break
-    }
   }
 
   public applyDrawer(drawer: Drawer): void {
@@ -52,7 +26,7 @@ export default class Renderer {
     }
   }
 
-  private hasDrawer(name: string): boolean {
+  public hasDrawer(name: string): boolean {
     return this.drawers.has(name) && this.drawers.get(name) !== undefined
   }
 

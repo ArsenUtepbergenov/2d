@@ -1,6 +1,6 @@
-import Renderer from './Renderer'
 import AreaLimiter from './AreaLimiter'
 import Particle from './physics/Particle'
+import PrimitiveRenderer from './PrimitiveRenderer'
 import PrimitivesDrawer from './drawers/PrimitivesDrawer'
 import LockedInsideArea from './traits/LockedInsideArea'
 import { System } from '@/utils'
@@ -9,7 +9,7 @@ import { CanvasParams } from '@/models'
 
 export default class Scene {
   private element: HTMLCanvasElement
-  private renderer: Renderer
+  private renderer: PrimitiveRenderer
   private particles: Particle[] = []
   private c2d: CanvasRenderingContext2D
   private areaLimiter: AreaLimiter
@@ -18,7 +18,7 @@ export default class Scene {
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {
     this.element = ref
     this.element.focus()
-    this.renderer = new Renderer(ref, params)
+    this.renderer = new PrimitiveRenderer(ref, params)
     this.c2d = this.renderer.c2d
     this.areaLimiter = new AreaLimiter(this.renderer.rect)
     this.init()
