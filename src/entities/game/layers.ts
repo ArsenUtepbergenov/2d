@@ -1,5 +1,6 @@
 import { Config } from '@/models/enums'
 import { Background } from '@/models/game'
+import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'
 
 function drawBackground(
@@ -33,8 +34,8 @@ export function createBackgroundLayer(
   }
 }
 
-export function createSpriteLayer(sprite: SpriteSheet, x: number, y: number) {
+export function createSpriteLayer(entity: SpriteEntity) {
   return function drawSpriteLayer(context: CanvasRenderingContext2D) {
-    sprite.draw(context, 'player', x, y)
+    entity.draw(context)
   }
 }

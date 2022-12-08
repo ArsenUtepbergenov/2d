@@ -22,7 +22,7 @@ export default abstract class Entity {
   }
 
   public update(): void {
-    this.traits.forEach(t => t.update(this))
+    // this.traits.forEach(t => t.update(this))
   }
 
   public addTrait(trait: Trait): void {

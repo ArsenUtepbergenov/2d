@@ -34,7 +34,7 @@ export default class KeyboardState {
     handler(keyState)
   }
 
-  public listenTo(element: HTMLElement) {
+  public listenTo(element: Window | HTMLElement = window) {
     ;['keydown', 'keyup'].forEach(eventName => {
       element.addEventListener(eventName, event => {
         this.handleEvent(event as KeyboardEvent)
