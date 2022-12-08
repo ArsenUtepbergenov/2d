@@ -6,11 +6,19 @@ export function setupPlayerKeyboard(player: Player) {
 
   input.addMapping(
     'ArrowLeft',
-    keyState => (player.move.direction = keyState ? -1 : 0),
+    keyState => (player.movePlayer.direction = keyState ? -1 : 0),
   )
   input.addMapping(
     'ArrowRight',
-    keyState => (player.move.direction = keyState ? 1 : 0),
+    keyState => (player.movePlayer.direction = keyState ? 1 : 0),
+  )
+  input.addMapping(
+    'ArrowTop',
+    keyState => (player.movePlayer.direction = keyState ? -2 : 0),
+  )
+  input.addMapping(
+    'ArrowBottom',
+    keyState => (player.movePlayer.direction = keyState ? 2 : 0),
   )
 
   return input

@@ -5,7 +5,7 @@ export default class MovePlayer extends PlayerTrait {
   public direction = 0
 
   constructor() {
-    super('move')
+    super('movePlayer')
   }
 
   public update(player: Player): void {

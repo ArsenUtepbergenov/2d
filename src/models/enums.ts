@@ -8,6 +8,8 @@ export const enum Colors {
 }
 
 export const enum Config {
+  TILES = 'src/assets/tiles.png',
+  WORLD = 'src/assets/world.json',
   FONT = '1rem Calibri',
 }
 

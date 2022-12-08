@@ -5,6 +5,9 @@ import { Point } from '@/entities/math/Point'
  * The global system.
  */
 export abstract class System {
+  public static WIDTH = 32 * 24
+  public static HEIGHT = 32 * 20
+
   public static CANVAS_HEIGHT = 700
   /**
    * The delay of window resizing.

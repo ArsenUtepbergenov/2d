@@ -1,4 +1,5 @@
 import Player from './Player'
+import GameWorld from './GameWorld'
 import GameRenderer from './GameRenderer'
 import MovePlayer from '../traits/MovePlayer'
 import { CanvasParams } from '@/models'
@@ -9,16 +10,20 @@ export default class Game {
   private renderer: GameRenderer
   private canvas: HTMLCanvasElement
   private rafId: number = 0
+  private world: GameWorld
 
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {
     this.canvas = ref
     this.canvas.focus()
     this.renderer = new GameRenderer(ref, params)
     this.player = new Player()
+    this.world = new GameWorld()
     this.init()
   }
 
   private init(): void {
+    this.renderer.renderWorld(this.world)
+
     this.player.addTrait(new MovePlayer())
 
     const input = setupPlayerKeyboard(this.player)
