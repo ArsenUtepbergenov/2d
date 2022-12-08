@@ -1,6 +1,6 @@
+import { CanvasParams } from '@/models'
 import Canvas from './Canvas'
 import Drawer from './drawers/Drawer'
-import { CanvasParams } from '@/models'
 
 export default class Renderer {
   protected canvas: Canvas

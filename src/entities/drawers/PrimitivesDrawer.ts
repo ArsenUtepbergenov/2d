@@ -1,7 +1,7 @@
-import Drawer from './Drawer'
-import { Point } from '../math/Point'
 import { DrawerParams } from '@/models'
 import { ICircleArc, IRect } from '@/models/types'
+import { Point } from '../math/Point'
+import Drawer from './Drawer'
 
 export default class PrimitivesDrawer extends Drawer {
   constructor(c2d: CanvasRenderingContext2D, params?: Partial<DrawerParams>) {

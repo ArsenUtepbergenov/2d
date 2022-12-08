@@ -1,5 +1,5 @@
-import Entity from '../physics/Entity'
 import { Sides } from '@/models/enums'
+import Entity from '../physics/Entity'
 
 export default abstract class Trait {
   public name: string

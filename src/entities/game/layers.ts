@@ -1,7 +1,6 @@
-import SpriteSheet from './SpriteSheet'
 import { Config } from '@/models/enums'
 import { Background } from '@/models/game'
-import { Point } from '../math/Point'
+import SpriteSheet from './SpriteSheet'
 
 function drawBackground(
   background: Background,
@@ -34,8 +33,8 @@ export function createBackgroundLayer(
   }
 }
 
-export function createSpriteLayer(sprite: SpriteSheet, position: Point) {
+export function createSpriteLayer(sprite: SpriteSheet, x: number, y: number) {
   return function drawSpriteLayer(context: CanvasRenderingContext2D) {
-    sprite.draw(context, 'player', position.x, position.y)
+    sprite.draw(context, 'player', x, y)
   }
 }

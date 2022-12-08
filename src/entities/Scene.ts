@@ -1,11 +1,11 @@
-import AreaLimiter from './AreaLimiter'
-import Particle from './physics/Particle'
-import PrimitiveRenderer from './PrimitiveRenderer'
-import PrimitivesDrawer from './drawers/PrimitivesDrawer'
-import LockedInsideArea from './traits/LockedInsideArea'
 import { CanvasParams } from '@/models'
 import { Colors } from '@/models/enums'
 import { System } from '@/models/system'
+import AreaLimiter from './AreaLimiter'
+import PrimitiveRenderer from './PrimitiveRenderer'
+import PrimitivesDrawer from './drawers/PrimitivesDrawer'
+import Particle from './physics/Particle'
+import LockedInsideArea from './traits/LockedInsideArea'
 
 export default class Scene {
   private element: HTMLCanvasElement

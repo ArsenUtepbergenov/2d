@@ -1,8 +1,8 @@
-import Compositor from './Compositor'
 import { Config } from '@/models/enums'
+import { loadJSON } from '@/utils/loaders'
+import Compositor from './Compositor'
 import { createBackgroundLayer } from './layers'
 import { loadBackgroundSprites } from './sprites'
-import { loadJSON } from '@/utils/loaders'
 
 export default class World {
   private compositor: Compositor

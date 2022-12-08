@@ -9,10 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, onBeforeMount, onUnmounted } from 'vue'
 import BackCanvas from '@/components/BackCanvas.vue'
 import FrontCanvas from '@/components/FrontCanvas.vue'
 import { System } from '@/models/system'
+import { reactive, ref, onBeforeMount, onUnmounted } from 'vue'
 
 const animated = ref<boolean>(true)
 const size = reactive({ w: window.innerWidth, h: System.CANVAS_HEIGHT })

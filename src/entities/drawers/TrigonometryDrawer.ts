@@ -1,7 +1,7 @@
-import Drawer from './Drawer'
-import { Point } from '../math/Point'
 import { Colors } from '@/models/enums'
 import { System } from '@/models/system'
+import { Point } from '../math/Point'
+import Drawer from './Drawer'
 
 export default class TrigonometryDrawer extends Drawer {
   private points: Point[] = []

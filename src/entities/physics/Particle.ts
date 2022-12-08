@@ -1,11 +1,11 @@
-import Entity from './Entity'
-import Utils from '@/utils/general'
-import Vector2 from '../math/Vector2'
-import BoundingBox from '../BoundingBox'
-import { System } from '@/models/system'
-import { distanceTo } from '../math/common'
 import { EntityParams, FormParams } from '@/models'
+import { System } from '@/models/system'
 import { EntityFormType, Rectangle } from '@/models/types'
+import Utils from '@/utils/general'
+import BoundingBox from '../BoundingBox'
+import Vector2 from '../math/Vector2'
+import { distanceTo } from '../math/common'
+import Entity from './Entity'
 
 export default class Particle extends Entity {
   public bounds: BoundingBox

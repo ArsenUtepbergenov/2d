@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUpdated, ref } from 'vue'
 import Canvas from '@/entities/Canvas'
 import CoordinateSystemDrawer from '@/entities/drawers/CoordinateSystemDrawer'
 import { Colors } from '@/models/enums'
+import { onMounted, onUpdated, ref } from 'vue'
 
 const props = withDefaults(defineProps<{ w: number; h: number }>(), {
   w: 0,

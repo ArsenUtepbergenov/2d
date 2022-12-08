@@ -1,10 +1,10 @@
-import Trait from '../traits/Trait'
-import Vector2 from '../math/Vector2'
-import BoundingBox from '../BoundingBox'
-import getPoint, { Point } from '../math/Point'
+import { EntityParams, FormParams } from '@/models'
 import { Sides } from '@/models/enums'
 import { EntityFormType } from '@/models/types'
-import { EntityParams, FormParams } from '@/models'
+import BoundingBox from '../BoundingBox'
+import getPoint, { Point } from '../math/Point'
+import Vector2 from '../math/Vector2'
+import Trait from '../traits/Trait'
 
 export default abstract class Entity {
   public form: EntityFormType

@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
 import Scene from '@/entities/Scene'
+import { onMounted, ref, watch } from 'vue'
 
 const props = withDefaults(
   defineProps<{ w: number; h: number; animated?: boolean }>(),

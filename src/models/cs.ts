@@ -1,6 +1,6 @@
-import { ISize } from './types'
-import { System } from './system'
 import { Point } from '@/entities/math/Point'
+import { System } from './system'
+import { ISize } from './types'
 
 /**
  * Coordinate system.

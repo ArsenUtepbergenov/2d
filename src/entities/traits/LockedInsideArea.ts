@@ -1,6 +1,6 @@
-import Trait from './Trait'
-import Entity from '../physics/Entity'
 import { Sides } from '@/models/enums'
+import Entity from '../physics/Entity'
+import Trait from './Trait'
 
 export default class LockedInsideArea extends Trait {
   constructor() {

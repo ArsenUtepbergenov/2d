@@ -1,6 +1,6 @@
+import { Config } from '@/models/enums'
 import Player from './Player'
 import World from './World'
-import { Config } from '@/models/enums'
 
 export default class GameRenderer {
   private mainBuffer: HTMLCanvasElement

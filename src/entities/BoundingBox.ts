@@ -1,5 +1,5 @@
-import { Point } from './math/Point'
 import { ISize } from '@/models/types'
+import { Point } from './math/Point'
 
 export default class BoundingBox {
   private position: Point

@@ -1,8 +1,8 @@
-import Renderer from './Renderer'
-import Entity from './physics/Entity'
-import Entities from '@/utils/entities'
-import PrimitivesDrawer from './drawers/PrimitivesDrawer'
 import { CanvasParams } from '@/models'
+import Entities from '@/utils/entities'
+import Renderer from './Renderer'
+import PrimitivesDrawer from './drawers/PrimitivesDrawer'
+import Entity from './physics/Entity'
 
 export default class PrimitiveRenderer extends Renderer {
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {

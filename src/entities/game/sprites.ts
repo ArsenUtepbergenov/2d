@@ -1,6 +1,6 @@
-import SpriteSheet from './SpriteSheet'
 import { Config } from '@/models/enums'
 import { loadImage } from '@/utils/loaders'
+import SpriteSheet from './SpriteSheet'
 
 export async function loadBackgroundSprites() {
   const image = await loadImage(Config.TILES)

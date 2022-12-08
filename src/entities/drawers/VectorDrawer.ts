@@ -1,8 +1,8 @@
-import Drawer from './Drawer'
-import Vector2 from '../math/Vector2'
-import { Point } from '../math/Point'
 import { Colors } from '@/models/enums'
 import { System } from '@/models/system'
+import { Point } from '../math/Point'
+import Vector2 from '../math/Vector2'
+import Drawer from './Drawer'
 
 export default class VectorDrawer extends Drawer {
   constructor(c2d: CanvasRenderingContext2D) {

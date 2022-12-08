@@ -1,8 +1,9 @@
-import Player from './Player'
-import World from './World'
-import GameRenderer from './GameRenderer'
 import MovePlayer from '../traits/MovePlayer'
 import Compositor from './Compositor'
+import GameRenderer from './GameRenderer'
+import Player from './Player'
+import World from './World'
+
 // import { setupPlayerKeyboard } from './input'
 
 export default class Game {

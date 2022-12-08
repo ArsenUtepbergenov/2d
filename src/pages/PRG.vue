@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import Game from '@/entities/game/Game'
+import { ref, onMounted } from 'vue'
 
 const world = ref()
 
