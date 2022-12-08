@@ -1,4 +1,4 @@
-import { System } from '@/utils'
+import { System } from '@/models/system'
 
 export class Point {
   public x

@@ -3,9 +3,9 @@ import Particle from './physics/Particle'
 import PrimitiveRenderer from './PrimitiveRenderer'
 import PrimitivesDrawer from './drawers/PrimitivesDrawer'
 import LockedInsideArea from './traits/LockedInsideArea'
-import { System } from '@/utils'
-import { Colors } from '@/models/enums'
 import { CanvasParams } from '@/models'
+import { Colors } from '@/models/enums'
+import { System } from '@/models/system'
 
 export default class Scene {
   private element: HTMLCanvasElement

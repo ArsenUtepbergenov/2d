@@ -1,6 +1,6 @@
-import { loadImage } from '@/entities/game/loaders.js'
-import { Config } from '@/models/enums'
 import SpriteSheet from './SpriteSheet'
+import { Config } from '@/models/enums'
+import { loadImage } from '@/entities/game/loaders.js'
 
 export async function loadBackgroundSprites() {
   const image = await loadImage(Config.TILES)

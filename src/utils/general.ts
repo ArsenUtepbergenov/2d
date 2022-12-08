@@ -46,34 +46,27 @@ export default abstract class Utils {
     while (h--) matrix.push(new Array(w).fill(0))
     return matrix
   }
+}
 
-  public static collisionRectOfCircle(
-    rect: Rectangle,
-    circle: Circle,
-  ): boolean {
-    if (
+/**
+ * The utility for checking collision.
+ */
+export abstract class Collider {
+  public static checkRectToCircle(rect: Rectangle, circle: Circle): boolean {
+    return (
       rect.x < circle.x + circle.r &&
       rect.x + rect.w > circle.x - circle.r &&
       rect.y < circle.y + circle.r &&
       rect.y + rect.h > circle.y - circle.r
-    ) {
-      return true
-    }
-    return false
+    )
   }
 
-  public static collisionRectOfRect(
-    firstRect: Rectangle,
-    secondRect: Rectangle,
-  ): boolean {
-    if (
-      firstRect.x < secondRect.x + secondRect.w &&
-      firstRect.x + firstRect.w > secondRect.x &&
-      firstRect.y < secondRect.y + secondRect.h &&
-      firstRect.y + firstRect.h > secondRect.y
-    ) {
-      return true
-    }
-    return false
+  public static checkRectToRect(rect1: Rectangle, rect2: Rectangle): boolean {
+    return (
+      rect1.x < rect2.x + rect2.w &&
+      rect1.x + rect1.w > rect2.x &&
+      rect1.y < rect2.y + rect2.h &&
+      rect1.y + rect1.h > rect2.y
+    )
   }
 }

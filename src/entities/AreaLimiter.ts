@@ -1,6 +1,6 @@
-import { Rectangle } from '@/models/types'
-import { Sides } from '@/models/enums'
 import Entity from './physics/Entity'
+import { Sides } from '@/models/enums'
+import { Rectangle } from '@/models/types'
 
 export default class AreaLimiter {
   private rectArea: Rectangle

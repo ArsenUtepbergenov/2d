@@ -1,6 +1,6 @@
-import { Background } from '@/models/game'
-import { System } from '@/utils'
 import SpriteSheet from './SpriteSheet'
+import { Config } from '@/models/enums'
+import { Background } from '@/models/game'
 
 function drawBackground(
   background: Background,
@@ -21,8 +21,8 @@ export function createBackgroundLayer(
   sprites: SpriteSheet,
 ) {
   const buffer = document.createElement('canvas')
-  buffer.width = System.WIDTH
-  buffer.height = System.HEIGHT
+  buffer.width = Config.WORLD_WIDTH
+  buffer.height = Config.WORLD_HEIGHT
 
   backgrounds.forEach(background => {
     drawBackground(background, buffer.getContext('2d')!, sprites)

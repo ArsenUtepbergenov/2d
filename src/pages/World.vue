@@ -4,8 +4,8 @@
 
 <script setup lang="ts">
 import { ref, reactive, onBeforeMount, onUnmounted, onMounted } from 'vue'
-import { System } from '@/utils'
 import Game from '@/entities/game/Game'
+import { System } from '@/models/system'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const size = reactive({ w: window.innerWidth, h: window.innerHeight })

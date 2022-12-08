@@ -12,7 +12,7 @@
 import { reactive, ref, onBeforeMount, onUnmounted } from 'vue'
 import BackCanvas from '@/components/BackCanvas.vue'
 import FrontCanvas from '@/components/FrontCanvas.vue'
-import { System } from '@/utils'
+import { System } from '@/models/system'
 
 const animated = ref<boolean>(true)
 const size = reactive({ w: window.innerWidth, h: System.CANVAS_HEIGHT })

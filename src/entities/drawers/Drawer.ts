@@ -1,7 +1,7 @@
+import { CS } from '@/models/cs'
+import { Point } from '../math/Point'
 import { Colors, Config } from '@/models/enums'
 import { DrawerParams, TextParams } from '@/models'
-import { CS } from '@/utils'
-import { Point } from '../math/Point'
 
 export default class Drawer {
   private params: Partial<DrawerParams> = {

@@ -1,8 +1,8 @@
 import Compositor from './Compositor'
-import { createBackgroundLayer } from './layers'
-import { loadJSON } from '@/entities/game/loaders'
-import { loadBackgroundSprites } from './sprites'
 import { Config } from '@/models/enums'
+import { createBackgroundLayer } from './layers'
+import { loadBackgroundSprites } from './sprites'
+import { loadJSON } from '@/entities/game/loaders'
 
 export default class GameWorld {
   private compositor = new Compositor()
