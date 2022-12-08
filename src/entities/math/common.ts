@@ -8,3 +8,11 @@ export const areEqual = (
   other: number,
   epsilon = EPSILON,
 ): boolean => Math.abs(one - other) < epsilon
+
+export function div(numerator: number, denominator: number): number {
+  return (numerator - (numerator % denominator)) / denominator
+}
+
+export function distanceTo(dx: number, dy: number): number {
+  return Math.sqrt(dx * dx + dy * dy)
+}

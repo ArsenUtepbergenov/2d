@@ -1,41 +1,45 @@
 import { CanvasParams, MouseEventHandler } from '../models'
 
 export default class Canvas {
-  private width = 0
-  private height = 0
-  private context2d: CanvasRenderingContext2D
+  private w = 0
+  private h = 0
+  private _c2d: CanvasRenderingContext2D
   private instance: HTMLCanvasElement
 
-  constructor(
-    ref: HTMLCanvasElement,
-    { width, height, alpha = false }: CanvasParams,
-  ) {
+  constructor(ref: HTMLCanvasElement, { w, h, alpha = false }: CanvasParams) {
     this.instance = ref
-    this.context2d = this.instance.getContext('2d', { alpha })!
+    this._c2d = this.instance.getContext('2d', { alpha })!
 
-    this.init({ width, height })
+    this.init({ w, h })
   }
 
   public setCursor(cursor: string = 'default'): void {
     this.instance.style.cursor = cursor
   }
 
-  public setSize(width: number = 0, height: number = 0): void {
-    this.width = this.instance.width = width
-    this.height = this.instance.height = height
+  public setSize(w: number = 0, h: number = 0): void {
+    this.w = this.instance.width = w
+    this.h = this.instance.height = h
   }
 
   public fill(color: string | CanvasGradient | CanvasPattern = 'black'): void {
-    this.context2d.fillStyle = color
-    this.context2d.fillRect(0, 0, this.width, this.height)
+    this._c2d.fillStyle = color
+    this._c2d.fillRect(0, 0, this.w, this.h)
   }
 
   public clear(): void {
-    this.context2d.clearRect(0, 0, this.width, this.height)
+    this._c2d.save()
+    this._c2d.setTransform(1, 0, 0, 1, 0, 0)
+    this._c2d.clearRect(0, 0, this.w, this.h)
+    this._c2d.restore()
+  }
+
+  public get rect() {
+    return { x: 0, y: 0, w: this.w, h: this.h }
   }
 
   public get c2d(): CanvasRenderingContext2D {
-    return this.context2d!
+    return this._c2d!
   }
 
   public get domRect(): DOMRect {
@@ -62,9 +66,9 @@ export default class Canvas {
     this.instance.oncontextmenu = fn
   }
 
-  private init({ width, height }: CanvasParams): void {
+  private init({ w, h }: CanvasParams): void {
     try {
-      this.setSize(width, height)
+      this.setSize(w, h)
     } catch (error) {
       console.error(error)
     }

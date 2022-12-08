@@ -1,7 +1,8 @@
-import { ISize } from '@/models/types'
+import { CS } from '@/models/cs'
 import { Colors } from '@/models/enums'
+import { System } from '@/models/system'
+import { ISize } from '@/models/types'
 import Drawer from './Drawer'
-import { CS, System } from '@/utils'
 
 export default class CoordinateSystemDrawer extends Drawer {
   constructor(c2d: CanvasRenderingContext2D) {

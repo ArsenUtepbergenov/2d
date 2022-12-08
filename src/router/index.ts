@@ -1,16 +1,26 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('@/pages/Home.vue'),
+    name: 'TestSpot',
+    component: () => import('@/pages/TestSpot.vue'),
+    alias: '/test',
+  },
+  {
+    path: '/rpg',
+    name: 'PRG',
+    component: () => import('@/pages/PRG.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: { name: 'PRG' },
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: routes as RouteRecordRaw[],
 })
 
 export default router

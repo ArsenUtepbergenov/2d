@@ -1,6 +1,8 @@
+import Vector2 from '@/entities/math/Vector2'
+
 export type CanvasParams = {
-  width: number
-  height: number
+  w: number
+  h: number
   alpha?: boolean
 }
 
@@ -8,6 +10,7 @@ export type DrawerParams = {
   isCartesian: boolean
   strokeStyle: string | CanvasGradient | CanvasPattern
   fillStyle: string | CanvasGradient | CanvasPattern
+  globalAlpha: 1
 }
 
 export type TextParams = {
@@ -15,13 +18,6 @@ export type TextParams = {
   y: number
   fillStyle?: string | CanvasGradient | CanvasPattern
   align?: CanvasTextAlign
-}
-
-export type CircleParams = {
-  radius: number
-  startAngle?: number
-  endAngle?: number
-  counterclockwise?: boolean | undefined
 }
 
 export type EventHandler =
@@ -33,3 +29,24 @@ export type MouseEventHandler =
 export type KeyboardEventHandler =
   | ((this: GlobalEventHandlers, ev: KeyboardEvent) => any)
   | null
+
+export type EntityParams = {
+  x: number
+  y: number
+  w: number
+  h: number
+  radius: number
+  velocity: Vector2
+  acceleration: Vector2
+  speed: number
+  direction: number
+  mass: number
+  mode: 'fill' | 'stroke'
+  style: string | CanvasGradient | CanvasPattern
+  alpha: number
+}
+
+export type FormParams = Pick<
+  EntityParams,
+  'w' | 'h' | 'radius' | 'mode' | 'style' | 'alpha'
+>

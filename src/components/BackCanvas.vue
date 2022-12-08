@@ -1,64 +1,37 @@
 <template>
-  <canvas ref="canvasRef" :width="size.w" :height="size.h" />
+  <canvas ref="canvasRef" :width="props.w" :height="props.h" />
 </template>
 
 <script setup lang="ts">
-import {
-  onBeforeMount,
-  onMounted,
-  onUnmounted,
-  onUpdated,
-  reactive,
-  ref,
-} from 'vue'
 import Canvas from '@/entities/Canvas'
 import CoordinateSystemDrawer from '@/entities/drawers/CoordinateSystemDrawer'
 import { Colors } from '@/models/enums'
-import { System } from '@/utils'
+import { onMounted, onUpdated, ref } from 'vue'
 
-const canvasRef = ref<HTMLCanvasElement | null>(null)
-const size = reactive({
-  w: window.innerWidth,
-  h: window.innerHeight,
+const props = withDefaults(defineProps<{ w: number; h: number }>(), {
+  w: 0,
+  h: 0,
 })
+const canvasRef = ref<HTMLCanvasElement | null>(null)
 let canvas: Canvas
 let csd: CoordinateSystemDrawer
-let timer: number
-
-function resize() {
-  window.clearTimeout(timer)
-
-  timer = window.setTimeout(() => {
-    size.w = window.innerWidth
-    size.h = window.innerHeight
-    canvas.setSize(size.w, size.h)
-  }, System.RESIZE_TIME)
-}
-
-onBeforeMount(() => {
-  window.addEventListener('resize', resize)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', resize)
-})
 
 onMounted(() => {
-  canvas = new Canvas(canvasRef.value!, { width: size.w, height: size.h })
+  canvas = new Canvas(canvasRef.value!, { w: props.w, h: props.h })
   csd = new CoordinateSystemDrawer(canvas.c2d)
   canvas.fill(Colors.light)
-  csd.draw({ w: size.w, h: size.h })
+  csd.draw({ w: props.w, h: props.h })
 })
 
 onUpdated(() => {
+  canvas.setSize(props.w, props.h)
   canvas.fill(Colors.light)
-  csd.draw({ w: size.w, h: size.h })
+  csd.draw({ w: props.w, h: props.h })
 })
 </script>
 
 <style lang="scss" scoped>
 canvas {
-  width: 100%;
-  height: 100%;
+  border: 2px solid #795548;
 }
 </style>

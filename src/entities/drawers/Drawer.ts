@@ -1,13 +1,14 @@
-import { Colors } from '@/models/enums'
 import { DrawerParams, TextParams } from '@/models'
-import { CS, System } from '@/utils'
-import { IPoint } from '@/models/types'
+import { CS } from '@/models/cs'
+import { Colors, Config } from '@/models/enums'
+import { Point } from '../math/Point'
 
 export default class Drawer {
   private params: Partial<DrawerParams> = {
     isCartesian: false,
     strokeStyle: '',
     fillStyle: '',
+    globalAlpha: 1,
   }
   protected c2d: CanvasRenderingContext2D
 
@@ -19,32 +20,32 @@ export default class Drawer {
     params.isCartesian && this.toCartesian()
     this.c2d.strokeStyle = params.strokeStyle || ''
     this.c2d.fillStyle = params.fillStyle || ''
-    this.params = params
+    this.c2d.globalAlpha = params.globalAlpha || 1
+    this.params = {
+      ...this.params,
+      ...params,
+    }
   }
 
-  public drawPoint({ x, y }: IPoint): void {
+  public setStrokeStyle(style: string | CanvasGradient | CanvasPattern): void {
+    this.c2d.strokeStyle = style
+  }
+
+  public setFillStyle(style: string | CanvasGradient | CanvasPattern): void {
+    this.c2d.fillStyle = style
+  }
+
+  public setGlobalAlpha(value: number = 1): void {
+    this.c2d.globalAlpha = value
+  }
+
+  public applyContext2d(c2d: CanvasRenderingContext2D): void {
+    this.c2d = c2d
+    this.update()
+  }
+
+  public drawPoint({ x, y }: Point): void {
     this.c2d.fillRect(x, y, 1, 1)
-  }
-
-  public drawArrow(
-    to: IPoint = { x: 0, y: 0 },
-    from: IPoint = { x: 0, y: 0 },
-  ): void {
-    const c = this.c2d
-
-    const offsetX = (a: number) => System.ARROWHEAD * Math.cos(a)
-    const offsetY = (a: number) => System.ARROWHEAD * Math.sin(a)
-
-    const angle = Math.atan2(to.y - from.y, to.x - from.x)
-    const left = angle - Math.PI / 6
-    const right = angle + Math.PI / 6
-
-    this.strokeLine(to, from)
-    c.lineTo(to.x - offsetX(left), to.y - offsetY(left))
-    c.moveTo(to.x, to.y)
-    c.lineTo(to.x - offsetX(right), to.y - offsetY(right))
-
-    c.stroke()
   }
 
   public fillText(
@@ -53,15 +54,15 @@ export default class Drawer {
   ): void {
     const c = this.c2d
 
-    c.font = '1rem Calibri'
+    c.font = Config.FONT
     c.fillStyle = fillStyle
     c.textAlign = align
     c.fillText(text, x, y)
   }
 
   public strokeLine(
-    to: IPoint = { x: 0, y: 0 },
-    from: IPoint = { x: 0, y: 0 },
+    to: Point = { x: 0, y: 0 },
+    from: Point = { x: 0, y: 0 },
   ): void {
     const c = this.c2d
 
@@ -76,22 +77,19 @@ export default class Drawer {
     this.params.isCartesian && this.toCartesian()
     this.c2d.strokeStyle = this.params.strokeStyle || ''
     this.c2d.fillStyle = this.params.fillStyle || ''
+    this.c2d.globalAlpha = this.params.globalAlpha || 1
   }
 
-  protected scale({ x, y }: IPoint): void {
+  protected scale({ x, y }: Point): void {
     this.c2d.scale(x, y)
   }
 
-  protected translate({ x, y }: IPoint): void {
+  protected translate({ x, y }: Point): void {
     this.c2d.translate(x, y)
   }
 
-  protected reset(): void {
-    this.c2d.setTransform(1, 0, 0, 1, 0, 0)
-  }
-
   protected toCartesian(): void {
-    this.translate(CS.getCenter())
+    this.translate(CS.center)
     this.scale({ x: 1, y: -1 })
   }
 }

@@ -1,0 +1,44 @@
+{
+  "backgrounds": [
+    {
+      "tile": "brickWall",
+      "ranges": [0, 24, 0, 1]
+    },
+    {
+      "tile": "brickWall",
+      "ranges": [0, 24, 19, 20]
+    },
+    {
+      "tile": "brickWall",
+      "ranges": [0, 1, 1, 19]
+    },
+    {
+      "tile": "brickWall",
+      "ranges": [23, 24, 1, 19]
+    },
+    {
+      "tile": "ground",
+      "ranges": [2, 22, 2, 19]
+    },
+    {
+      "tile": "groundAboutWallTop",
+      "ranges": [2, 22, 1, 2]
+    },
+    {
+      "tile": "groundAboutWallLeft",
+      "ranges": [1, 2, 2, 19]
+    },
+    {
+      "tile": "groundAboutWallRight",
+      "ranges": [22, 23, 2, 19]
+    },
+    {
+      "tile": "groundAboutWallTopRight",
+      "ranges": [22, 23, 1, 2]
+    },
+    {
+      "tile": "groundAboutWallTopLeft",
+      "ranges": [1, 2, 1, 2]
+    }
+  ]
+}

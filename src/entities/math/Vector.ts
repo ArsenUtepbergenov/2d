@@ -1,4 +1,3 @@
-import { IPoint } from '@/models/types'
 import { areEqual, toDegrees } from './common'
 
 export default class Vector {
@@ -85,9 +84,5 @@ export default class Vector {
     return components.every((component, index) =>
       areEqual(component, this.components[index]),
     )
-  }
-
-  public get xy(): IPoint {
-    return { x: this.components[0], y: this.components[1] }
   }
 }

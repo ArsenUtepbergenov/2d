@@ -1,56 +1,24 @@
-import { IPoint, ISize } from '@/models/types'
-
-/**
- * The global system.
- */
-export abstract class System {
-  /**
-   * The delay of window resizing
-   */
-  public static RESIZE_TIME = 500 // ms
-  /**
-   * One centimeter = ~37.8px
-   */
-  public static CM = 37.8
-  /**
-   * Half of one centimeter = ~19.9px
-   */
-  public static HCM = 18.9
-  /**
-   * The length of arrowhead (for vectors, etc.)
-   */
-  public static ARROWHEAD = 7
-  /**
-   * Convert coordinate (x, y) to centimeters.
-   * @param point the original coordinate (x, y)
-   * @returns original coordinate (x, y) in centimeters
-   */
-  public static convertToCm({ x, y }: IPoint): IPoint {
-    return { x: x * System.CM, y: y * System.CM }
-  }
-
-  public static getCMs(number: number): number {
-    return number * System.CM
-  }
-}
+import { Point } from '@/entities/math/Point'
+import { System } from './system'
+import { ISize } from './types'
 
 /**
  * Coordinate system.
  */
 export abstract class CS {
   /**
-   * The CS's center on x
+   * The CS's center on x.
    */
   public static cX = 0
   /**
-   * The CS's center on y
+   * The CS's center on y.
    */
   public static cY = 0
   /**
    * Get center of the coordinate system.
    * @returns center coordinate (x, y)
    */
-  public static getCenter(): IPoint {
+  public static get center(): Point {
     return { x: CS.cX, y: CS.cY }
   }
   /**
@@ -72,7 +40,6 @@ export abstract class CS {
   /**
    * Get axis center by centimeters.
    * @param cms number centimeters
-   * @returns axis's center
    */
   private static getCenterOfAxis(cms: number): number {
     return cms * System.HCM

@@ -1,4 +1,4 @@
-export interface IPoint {
+export interface IPoint2 {
   x: number
   y: number
 }
@@ -8,7 +8,20 @@ export interface ISize {
   h: number
 }
 
-export interface IRect {
-  position: IPoint
-  size: ISize
+export interface IRect extends ISize {}
+
+export interface ICircleArc {
+  radius: number
+  startAngle?: number
+  endAngle?: number
+  counterclockwise?: boolean
+}
+
+export type Rectangle = IPoint2 & IRect
+export type Circle = IPoint2 & { r: number }
+
+export type EntityFormType = 'rect' | 'circle'
+
+export interface IDrawable {
+  draw(): void
 }
