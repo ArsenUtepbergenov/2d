@@ -8,13 +8,13 @@ const routes = [
     alias: '/test',
   },
   {
-    path: '/world',
-    name: 'World',
-    component: () => import('@/pages/World.vue'),
+    path: '/rpg',
+    name: 'PRG',
+    component: () => import('@/pages/PRG.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: { name: 'World' },
+    redirect: { name: 'PRG' },
   },
 ]
 

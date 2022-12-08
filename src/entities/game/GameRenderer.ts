@@ -1,18 +1,28 @@
 import Player from './Player'
-import Renderer from '../Renderer'
-import GameWorld from './GameWorld'
-import { CanvasParams } from '@/models'
+import World from './World'
+import { Config } from '@/models/enums'
 
-export default class GameRenderer extends Renderer {
-  constructor(ref: HTMLCanvasElement, params: CanvasParams) {
-    super(ref, params)
+export default class GameRenderer {
+  private mainBuffer: HTMLCanvasElement
+  private mainContext: CanvasRenderingContext2D
+
+  constructor() {
+    this.mainBuffer = document.createElement('canvas')
+    this.mainBuffer.width = Config.WORLD_WIDTH
+    this.mainBuffer.height = Config.WORLD_HEIGHT
+    this.mainBuffer.focus()
+    this.mainContext = this.mainBuffer.getContext('2d')!
   }
 
   public renderPlayer(player: Player): void {
-    console.log(player)
+    player.draw(this.mainContext)
   }
 
-  public renderWorld(world: GameWorld): void {
-    world.draw(this.c2d)
+  public renderWorld(world: World): void {
+    world.draw(this.mainContext)
+  }
+
+  public get buffer(): HTMLCanvasElement {
+    return this.mainBuffer
   }
 }
