@@ -1,8 +1,12 @@
+import Config from '@/models/config'
 import { Tile, TileByIndex } from '@/models/game'
 import { Matrix } from '../math/Matrix'
 
 export default class TileResolver {
-  constructor(private matrix: Matrix<Tile> = matrix, public tileSize = 32) {}
+  constructor(
+    private matrix: Matrix<Tile> = matrix,
+    public tileSize = Config.TILE_SIZE,
+  ) {}
 
   public toIndex(position: number) {
     return Math.floor(position / this.tileSize)

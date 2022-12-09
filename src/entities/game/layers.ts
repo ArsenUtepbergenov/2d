@@ -1,7 +1,6 @@
-import { Config } from '@/models/enums'
+import Config from '@/models/config'
 import { C2D } from '@/models/game'
 import { Matrix } from '../math/Matrix'
-import { Point } from '../math/Point'
 import Level from './Level'
 import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'

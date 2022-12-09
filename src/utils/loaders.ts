@@ -1,11 +1,10 @@
 import Level from '@/entities/game/Level'
 import {
-  createBackgroundLayer,
-  createCollisionLayer,
+  createBackgroundLayer, // createCollisionLayer,
   createSpriteLayer,
 } from '@/entities/game/layers'
 import { loadBackgroundSprites } from '@/entities/game/sprites'
-import { Config } from '@/models/enums'
+import Config from '@/models/config'
 import { Background } from '@/models/game'
 
 export function loadImage(url: string) {
@@ -51,7 +50,7 @@ export async function loadLevel() {
 
   level.compositor.layers.push(createSpriteLayer(level.entities))
 
-  level.compositor.layers.push(createCollisionLayer(level))
+  // level.compositor.layers.push(createCollisionLayer(level))
 
   return level
 }

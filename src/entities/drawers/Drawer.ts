@@ -1,6 +1,7 @@
 import { DrawerParams, TextParams } from '@/models'
+import Config from '@/models/config'
 import { CS } from '@/models/cs'
-import { Colors, Config } from '@/models/enums'
+import { Colors } from '@/models/enums'
 import { C2D } from '@/models/game'
 import { Point } from '../math/Point'
 
