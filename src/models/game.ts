@@ -1,15 +1,19 @@
+import Camera from '@/entities/game/Camera'
+
 export type C2D = CanvasRenderingContext2D
 
 export type Background = {
   tile: string
+  type: string
   ranges: number[][]
 }
 
 export type LayerCallback = {
-  (context: C2D): void
+  (context: C2D, camera: Camera): void
 }
 
-export type Tile = { name: string }
+export type TileSpec = { name: string; index: number[] }
+export type Tile = { name: string; type: string }
 export type TileByIndex = {
   tile: Tile
   x1: number

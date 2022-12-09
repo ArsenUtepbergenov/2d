@@ -1,9 +1,12 @@
-import { loadLevel } from '@/utils/loaders'
+import { loadLevel } from '@/entities/game/loaders'
+import Camera from './Camera'
 import GameRenderer from './GameRenderer'
 import Level from './Level'
 import Player, { createPlayer } from './Player'
+import { setupMouseControl } from './debug'
 import Move from './entity-traits/Move'
 import { setupPlayerKeyboard } from './input'
+import { createCameraLayer } from './layers'
 
 export default class Game {
   private parentElement: HTMLElement
@@ -14,6 +17,7 @@ export default class Game {
   private dTime = 1 / 60
   private lastTime = 0
   private accumulatedTime = 0
+  private camera = new Camera()
 
   constructor(parent: HTMLElement) {
     this.parentElement = parent
@@ -25,13 +29,14 @@ export default class Game {
     this.level = await loadLevel()
 
     this.level.entities.add(this.player)
-
-    this.level.compositor.draw(this.renderer.c2d)
-
     this.player.addTrait(new Move())
+
+    this.level.compositor.layers.push(createCameraLayer(this.camera))
 
     const input = setupPlayerKeyboard(this.player)
     input.listenTo()
+
+    setupMouseControl(this.renderer.buffer, this.player, this.camera)
   }
 
   public async run() {
@@ -47,7 +52,7 @@ export default class Game {
 
     while (this.accumulatedTime > this.dTime) {
       this.level.update(this.dTime)
-      this.level.compositor.draw(this.renderer.c2d)
+      this.level.compositor.draw(this.renderer.c2d, this.camera)
       this.accumulatedTime -= this.dTime
     }
 

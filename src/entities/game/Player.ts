@@ -28,7 +28,7 @@ export default class Player extends SpriteEntity {
   }
 
   public draw(context: C2D): void {
-    this.sprite?.draw(context, 'player', this.x, this.y)
+    this.sprite?.draw(context, 'player', 0, 0)
   }
 
   public update(dTime: number): void {
