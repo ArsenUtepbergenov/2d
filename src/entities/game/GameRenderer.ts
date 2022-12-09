@@ -1,10 +1,8 @@
 import { Config } from '@/models/enums'
-import Player from './Player'
-import World from './World'
 
 export default class GameRenderer {
-  private mainBuffer: HTMLCanvasElement
-  private mainContext: CanvasRenderingContext2D
+  private readonly mainBuffer: HTMLCanvasElement
+  private readonly mainContext: CanvasRenderingContext2D
 
   constructor() {
     this.mainBuffer = document.createElement('canvas')
@@ -14,15 +12,11 @@ export default class GameRenderer {
     this.mainContext = this.mainBuffer.getContext('2d')!
   }
 
-  public renderPlayer(player: Player): void {
-    player.draw(this.mainContext)
-  }
-
-  public renderWorld(world: World): void {
-    world.draw(this.mainContext)
-  }
-
   public get buffer(): HTMLCanvasElement {
     return this.mainBuffer
+  }
+
+  public get c2d(): CanvasRenderingContext2D {
+    return this.mainContext
   }
 }

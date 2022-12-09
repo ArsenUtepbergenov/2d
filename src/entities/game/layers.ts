@@ -34,8 +34,8 @@ export function createBackgroundLayer(
   }
 }
 
-export function createSpriteLayer(entity: SpriteEntity) {
+export function createSpriteLayer(entities: Set<SpriteEntity>) {
   return function drawSpriteLayer(context: CanvasRenderingContext2D) {
-    entity.draw(context)
+    entities.forEach(entity => entity.draw(context))
   }
 }
