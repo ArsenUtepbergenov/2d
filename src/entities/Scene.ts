@@ -1,5 +1,6 @@
 import { CanvasParams } from '@/models'
 import { Colors } from '@/models/enums'
+import { C2D } from '@/models/game'
 import { System } from '@/models/system'
 import AreaLimiter from './AreaLimiter'
 import PrimitiveRenderer from './PrimitiveRenderer'
@@ -11,7 +12,7 @@ export default class Scene {
   private element: HTMLCanvasElement
   private renderer: PrimitiveRenderer
   private particles: Particle[] = []
-  private c2d: CanvasRenderingContext2D
+  private c2d: C2D
   private areaLimiter: AreaLimiter
   private rafId: number = 0
 

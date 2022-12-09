@@ -1,11 +1,12 @@
 import { Colors } from '@/models/enums'
+import { C2D } from '@/models/game'
 import { System } from '@/models/system'
 import { Point } from '../math/Point'
 import Vector2 from '../math/Vector2'
 import Drawer from './Drawer'
 
 export default class VectorDrawer extends Drawer {
-  constructor(c2d: CanvasRenderingContext2D) {
+  constructor(c2d: C2D) {
     super(c2d, { isCartesian: true, strokeStyle: Colors.green })
   }
 

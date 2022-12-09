@@ -1,4 +1,5 @@
 import { CanvasParams } from '@/models'
+import { C2D } from '@/models/game'
 import Canvas from './Canvas'
 import Drawer from './drawers/Drawer'
 
@@ -38,7 +39,7 @@ export default class Renderer {
     this.canvas.clear()
   }
 
-  public get c2d(): CanvasRenderingContext2D {
+  public get c2d(): C2D {
     return this.canvas.c2d
   }
 

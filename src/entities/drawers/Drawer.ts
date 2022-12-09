@@ -1,6 +1,7 @@
 import { DrawerParams, TextParams } from '@/models'
 import { CS } from '@/models/cs'
 import { Colors, Config } from '@/models/enums'
+import { C2D } from '@/models/game'
 import { Point } from '../math/Point'
 
 export default class Drawer {
@@ -10,9 +11,9 @@ export default class Drawer {
     fillStyle: '',
     globalAlpha: 1,
   }
-  protected c2d: CanvasRenderingContext2D
+  protected c2d: C2D
 
-  constructor(c2d: CanvasRenderingContext2D, params?: Partial<DrawerParams>) {
+  constructor(c2d: C2D, params?: Partial<DrawerParams>) {
     this.c2d = c2d
 
     if (!params) return
@@ -39,7 +40,7 @@ export default class Drawer {
     this.c2d.globalAlpha = value
   }
 
-  public applyContext2d(c2d: CanvasRenderingContext2D): void {
+  public applyContext2d(c2d: C2D): void {
     this.c2d = c2d
     this.update()
   }

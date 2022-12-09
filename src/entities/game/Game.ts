@@ -1,15 +1,14 @@
-import Compositor from './Compositor'
+import { loadLevel } from '@/utils/loaders'
 import GameRenderer from './GameRenderer'
+import Level from './Level'
 import Player from './Player'
 import { Move } from './SpriteEntity'
-import World from './World'
 import { setupPlayerKeyboard } from './input'
 
 export default class Game {
   private parentElement: HTMLElement
-  private compositor = new Compositor()
-  private world = new World(this.compositor)
-  private player = new Player(this.compositor)
+  private level: Level | null = null
+  private player = new Player()
   private renderer = new GameRenderer()
   private rafId: number = 0
 
@@ -20,11 +19,12 @@ export default class Game {
   }
 
   private async init() {
-    await this.world.load()
     await this.player.load()
+    this.level = await loadLevel()
 
-    this.renderer.renderWorld(this.world)
-    this.renderer.renderPlayer(this.player)
+    this.level.entities.add(this.player)
+
+    this.level.compositor.draw(this.renderer.c2d)
 
     this.player.addTrait(new Move())
 
@@ -49,10 +49,7 @@ export default class Game {
       accumulatedTime += (time - lastTime) / 1000
 
       while (accumulatedTime > dTime) {
-        // that.renderer.renderWorld(that.world)
-        // that.player.update(dTime)
-        // that.renderer.renderPlayer(that.player)
-
+        that.level?.update(dTime)
         accumulatedTime -= dTime
       }
 

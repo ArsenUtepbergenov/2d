@@ -1,4 +1,4 @@
-import { LayerCallback } from '@/models/game'
+import { C2D, LayerCallback } from '@/models/game'
 
 export default class Compositor {
   public layers: LayerCallback[]
@@ -7,7 +7,7 @@ export default class Compositor {
     this.layers = []
   }
 
-  public draw(context: CanvasRenderingContext2D) {
+  public draw(context: C2D) {
     this.layers.forEach(layer => layer(context))
   }
 }
