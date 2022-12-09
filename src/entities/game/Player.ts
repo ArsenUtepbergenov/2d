@@ -1,3 +1,4 @@
+import { Config } from '@/models/enums'
 import { C2D } from '@/models/game'
 import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
@@ -6,15 +7,15 @@ import SpriteSheet from './SpriteSheet'
 import { loadPlayerSprites } from './sprites'
 
 export default class Player extends SpriteEntity {
-  public size = { w: 0, h: 0 }
   public bounds: BoundingBox
   private sprite: SpriteSheet | null = null
 
   constructor() {
     super()
-    this.x = 32
-    this.y = 64
-    this.velocity = new Vector2(100, 0)
+    this.x = Config.PLAYER_START_X
+    this.y = Config.PLAYER_START_Y
+    this.size = { w: 64, h: 64 }
+    this.velocity = new Vector2(0, 0)
     this.bounds = this.getBounds()
   }
 

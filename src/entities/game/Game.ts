@@ -2,7 +2,7 @@ import { loadLevel } from '@/utils/loaders'
 import GameRenderer from './GameRenderer'
 import Level from './Level'
 import Player from './Player'
-import { Move } from './SpriteEntity'
+import Move from './entity-traits/Move'
 import { setupPlayerKeyboard } from './input'
 
 export default class Game {
@@ -50,6 +50,7 @@ export default class Game {
 
       while (accumulatedTime > dTime) {
         that.level?.update(dTime)
+        that.level?.compositor.draw(that.renderer.c2d)
         accumulatedTime -= dTime
       }
 

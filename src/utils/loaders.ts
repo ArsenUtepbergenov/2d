@@ -1,6 +1,7 @@
 import Level from '@/entities/game/Level'
 import {
   createBackgroundLayer,
+  createCollisionLayer,
   createSpriteLayer,
 } from '@/entities/game/layers'
 import { loadBackgroundSprites } from '@/entities/game/sprites'
@@ -24,15 +25,15 @@ export async function loadJSON(url: string) {
 
 function createTiles(level: Level, backgrounds: Background[]) {
   backgrounds.forEach((background: Background) => {
-    const [x1, x2, y1, y2] = background.ranges
-
-    for (let x = x1; x < x2; ++x) {
-      for (let y = y1; y < y2; ++y) {
-        level.tiles.set(x, y, {
-          name: background.tile,
-        })
+    background.ranges.forEach(([x1, x2, y1, y2]) => {
+      for (let x = x1; x < x2; ++x) {
+        for (let y = y1; y < y2; ++y) {
+          level.tiles.set(x, y, {
+            name: background.tile,
+          })
+        }
       }
-    }
+    })
   })
 }
 
@@ -49,6 +50,8 @@ export async function loadLevel() {
   level.compositor.layers.push(createBackgroundLayer(level, backgroundSprites))
 
   level.compositor.layers.push(createSpriteLayer(level.entities))
+
+  level.compositor.layers.push(createCollisionLayer(level))
 
   return level
 }
