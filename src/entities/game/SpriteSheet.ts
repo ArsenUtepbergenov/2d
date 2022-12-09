@@ -1,3 +1,5 @@
+import { C2D } from '@/models/game'
+
 export default class SpriteSheet {
   public image: HTMLImageElement
   public width: number
@@ -42,23 +44,12 @@ export default class SpriteSheet {
     this.define(name, x * this.width, y * this.height, this.width, this.height)
   }
 
-  public draw(
-    context: CanvasRenderingContext2D,
-    name: string,
-    x: number,
-    y: number,
-    flip = false,
-  ) {
+  public draw(context: C2D, name: string, x: number, y: number, flip = false) {
     const buffer = this.tiles.get(name)![flip ? 1 : 0]
     context.drawImage(buffer, x, y)
   }
 
-  public drawTile(
-    context: CanvasRenderingContext2D,
-    name: string,
-    x: number,
-    y: number,
-  ): void {
+  public drawTile(context: C2D, name: string, x: number, y: number): void {
     this.draw(context, name, x * 32, y * 32)
   }
 }

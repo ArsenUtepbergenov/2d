@@ -1,9 +1,10 @@
+import { C2D } from '@/models/game'
 import { CanvasParams, MouseEventHandler } from '../models'
 
 export default class Canvas {
   private w = 0
   private h = 0
-  private _c2d: CanvasRenderingContext2D
+  private _c2d: C2D
   private instance: HTMLCanvasElement
 
   constructor(ref: HTMLCanvasElement, { w, h, alpha = false }: CanvasParams) {
@@ -38,7 +39,7 @@ export default class Canvas {
     return { x: 0, y: 0, w: this.w, h: this.h }
   }
 
-  public get c2d(): CanvasRenderingContext2D {
+  public get c2d(): C2D {
     return this._c2d!
   }
 

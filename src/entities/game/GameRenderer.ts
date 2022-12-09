@@ -1,8 +1,9 @@
 import { Config } from '@/models/enums'
+import { C2D } from '@/models/game'
 
 export default class GameRenderer {
   private readonly mainBuffer: HTMLCanvasElement
-  private readonly mainContext: CanvasRenderingContext2D
+  private readonly mainContext: C2D
 
   constructor() {
     this.mainBuffer = document.createElement('canvas')
@@ -16,7 +17,7 @@ export default class GameRenderer {
     return this.mainBuffer
   }
 
-  public get c2d(): CanvasRenderingContext2D {
+  public get c2d(): C2D {
     return this.mainContext
   }
 }

@@ -1,4 +1,5 @@
 import { Colors } from '@/models/enums'
+import { C2D } from '@/models/game'
 import { System } from '@/models/system'
 import { Point } from '../math/Point'
 import Drawer from './Drawer'
@@ -6,7 +7,7 @@ import Drawer from './Drawer'
 export default class TrigonometryDrawer extends Drawer {
   private points: Point[] = []
 
-  constructor(c2d: CanvasRenderingContext2D) {
+  constructor(c2d: C2D) {
     super(c2d, { isCartesian: true, fillStyle: Colors.green })
   }
 

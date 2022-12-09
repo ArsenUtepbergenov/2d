@@ -5,6 +5,7 @@ import {
 } from '@/entities/game/layers'
 import { loadBackgroundSprites } from '@/entities/game/sprites'
 import { Config } from '@/models/enums'
+import { Background } from '@/models/game'
 
 export function loadImage(url: string) {
   return new Promise(resolve => {
@@ -21,17 +22,31 @@ export async function loadJSON(url: string) {
   return await r.json()
 }
 
+function createTiles(level: Level, backgrounds: Background[]) {
+  backgrounds.forEach((background: Background) => {
+    const [x1, x2, y1, y2] = background.ranges
+
+    for (let x = x1; x < x2; ++x) {
+      for (let y = y1; y < y2; ++y) {
+        level.tiles.set(x, y, {
+          name: background.tile,
+        })
+      }
+    }
+  })
+}
+
 export async function loadLevel() {
-  const [backgrounds, spec] = await Promise.all([
-    loadBackgroundSprites(),
+  const [spec, backgroundSprites] = await Promise.all([
     loadJSON(Config.WORLD),
+    loadBackgroundSprites(),
   ])
 
   const level = new Level()
 
-  level.compositor.layers.push(
-    createBackgroundLayer(spec.backgrounds, backgrounds),
-  )
+  createTiles(level, spec.backgrounds)
+
+  level.compositor.layers.push(createBackgroundLayer(level, backgroundSprites))
 
   level.compositor.layers.push(createSpriteLayer(level.entities))
 

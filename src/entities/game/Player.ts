@@ -1,3 +1,4 @@
+import { C2D } from '@/models/game'
 import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
 import SpriteEntity from './SpriteEntity'
@@ -21,7 +22,7 @@ export default class Player extends SpriteEntity {
     this.sprite = await loadPlayerSprites()
   }
 
-  public draw(context: CanvasRenderingContext2D): void {
+  public draw(context: C2D): void {
     this.sprite?.draw(context, 'player', this.x, this.y)
   }
 
