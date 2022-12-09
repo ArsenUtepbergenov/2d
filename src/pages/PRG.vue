@@ -15,10 +15,3 @@ onMounted(() => {
   game.run()
 })
 </script>
-
-<style lang="scss">
-canvas {
-  width: 100%;
-  height: 100%;
-}
-</style>

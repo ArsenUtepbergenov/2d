@@ -1,11 +1,18 @@
 import { C2D } from '@/models/game'
+import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
+import EntityTrait from './entity-traits/EntityTrait'
 
 export default abstract class SpriteEntity {
   public x = 0
   public y = 0
+  public size = { w: 0, h: 0 }
   public velocity = new Vector2(0, 0)
-  protected traits: Trait[] = []
+  public bounds = new BoundingBox(
+    { x: this.x, y: this.y },
+    { w: this.size.w, h: this.size.h },
+  )
+  protected traits: EntityTrait[] = []
 
   public abstract draw(context: C2D): void
 
@@ -13,29 +20,10 @@ export default abstract class SpriteEntity {
     this.traits.forEach(t => t.update(this, dTime))
   }
 
-  public addTrait(trait: Trait): void {
+  public addTrait(trait: EntityTrait): void {
     this.traits.push(trait)
     this[trait.name] = trait
   }
 
   [key: string]: any
-}
-
-abstract class Trait {
-  constructor(public name: string) {
-    this.name = name
-  }
-
-  public abstract update(entity: SpriteEntity, dTime: number): void
-}
-
-export class Move extends Trait {
-  constructor() {
-    super('move')
-  }
-
-  public update(entity: SpriteEntity, dTime: number): void {
-    entity.x += entity.velocity.x * dTime
-    entity.y += entity.velocity.y * dTime
-  }
 }

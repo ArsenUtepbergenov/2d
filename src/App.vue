@@ -7,7 +7,7 @@
 <style lang="scss">
 * {
   box-sizing: border-box;
-  max-height: 100vh;
+  max-height: 100%;
   margin: 0;
 }
 

@@ -1,10 +1,14 @@
-import { Config } from '@/models/enums'
+import Config from '@/models/config'
 import { loadImage } from '@/utils/loaders'
 import SpriteSheet from './SpriteSheet'
 
 export async function loadBackgroundSprites() {
   const image = await loadImage(Config.TILES)
-  const sprites = new SpriteSheet(image as HTMLImageElement, 32, 32)
+  const sprites = new SpriteSheet(
+    image as HTMLImageElement,
+    Config.TILE_SIZE,
+    Config.TILE_SIZE,
+  )
   sprites.defineTile('brickWall', 21, 22)
   sprites.defineTile('ground', 9, 22)
   sprites.defineTile('groundAboutWallTop', 9, 21)
@@ -15,9 +19,13 @@ export async function loadBackgroundSprites() {
   return sprites
 }
 
-export async function loadPlayerSprites() {
+export async function loadPlayerSprite() {
   const image = await loadImage(Config.CHARACTERS)
-  const sprites = new SpriteSheet(image as HTMLImageElement, 32, 32)
+  const sprites = new SpriteSheet(
+    image as HTMLImageElement,
+    Config.TILE_SIZE,
+    Config.TILE_SIZE,
+  )
   sprites.defineTile('player', 1, 0)
   return sprites
 }

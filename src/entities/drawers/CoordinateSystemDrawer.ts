@@ -56,7 +56,7 @@ export default class CoordinateSystemDrawer extends Drawer {
   }
 
   private drawXDashes(max: number): void {
-    const half = CS.getNumberCMs(max) / 2
+    const half = CS.getCMsBy(max) / 2
     const length = 4
     const p = (i: number) => CS.cX + i * System.CM
     const n = (i: number) => CS.cX - i * System.CM
@@ -73,7 +73,7 @@ export default class CoordinateSystemDrawer extends Drawer {
   }
 
   private drawYDashes(max: number): void {
-    const half = CS.getNumberCMs(max) / 2
+    const half = CS.getCMsBy(max) / 2
     const length = 4
     const p = (i: number) => CS.cY + i * System.CM
     const n = (i: number) => CS.cY - i * System.CM

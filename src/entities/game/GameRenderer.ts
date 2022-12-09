@@ -1,4 +1,4 @@
-import { Config } from '@/models/enums'
+import Config from '@/models/config'
 import { C2D } from '@/models/game'
 
 export default class GameRenderer {

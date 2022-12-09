@@ -1,34 +1,34 @@
+import Config from '@/models/config'
 import { C2D } from '@/models/game'
 import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
 import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'
-import { loadPlayerSprites } from './sprites'
+import { loadPlayerSprite } from './sprites'
+
+export async function createPlayer() {
+  const player = new Player()
+  player.x = Config.PLAYER_START_X
+  player.y = Config.PLAYER_START_Y
+  player.size = Config.PLAYER_SIZE
+  player.velocity = new Vector2(0, 0)
+  player.bounds = new BoundingBox(
+    { x: player.x, y: player.y },
+    { w: player.size.w, h: player.size.h },
+  )
+  player.sprite = await loadPlayerSprite()
+  return player
+}
 
 export default class Player extends SpriteEntity {
-  public size = { w: 0, h: 0 }
-  public bounds: BoundingBox
-  private sprite: SpriteSheet | null = null
+  public sprite: SpriteSheet | null = null
 
   constructor() {
     super()
-    this.x = 32
-    this.y = 64
-    this.velocity = new Vector2(100, 0)
-    this.bounds = this.getBounds()
-  }
-
-  public async load() {
-    this.sprite = await loadPlayerSprites()
   }
 
   public draw(context: C2D): void {
     this.sprite?.draw(context, 'player', this.x, this.y)
-  }
-
-  private getBounds(): BoundingBox {
-    const { w, h } = this.size
-    return new BoundingBox({ x: this.x, y: this.y }, { w, h })
   }
 
   public update(dTime: number): void {

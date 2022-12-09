@@ -1,3 +1,4 @@
+import Config from '@/models/config'
 import { C2D } from '@/models/game'
 
 export default class SpriteSheet {
@@ -50,6 +51,6 @@ export default class SpriteSheet {
   }
 
   public drawTile(context: C2D, name: string, x: number, y: number): void {
-    this.draw(context, name, x * 32, y * 32)
+    this.draw(context, name, x * Config.TILE_SIZE, y * Config.TILE_SIZE)
   }
 }
