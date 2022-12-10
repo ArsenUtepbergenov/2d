@@ -1,4 +1,5 @@
 {
+  "imageURL": "src/assets/tiles.png",
   "tiles": [
     {
       "name": "ground",

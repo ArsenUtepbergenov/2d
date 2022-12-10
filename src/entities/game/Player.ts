@@ -4,7 +4,7 @@ import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
 import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'
-import { loadPlayerSprite } from './sprites'
+import { loadPlayer } from './loaders'
 
 export async function createPlayer() {
   const player = new Player()
@@ -16,7 +16,7 @@ export async function createPlayer() {
     { x: player.x, y: player.y },
     { w: player.size.w, h: player.size.h },
   )
-  player.sprite = await loadPlayerSprite()
+  player.sprite = await loadPlayer()
   return player
 }
 

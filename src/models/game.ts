@@ -12,6 +12,7 @@ export type LayerCallback = {
   (context: C2D, camera: Camera): void
 }
 
+export type FrameSpec = { name: string; rect: number[] }
 export type TileSpec = { name: string; index: number[] }
 export type Tile = { name: string; type: string }
 export type TileByIndex = {

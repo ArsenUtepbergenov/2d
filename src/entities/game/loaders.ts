@@ -5,7 +5,7 @@ import {
   createSpriteLayer,
 } from '@/entities/game/layers'
 import Config from '@/models/config'
-import { Background, TileSpec } from '@/models/game'
+import { Background, FrameSpec, TileSpec } from '@/models/game'
 import SpriteSheet from './SpriteSheet'
 
 export function loadImage(url: string) {
@@ -63,10 +63,8 @@ function createTiles(level: Level, backgrounds: Background[]) {
 }
 
 export async function loadSpriteSheet(url: string) {
-  const [sheetSpec, image] = await Promise.all([
-    loadJSON(url),
-    loadImage(Config.TILES),
-  ])
+  const sheetSpec = await loadJSON(url)
+  const image = await loadImage(sheetSpec.imageURL)
 
   const sprites = new SpriteSheet(
     image as HTMLImageElement,
@@ -76,17 +74,27 @@ export async function loadSpriteSheet(url: string) {
 
   if (sheetSpec.tiles) {
     sheetSpec.tiles.forEach(({ name, index }: TileSpec) =>
-      sprites.defineTile(name, index[0], index[1]),
+      sprites.defineTile(name, ...index),
+    )
+  }
+
+  if (sheetSpec.frames) {
+    sheetSpec.frames.forEach(({ name, rect }: FrameSpec) =>
+      sprites.defineTile(name, ...rect),
     )
   }
 
   return sprites
 }
 
+export async function loadPlayer() {
+  return await loadSpriteSheet(Config.PLAYER)
+}
+
 export async function loadLevel() {
   const [spec, backgroundSprites] = await Promise.all([
     loadJSON(Config.WORLD),
-    loadSpriteSheet(Config.SPRITES),
+    loadSpriteSheet(Config.WORLD_SPRITES),
   ])
 
   const level = new Level()

@@ -2,7 +2,8 @@ export default abstract class Config {
   public static readonly FONT = '1rem Calibri'
   public static readonly TILES = 'src/assets/tiles.png'
   public static readonly WORLD = 'src/assets/world.json'
-  public static readonly SPRITES = 'src/assets/sprites.json'
+  public static readonly WORLD_SPRITES = 'src/assets/world-sprites.json'
+  public static readonly PLAYER = 'src/assets/player.json'
   public static readonly CHARACTERS = 'src/assets/characters.png'
   public static readonly TILE_SIZE = 32 as const
   public static readonly WORLD_WIDTH = Config.TILE_SIZE * 14 // 448

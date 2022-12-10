@@ -14,13 +14,7 @@ export default class SpriteSheet {
     this.tiles = new Map()
   }
 
-  public define(
-    name: string,
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-  ): void {
+  public define(name: string, ...[x, y, width, height]: number[]): void {
     const buffers = [false, true].map(flip => {
       const buffer = document.createElement('canvas')
       buffer.width = width
@@ -41,7 +35,7 @@ export default class SpriteSheet {
     this.tiles.set(name, buffers)
   }
 
-  public defineTile(name: string, x: number, y: number) {
+  public defineTile(name: string, ...[x, y]: number[]) {
     this.define(name, x * this.width, y * this.height, this.width, this.height)
   }
 

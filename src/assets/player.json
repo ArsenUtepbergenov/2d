@@ -1,0 +1,9 @@
+{
+  "imageURL": "src/assets/characters.png",
+  "frames": [
+    {
+      "name": "player",
+      "rect": [1, 0]
+    }
+  ]
+}
