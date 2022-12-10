@@ -68,6 +68,8 @@ export function createSpriteLayer(entities: Set<SpriteEntity>, w = 64, h = 64) {
 
       entity.draw(sContext)
 
+      context.imageSmoothingEnabled = false
+
       context.drawImage(
         sBuffer,
         entity.x - camera.position.x,

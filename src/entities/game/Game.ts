@@ -1,19 +1,19 @@
-import { loadLevel } from '@/entities/game/loaders'
+import { loadLevel, loadPlayer } from '@/entities/game/loaders'
 import Camera from './Camera'
 import GameRenderer from './GameRenderer'
 import Level from './Level'
-import Player, { createPlayer } from './Player'
-import { setupMouseControl } from './debug'
+import Player from './Player'
 import Move from './entity-traits/Move'
 import { setupPlayerKeyboard } from './input'
-import { createCameraLayer } from './layers'
+
+// import { setupMouseControl } from './debug'
+// import { createCameraLayer } from './layers'
 
 export default class Game {
   private parentElement: HTMLElement
   private level: Level | null = null
-  private player: Player | null = null
+  private player = Player.get()
   private renderer = new GameRenderer()
-  private rafId: number = 0
   private dTime = 1 / 60
   private lastTime = 0
   private accumulatedTime = 0
@@ -25,22 +25,19 @@ export default class Game {
   }
 
   private async init() {
-    this.player = await createPlayer()
-    this.level = await loadLevel()
+    const [playerSprite, level] = await Promise.all([loadPlayer(), loadLevel()])
 
-    this.level.entities.add(this.player)
+    this.player.sprite = playerSprite
+    this.level = level
+
     this.player.addTrait(new Move())
-
-    this.level.compositor.layers.push(createCameraLayer(this.camera))
+    this.level.entities.add(this.player)
 
     const input = setupPlayerKeyboard(this.player)
     input.listenTo()
-
-    setupMouseControl(this.renderer.buffer, this.player, this.camera)
   }
 
   public async run() {
-    cancelAnimationFrame(this.rafId)
     await this.init()
     this.update(0)
   }
@@ -50,13 +47,15 @@ export default class Game {
 
     this.accumulatedTime += (time - this.lastTime) / 1000
 
+    if (this.accumulatedTime > 1) this.accumulatedTime = 1
+
     while (this.accumulatedTime > this.dTime) {
       this.level.update(this.dTime)
       this.level.compositor.draw(this.renderer.c2d, this.camera)
       this.accumulatedTime -= this.dTime
     }
 
-    this.rafId = requestAnimationFrame(this.update)
+    requestAnimationFrame(this.update)
     this.lastTime = time
   }
 }

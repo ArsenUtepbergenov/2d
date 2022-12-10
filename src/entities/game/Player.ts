@@ -4,34 +4,67 @@ import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
 import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'
-import { loadPlayer } from './loaders'
-
-export async function createPlayer() {
-  const player = new Player()
-  player.x = Config.PLAYER_START_X
-  player.y = Config.PLAYER_START_Y
-  player.size = Config.PLAYER_SIZE
-  player.velocity = new Vector2(0, 0)
-  player.bounds = new BoundingBox(
-    { x: player.x, y: player.y },
-    { w: player.size.w, h: player.size.h },
-  )
-  player.sprite = await loadPlayer()
-  return player
-}
+import { createAnimation } from './animation'
 
 export default class Player extends SpriteEntity {
   public sprite: SpriteSheet | null = null
+  private stands = ['stand-down', 'stand-left', 'stand-right', 'stand-up']
+  private goRight = createAnimation(['go-right-1', 'go-right-2'])
+  private goLeft = createAnimation(['go-left-1', 'go-left-2'])
+  private goUp = createAnimation(['go-up-1', 'go-up-2'])
+  private goDown = createAnimation(['go-down-1', 'go-down-2'])
 
-  constructor() {
+  private static instance: Player
+  public static get() {
+    if (!this.instance) this.instance = this.create()
+    return this.instance
+  }
+  private constructor() {
     super()
   }
 
   public draw(context: C2D): void {
-    this.sprite?.draw(context, 'player', 0, 0)
+    this.sprite?.draw(context, this.currentFrame, 0, 0)
   }
 
   public update(dTime: number): void {
     super.update(dTime)
+  }
+
+  private get currentFrame(): string {
+    const dirX = this.move.directionX
+    const dirY = this.move.directionY
+
+    if (dirX !== 0) {
+      const dX = this.move.distanceX
+
+      if (dirX > 0) {
+        return this.goRight(dX)
+      } else if (dirX < 0) {
+        return this.goLeft(dX)
+      }
+    }
+
+    if (dirY !== 0) {
+      const dY = this.move.distanceY
+
+      if (dirY > 0) {
+        return this.goDown(dY)
+      } else if (dirY < 0) {
+        return this.goUp(dY)
+      }
+    }
+
+    return this.stands[this.move.heading]
+  }
+
+  private static create(): Player {
+    const p = new Player()
+    p.x = Config.PLAYER_START_X
+    p.y = Config.PLAYER_START_Y
+    p.size = Config.PLAYER_SIZE
+    p.velocity = new Vector2(0, 0)
+    p.bounds = new BoundingBox({ x: p.x, y: p.y }, { w: p.size.w, h: p.size.h })
+    return p
   }
 }

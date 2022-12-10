@@ -2,8 +2,52 @@
   "imageURL": "src/assets/characters.png",
   "frames": [
     {
-      "name": "player",
+      "name": "stand-down",
       "rect": [1, 0]
+    },
+    {
+      "name": "go-down-1",
+      "rect": [0, 0]
+    },
+    {
+      "name": "go-down-2",
+      "rect": [2, 0]
+    },
+    {
+      "name": "stand-left",
+      "rect": [1, 1]
+    },
+    {
+      "name": "go-left-1",
+      "rect": [0, 1]
+    },
+    {
+      "name": "go-left-2",
+      "rect": [2, 1]
+    },
+    {
+      "name": "stand-right",
+      "rect": [1, 2]
+    },
+    {
+      "name": "go-right-1",
+      "rect": [0, 2]
+    },
+    {
+      "name": "go-right-2",
+      "rect": [2, 2]
+    },
+    {
+      "name": "stand-up",
+      "rect": [1, 3]
+    },
+    {
+      "name": "go-up-1",
+      "rect": [0, 3]
+    },
+    {
+      "name": "go-up-2",
+      "rect": [2, 3]
     }
   ]
 }
