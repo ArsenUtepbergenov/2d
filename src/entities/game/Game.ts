@@ -51,6 +51,11 @@ export default class Game {
 
     while (this.accumulatedTime > this.dTime) {
       this.level.update(this.dTime)
+
+      if (this.player.x > 100) {
+        this.camera.position.x = this.player.x - 100
+      }
+
       this.level.compositor.draw(this.renderer.c2d, this.camera)
       this.accumulatedTime -= this.dTime
     }

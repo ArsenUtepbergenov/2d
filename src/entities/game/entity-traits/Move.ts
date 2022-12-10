@@ -5,7 +5,7 @@ import EntityTrait from './EntityTrait'
 export default class Move extends EntityTrait {
   public directionX = 0
   public directionY = 0
-  public speed = 200
+  public speed = 160
   public distanceX = 0
   public distanceY = 0
   public heading = HeadingSides.DOWN
