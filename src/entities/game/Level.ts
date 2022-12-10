@@ -7,20 +7,23 @@ import TileCollider from './TileCollider'
 export default class Level {
   public compositor = new Compositor()
   public entities = new Set<SpriteEntity>()
-  public tiles = new Matrix<Tile>()
-  public tileCollider = new TileCollider(this.tiles)
+  public tileCollider: TileCollider | null = null
 
   constructor() {}
+
+  public setCollisionGrid(matrix: Matrix<Tile>) {
+    this.tileCollider = new TileCollider(matrix)
+  }
 
   public update(dTime: number) {
     this.entities.forEach(entity => {
       entity.update(dTime)
 
       entity.x += entity.velocity.x
-      this.tileCollider.checkX(entity)
+      this.tileCollider?.checkX(entity)
 
       entity.y += entity.velocity.y
-      this.tileCollider.checkY(entity)
+      this.tileCollider?.checkY(entity)
     })
   }
 }

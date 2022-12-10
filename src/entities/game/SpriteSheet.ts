@@ -40,11 +40,12 @@ export default class SpriteSheet {
   }
 
   public draw(context: C2D, name: string, x: number, y: number, flip = false) {
-    const buffer = this.tiles.get(name)![flip ? 1 : 0]
-    context.drawImage(buffer, x, y)
+    if (!name) return
+    const buffer = this.tiles.get(name)
+    if (buffer) context.drawImage(buffer[flip ? 1 : 0], x, y)
   }
 
-  public drawTile(context: C2D, name: string, x: number, y: number): void {
+  public drawTile(context: C2D, name: string = '', x: number, y: number): void {
     this.draw(context, name, x * Config.TILE_SIZE, y * Config.TILE_SIZE)
   }
 }

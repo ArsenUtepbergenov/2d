@@ -1,14 +1,18 @@
 import Config from '@/models/config'
-import { C2D } from '@/models/game'
+import { C2D, Tile } from '@/models/game'
 import { Matrix } from '../math/Matrix'
 import Camera from './Camera'
 import Level from './Level'
 import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'
+import TileResolver from './TileResolver'
 
-export function createBackgroundLayer(level: Level, sprites: SpriteSheet) {
-  const tiles = level.tiles
-  const resolver = level.tileCollider.tileResolver
+export function createBackgroundLayer(
+  level: Level,
+  tiles: Matrix<Tile>,
+  sprites: SpriteSheet,
+) {
+  const resolver = new TileResolver(tiles)
 
   const buffer = document.createElement('canvas')
   buffer.width = Config.WORLD_WIDTH + Config.TILE_SIZE
@@ -16,43 +20,28 @@ export function createBackgroundLayer(level: Level, sprites: SpriteSheet) {
 
   const context = buffer.getContext('2d')!
 
-  let startIndex: number
-  let endIndex: number
-
-  function redraw(drawFrom: number, drawTo: number) {
-    if (drawFrom === startIndex && drawTo === endIndex) {
-      return
-    }
-
-    console.log('redraw')
-
-    startIndex = drawFrom
-    endIndex = drawTo
+  function redraw(startIndex: number, endIndex: number) {
+    context.clearRect(0, 0, buffer.width, buffer.height)
 
     for (let x = startIndex; x <= endIndex; x++) {
       const column = tiles.grid[x]
 
       if (column) {
-        column.forEach((tile, y) => {
-          sprites.drawTile(context, tile.name, x - startIndex, y)
-        })
+        column.forEach(({ name }, y) =>
+          sprites.drawTile(context, name, x - startIndex, y),
+        )
       }
     }
   }
 
   return function drawBackgroundLayer(context: C2D, camera: Camera) {
     const drawWidth = resolver.toIndex(camera.size.w)
-    // const drawHeight = resolver.toIndex(camera.size.h)
     const drawFrom = resolver.toIndex(camera.position.x)
     const drawTo = drawFrom + drawWidth
 
     redraw(drawFrom, drawTo)
 
-    context.drawImage(
-      buffer,
-      -camera.position.x % Config.TILE_SIZE,
-      -camera.position.y,
-    )
+    context.drawImage(buffer, -camera.position.x % Config.TILE_SIZE, -camera.position.y)
   }
 }
 
@@ -80,7 +69,10 @@ export function createSpriteLayer(entities: Set<SpriteEntity>, w = 64, h = 64) {
 }
 
 export function createCollisionLayer(level: Level) {
-  const tileResolver = level.tileCollider.tileResolver
+  const tileResolver = level.tileCollider?.tileResolver
+
+  if (!tileResolver) return
+
   const tileSize = tileResolver.tileSize
   const resolvedTiles = new Matrix()
 

@@ -1,25 +1,57 @@
 {
-  "backgrounds": [
+  "layers": [
     {
-      "tile": "brickWall",
-      "type": "wall",
-      "ranges": [
-        [0, 24, 0],
-        [0, 24, 11],
-        [0, 1, 1, 10]
+      "tiles": [
+        {
+          "name": "ground",
+          "ranges": [[1, 24, 1, 10]]
+        },
+        {
+          "name": "brickWall",
+          "type": "wall",
+          "ranges": [
+            [0, 24, 0],
+            [0, 24, 11],
+            [0, 1, 1, 10],
+            [1, 5, 7],
+            [16, 5, 4]
+          ]
+        }
       ]
     },
     {
-      "tile": "ground",
-      "ranges": [[1, 24, 1, 10]]
-    },
-    {
-      "tile": "brickWall",
-      "type": "wall",
-      "ranges": [
-        [1, 5, 7],
-        [16, 5, 4]
+      "tiles": [
+        {
+          "pattern": "rock-2h",
+          "ranges": [[4, 2]]
+        }
       ]
     }
-  ]
+  ],
+  "patterns": {
+    "rock-2h": {
+      "tiles": [
+        {
+          "name": "rockTopLeft",
+          "type": "wall",
+          "ranges": [[0, 0]]
+        },
+        {
+          "name": "rockTopRight",
+          "type": "wall",
+          "ranges": [[1, 0]]
+        },
+        {
+          "name": "rockBottomLeft",
+          "type": "wall",
+          "ranges": [[0, 1]]
+        },
+        {
+          "name": "rockBottomRight",
+          "type": "wall",
+          "ranges": [[1, 1]]
+        }
+      ]
+    }
+  }
 }
