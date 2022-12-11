@@ -5,6 +5,7 @@ import Level from './Level'
 import Player from './Player'
 import Move from './entity-traits/Move'
 import { setupPlayerKeyboard } from './input'
+import { createCollisionLayer } from './layers'
 
 // import { setupMouseControl } from './debug'
 // import { createCameraLayer } from './layers'
@@ -35,6 +36,8 @@ export default class Game {
 
     const input = setupPlayerKeyboard(this.player)
     input.listenTo()
+
+    // this.level.compositor.layers.push(createCollisionLayer(this.level))
   }
 
   public async run() {

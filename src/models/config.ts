@@ -11,7 +11,7 @@ export default abstract class Config {
   public static readonly PLAYER_START_X = 64
   public static readonly PLAYER_START_Y = 64
   public static readonly PLAYER_SIZE = {
-    w: Config.TILE_SIZE,
+    w: 28,
     h: Config.TILE_SIZE,
   } as const
 }
