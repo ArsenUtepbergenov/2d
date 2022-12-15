@@ -16,6 +16,10 @@
             [1, 5, 7],
             [16, 5, 4]
           ]
+        },
+        {
+          "name": "groundAboutWallTop",
+          "ranges": [[2, 10, 1]]
         }
       ]
     },
@@ -23,7 +27,7 @@
       "tiles": [
         {
           "pattern": "rock-2h",
-          "ranges": [[4, 2]]
+          "ranges": [[4, 0]]
         }
       ]
     }
@@ -43,12 +47,10 @@
         },
         {
           "name": "rockBottomLeft",
-          "type": "wall",
           "ranges": [[0, 1]]
         },
         {
           "name": "rockBottomRight",
-          "type": "wall",
           "ranges": [[1, 1]]
         }
       ]
