@@ -7,9 +7,6 @@ import Move from './entity-traits/Move'
 import { setupPlayerKeyboard } from './input'
 import { createCollisionLayer } from './layers'
 
-// import { setupMouseControl } from './debug'
-// import { createCameraLayer } from './layers'
-
 export default class Game {
   private parentElement: HTMLElement
   private level: Level | null = null

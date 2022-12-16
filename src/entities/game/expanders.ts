@@ -53,35 +53,33 @@ function expandRange(range: number[]) {
 
 function* expandRanges(ranges: number[][] = []) {
   for (const range of ranges) {
-    for (const item of expandRange(range)!) {
-      yield item
-    }
+    yield* expandRange(range)!
   }
 }
 
-function expandTiles(tiles: Tile[], patterns: Patterns) {
-  const expandedTiles: ExpandedTile[] = []
-
-  function walkTiles(tiles: Tile[], offsetX: number, offsetY: number) {
+function* expandTiles(tiles: Tile[], patterns: Patterns) {
+  function* walkTiles(
+    tiles: Tile[],
+    offsetX: number,
+    offsetY: number,
+  ): Generator<ExpandedTile> {
     for (const tile of tiles) {
       for (const { x, y } of expandRanges(tile.ranges)) {
         const derivedX = x + offsetX
         const derivedY = y + offsetY
 
         if (tile.pattern) {
-          walkTiles(patterns[tile.pattern].tiles, derivedX, derivedY)
+          yield* walkTiles(patterns[tile.pattern].tiles, derivedX, derivedY)
         } else {
-          expandedTiles.push({
+          yield {
             tile,
             x: derivedX,
             y: derivedY,
-          })
+          }
         }
       }
     }
   }
 
-  walkTiles(tiles, 0, 0)
-
-  return expandedTiles
+  yield* walkTiles(tiles, 0, 0)
 }
