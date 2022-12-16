@@ -1,3 +1,4 @@
+import { Sides } from '@/models/enums'
 import { Tile } from '@/models/game'
 import { Matrix } from '../math/Matrix'
 import SpriteEntity from './SpriteEntity'
@@ -35,12 +36,16 @@ export default class TileCollider {
         if (entity.bounds.right > match.x1) {
           entity.bounds.left = match.x1 - entity.size.w
           entity.velocity.x = 0
+
+          entity.obstruct(Sides.RIGHT)
         }
       } else if (entity.velocity.x < 0) {
         if (entity.bounds.left < match.x2) {
           entity.bounds.left = match.x2
           entity.velocity.x = 0
         }
+
+        entity.obstruct(Sides.LEFT)
       }
     })
   }

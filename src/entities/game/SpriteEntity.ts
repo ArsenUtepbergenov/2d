@@ -1,3 +1,4 @@
+import { Sides } from '@/models/enums'
 import { C2D } from '@/models/game'
 import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
@@ -15,6 +16,10 @@ export default abstract class SpriteEntity {
 
   public update(dTime: number): void {
     this.traits.forEach(t => t.update(this, dTime))
+  }
+
+  public obstruct(side: Sides) {
+    this.traits.forEach(t => t.obstruct(side))
   }
 
   public addTrait(trait: EntityTrait): void {

@@ -2,24 +2,26 @@ import { HeadingSides, Sides } from '@/models/enums'
 import SpriteEntity from '../SpriteEntity'
 import EntityTrait from './EntityTrait'
 
-export default class Move extends EntityTrait {
+export default class PendulumMove extends EntityTrait {
   public directionX = 0
-  public directionY = 0
-  public speed = 160
+  public speed = -100
   public distanceX = 0
-  public distanceY = 0
   public heading = HeadingSides.DOWN
 
   constructor() {
-    super('move')
+    super('pendulumMove')
   }
 
   public update(entity: SpriteEntity, dTime: number): void {
-    entity.velocity.x = this.speed * this.directionX * dTime
-    entity.velocity.y = this.speed * this.directionY * dTime
+    entity.velocity.x = this.speed * dTime
+
+    if (entity.velocity.x > 0) {
+      this.directionX = 1
+    } else if (entity.velocity.x < 0) {
+      this.directionX = -1
+    }
 
     const dirX = this.directionX
-    const dirY = this.directionY
 
     if (dirX) {
       this.distanceX += Math.abs(entity.velocity.x) * dTime
@@ -29,16 +31,9 @@ export default class Move extends EntityTrait {
     } else {
       this.distanceX = 0
     }
-
-    if (dirY) {
-      this.distanceY += Math.abs(entity.velocity.y) * dTime
-
-      if (dirY > 0) this.heading = HeadingSides.DOWN
-      if (dirY < 0) this.heading = HeadingSides.UP
-    } else {
-      this.distanceY = 0
-    }
   }
 
-  public obstruct(side: Sides): void {}
+  public obstruct(side: Sides): void {
+    if (side === Sides.LEFT || side === Sides.RIGHT) this.speed = -this.speed
+  }
 }

@@ -3,6 +3,7 @@ export default abstract class Config {
   public static readonly TILES = 'src/assets/tiles.png'
   public static readonly WORLD = 'src/assets/world.json'
   public static readonly WORLD_SPRITES = 'src/assets/world-sprites.json'
+  public static readonly ENEMY = 'src/assets/enemy.json'
   public static readonly PLAYER = 'src/assets/player.json'
   public static readonly CHARACTERS = 'src/assets/characters.png'
   public static readonly TILE_SIZE = 32 as const

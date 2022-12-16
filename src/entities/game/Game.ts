@@ -1,15 +1,18 @@
-import { loadLevel, loadPlayer } from '@/entities/game/loaders'
+import { loadEnemy, loadLevel, loadPlayer } from '@/entities/game/loaders'
 import Camera from './Camera'
 import GameRenderer from './GameRenderer'
 import Level from './Level'
 import { Player, createPlayer } from './Player'
+import { createEnemy, Enemy } from './enemies/Enemy'
 import { setupPlayerKeyboard } from './input'
-import { createCollisionLayer } from './layers'
+
+// import { createCollisionLayer } from './layers'
 
 export default class Game {
   private parentElement: HTMLElement
   private level: Level | null = null
   private player: Player
+  private enemy: Enemy
   private renderer = new GameRenderer()
   private dTime = 1 / 60
   private lastTime = 0
@@ -20,20 +23,27 @@ export default class Game {
     this.parentElement = parent
     this.parentElement.appendChild(this.renderer.buffer)
     this.player = createPlayer()
+    this.enemy = createEnemy()
   }
 
   private async init() {
-    const [playerSprite, level] = await Promise.all([loadPlayer(), loadLevel()])
+    const [playerSprite, enemySprite, level] = await Promise.all([
+      loadPlayer(),
+      loadEnemy(),
+      loadLevel(),
+    ])
 
     this.player.sprite = playerSprite
+    this.enemy.sprite = enemySprite
     this.level = level
 
     this.level.entities.add(this.player)
+    this.level.entities.add(this.enemy)
 
     const input = setupPlayerKeyboard(this.player)
     input.listenTo()
 
-    this.level.compositor.layers.push(createCollisionLayer(this.level))
+    // this.level.compositor.layers.push(createCollisionLayer(this.level))
   }
 
   public async run() {

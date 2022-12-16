@@ -49,6 +49,10 @@ export async function loadPlayer() {
   return await loadSpriteSheet(Config.PLAYER)
 }
 
+export async function loadEnemy() {
+  return await loadSpriteSheet(Config.ENEMY)
+}
+
 export async function loadLevel() {
   const [spec, backgroundSprites] = await Promise.all([
     loadJSON(Config.WORLD),

@@ -4,14 +4,8 @@ import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
 import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'
-import { createAnimation } from './animation'
+import { goRight, goLeft, goDown, goUp, stands } from './animation'
 import Move from './entity-traits/Move'
-
-const stands = ['stand-down', 'stand-left', 'stand-right', 'stand-up']
-const goRight = createAnimation(['go-right-1', 'go-right-2'])
-const goLeft = createAnimation(['go-left-1', 'go-left-2'])
-const goUp = createAnimation(['go-up-1', 'go-up-2'])
-const goDown = createAnimation(['go-down-1', 'go-down-2'])
 
 export const createPlayer = createPlayerFactory()
 
