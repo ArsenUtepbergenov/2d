@@ -2,15 +2,14 @@ import { loadLevel, loadPlayer } from '@/entities/game/loaders'
 import Camera from './Camera'
 import GameRenderer from './GameRenderer'
 import Level from './Level'
-import Player from './Player'
-import Move from './entity-traits/Move'
+import { Player, createPlayer } from './Player'
 import { setupPlayerKeyboard } from './input'
 import { createCollisionLayer } from './layers'
 
 export default class Game {
   private parentElement: HTMLElement
   private level: Level | null = null
-  private player = Player.get()
+  private player: Player
   private renderer = new GameRenderer()
   private dTime = 1 / 60
   private lastTime = 0
@@ -20,6 +19,7 @@ export default class Game {
   constructor(parent: HTMLElement) {
     this.parentElement = parent
     this.parentElement.appendChild(this.renderer.buffer)
+    this.player = createPlayer()
   }
 
   private async init() {
@@ -28,7 +28,6 @@ export default class Game {
     this.player.sprite = playerSprite
     this.level = level
 
-    this.player.addTrait(new Move())
     this.level.entities.add(this.player)
 
     const input = setupPlayerKeyboard(this.player)

@@ -5,67 +5,70 @@ import Vector2 from '../math/Vector2'
 import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'
 import { createAnimation } from './animation'
+import Move from './entity-traits/Move'
 
-export default class Player extends SpriteEntity {
-  public sprite: SpriteSheet | null = null
-  private stands = ['stand-down', 'stand-left', 'stand-right', 'stand-up']
-  private goRight = createAnimation(['go-right-1', 'go-right-2'])
-  private goLeft = createAnimation(['go-left-1', 'go-left-2'])
-  private goUp = createAnimation(['go-up-1', 'go-up-2'])
-  private goDown = createAnimation(['go-down-1', 'go-down-2'])
+const stands = ['stand-down', 'stand-left', 'stand-right', 'stand-up']
+const goRight = createAnimation(['go-right-1', 'go-right-2'])
+const goLeft = createAnimation(['go-left-1', 'go-left-2'])
+const goUp = createAnimation(['go-up-1', 'go-up-2'])
+const goDown = createAnimation(['go-down-1', 'go-down-2'])
 
-  private static instance: Player
-  public static get() {
-    if (!this.instance) this.instance = this.create()
-    return this.instance
+export const createPlayer = createPlayerFactory()
+
+function createPlayerFactory() {
+  function currentFrame(player: Player): string {
+    const dirX = player.move.directionX
+    const dirY = player.move.directionY
+
+    if (dirX !== 0) {
+      const dX = player.move.distanceX
+      return dirX > 0 ? goRight(dX) : goLeft(dX)
+    }
+
+    if (dirY !== 0) {
+      const dY = player.move.distanceY
+      return dirY > 0 ? goDown(dY) : goUp(dY)
+    }
+
+    return stands[player.move.heading]
   }
-  private constructor() {
-    super()
-  }
 
-  private static create(): Player {
-    const p = new Player()
+  return function create() {
+    const p = Player.get()
 
     p.size = Config.PLAYER_SIZE
     p.offset = Config.PLAYER_OFFSET
     p.position = Config.PLAYER_START_POSITION
     p.velocity = new Vector2(0, 0)
     p.bounds = new BoundingBox(p.position, p.size, p.offset)
+    p.applyRouteFrame(currentFrame)
+    p.addTrait(new Move())
     return p
+  }
+}
+
+export class Player extends SpriteEntity {
+  public sprite: SpriteSheet | null = null
+  private currentFrame: ((player: Player) => string) | null = null
+
+  private static instance: Player
+  public static get() {
+    if (!this.instance) this.instance = new Player()
+    return this.instance
+  }
+  private constructor() {
+    super()
+  }
+
+  public applyRouteFrame(fn: (player: Player) => string): void {
+    this.currentFrame = fn
   }
 
   public draw(context: C2D): void {
-    this.sprite?.draw(context, this.currentFrame, 0, 0)
+    this.sprite?.draw(context, this.currentFrame!(this), 0, 0)
   }
 
   public update(dTime: number): void {
     super.update(dTime)
-  }
-
-  private get currentFrame(): string {
-    const dirX = this.move.directionX
-    const dirY = this.move.directionY
-
-    if (dirX !== 0) {
-      const dX = this.move.distanceX
-
-      if (dirX > 0) {
-        return this.goRight(dX)
-      } else if (dirX < 0) {
-        return this.goLeft(dX)
-      }
-    }
-
-    if (dirY !== 0) {
-      const dY = this.move.distanceY
-
-      if (dirY > 0) {
-        return this.goDown(dY)
-      } else if (dirY < 0) {
-        return this.goUp(dY)
-      }
-    }
-
-    return this.stands[this.move.heading]
   }
 }

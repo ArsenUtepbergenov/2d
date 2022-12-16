@@ -1,6 +1,7 @@
 import { Tile } from '@/models/game'
 import { Matrix } from '../math/Matrix'
 import Compositor from './Compositor'
+// import EntityCollider from './EntityCollider'
 import SpriteEntity from './SpriteEntity'
 import TileCollider from './TileCollider'
 
@@ -8,8 +9,11 @@ export default class Level {
   public compositor = new Compositor()
   public entities = new Set<SpriteEntity>()
   public tileCollider: TileCollider | null = null
+  // public entityCollider: EntityCollider
 
-  constructor() {}
+  constructor() {
+    // this.entityCollider = new EntityCollider(this.entities)
+  }
 
   public setCollisionGrid(matrix: Matrix<Tile>) {
     this.tileCollider = new TileCollider(matrix)
@@ -24,6 +28,8 @@ export default class Level {
 
       entity.position.y += entity.velocity.y
       this.tileCollider?.checkY(entity)
+
+      // this.entityCollider.check(entity)
     })
   }
 }
