@@ -3,12 +3,12 @@ export interface IPoint2 {
   y: number
 }
 
-export interface ISize {
+export interface Size {
   w: number
   h: number
 }
 
-export interface IRect extends ISize {}
+export interface IRect extends Size {}
 
 export interface ICircleArc {
   radius: number

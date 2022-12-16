@@ -8,8 +8,8 @@ export default abstract class Config {
   public static readonly TILE_SIZE = 32 as const
   public static readonly WORLD_WIDTH = Config.TILE_SIZE * 14 // 448
   public static readonly WORLD_HEIGHT = Config.TILE_SIZE * 12 // 384
-  public static readonly PLAYER_START_X = 64
-  public static readonly PLAYER_START_Y = 64
+  public static readonly PLAYER_START_POSITION = { x: 64, y: 64 }
+  public static readonly PLAYER_OFFSET = { x: 0, y: 0 }
   public static readonly PLAYER_SIZE = {
     w: 28,
     h: Config.TILE_SIZE,

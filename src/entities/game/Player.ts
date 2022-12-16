@@ -23,6 +23,17 @@ export default class Player extends SpriteEntity {
     super()
   }
 
+  private static create(): Player {
+    const p = new Player()
+
+    p.size = Config.PLAYER_SIZE
+    p.offset = Config.PLAYER_OFFSET
+    p.position = Config.PLAYER_START_POSITION
+    p.velocity = new Vector2(0, 0)
+    p.bounds = new BoundingBox(p.position, p.size, p.offset)
+    return p
+  }
+
   public draw(context: C2D): void {
     this.sprite?.draw(context, this.currentFrame, 0, 0)
   }
@@ -56,15 +67,5 @@ export default class Player extends SpriteEntity {
     }
 
     return this.stands[this.move.heading]
-  }
-
-  private static create(): Player {
-    const p = new Player()
-    p.x = Config.PLAYER_START_X
-    p.y = Config.PLAYER_START_Y
-    p.size = Config.PLAYER_SIZE
-    p.velocity = new Vector2(0, 0)
-    p.bounds = new BoundingBox({ x: p.x, y: p.y }, { w: p.size.w, h: p.size.h })
-    return p
   }
 }

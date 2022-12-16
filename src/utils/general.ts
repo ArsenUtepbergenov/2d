@@ -1,5 +1,5 @@
 import Vector2 from '@/entities/math/Vector2'
-import { Rectangle, Circle, ISize } from '@/models/types'
+import { Rectangle, Circle, Size } from '@/models/types'
 
 /**
  * The general utilities.
@@ -10,9 +10,7 @@ export default abstract class Utils {
   }
 
   public static getRandomColor(): string {
-    return (
-      '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7)
-    )
+    return '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7)
   }
 
   public static getRandomIntByInterval(min: number, max: number) {
@@ -25,10 +23,7 @@ export default abstract class Utils {
     return new Vector2(x, y)
   }
 
-  public static getRandomPositionInsideArea(
-    objectSize: ISize,
-    area: Rectangle,
-  ) {
+  public static getRandomPositionInsideArea(objectSize: Size, area: Rectangle) {
     const x = Utils.getRandomIntByInterval(
       area.x + objectSize.w / 2,
       area.w - objectSize.w / 2,

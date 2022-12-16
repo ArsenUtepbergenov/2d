@@ -70,7 +70,7 @@ export default class Particle extends Entity {
 
     switch (this.form) {
       case 'circle':
-        return new BoundingBox(this.position, { w: radius, h: radius }, -radius)
+        return new BoundingBox(this.position, { w: radius, h: radius })
       case 'rect':
         return new BoundingBox(this.position, { w, h })
     }
@@ -87,10 +87,7 @@ export function getRandomParticle(
   areaRect: Rectangle,
 ): Particle {
   const size = Utils.getRandomIntByInterval(System.HCM, System.CM)
-  const { x, y } = Utils.getRandomPositionInsideArea(
-    { w: size, h: size },
-    areaRect,
-  )
+  const { x, y } = Utils.getRandomPositionInsideArea({ w: size, h: size }, areaRect)
   const params: EntityParams = {
     x,
     y,

@@ -19,10 +19,10 @@ export default class Level {
     this.entities.forEach(entity => {
       entity.update(dTime)
 
-      entity.x += entity.velocity.x
+      entity.position.x += entity.velocity.x
       this.tileCollider?.checkX(entity)
 
-      entity.y += entity.velocity.y
+      entity.position.y += entity.velocity.y
       this.tileCollider?.checkY(entity)
     })
   }

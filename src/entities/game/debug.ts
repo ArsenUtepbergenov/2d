@@ -12,8 +12,8 @@ export function setupMouseControl(
     canvas.addEventListener(eventName, (event: any) => {
       if (event.buttons === 1) {
         entity.velocity = new Vector2(0, 0)
-        entity.x = event.offsetX + camera.position.x
-        entity.y = event.offsetY + camera.position.y
+        entity.position.x = event.offsetX + camera.position.x
+        entity.position.y = event.offsetY + camera.position.y
       } else if (
         event.buttons === 2 &&
         lastEvent?.buttons === 2 &&

@@ -61,8 +61,8 @@ export function createSpriteLayer(entities: Set<SpriteEntity>, w = 64, h = 64) {
 
       context.drawImage(
         sBuffer,
-        entity.x - camera.position.x,
-        entity.y - camera.position.y,
+        entity.position.x - camera.position.x,
+        entity.position.y - camera.position.y,
       )
     })
   }
@@ -98,8 +98,8 @@ export function createCollisionLayer(level: Level) {
     level.entities.forEach(entity => {
       context.beginPath()
       context.rect(
-        entity.x - camera.position.x,
-        entity.y - camera.position.y,
+        entity.bounds.left - camera.position.x,
+        entity.bounds.top - camera.position.y,
         entity.size.w,
         entity.size.h,
       )

@@ -37,7 +37,7 @@ export default class Game {
     const input = setupPlayerKeyboard(this.player)
     input.listenTo()
 
-    // this.level.compositor.layers.push(createCollisionLayer(this.level))
+    this.level.compositor.layers.push(createCollisionLayer(this.level))
   }
 
   public async run() {
@@ -55,8 +55,8 @@ export default class Game {
     while (this.accumulatedTime > this.dTime) {
       this.level.update(this.dTime)
 
-      if (this.player.x > 100) {
-        this.camera.position.x = this.player.x - 100
+      if (this.player.position.x > 100) {
+        this.camera.position.x = this.player.position.x - 100
       }
 
       this.level.compositor.draw(this.renderer.c2d, this.camera)

@@ -16,31 +16,29 @@ export default class TileCollider {
     let x = -1
 
     if (entity.velocity.x > 0) {
-      x = entity.x + entity.size.w
+      x = entity.bounds.right
     } else if (entity.velocity.x < 0) {
-      x = entity.x
+      x = entity.bounds.left
     }
 
     const matches = this.tileResolver.searchByRange(
       x,
       x,
-      entity.y,
-      entity.y + entity.size.h,
+      entity.bounds.top,
+      entity.bounds.bottom,
     )
 
     matches.forEach(match => {
-      if (match.tile.type !== 'wall') {
-        return
-      }
+      if (match.tile.type !== 'wall') return
 
       if (entity.velocity.x > 0) {
-        if (entity.x + entity.size.w > match.x1) {
-          entity.x = match.x1 - entity.size.w
+        if (entity.bounds.right > match.x1) {
+          entity.bounds.left = match.x1 - entity.size.w
           entity.velocity.x = 0
         }
       } else if (entity.velocity.x < 0) {
-        if (entity.x < match.x2) {
-          entity.x = match.x2
+        if (entity.bounds.left < match.x2) {
+          entity.bounds.left = match.x2
           entity.velocity.x = 0
         }
       }
@@ -53,31 +51,29 @@ export default class TileCollider {
     let y = -1
 
     if (entity.velocity.y > 0) {
-      y = entity.y + entity.size.h
+      y = entity.bounds.bottom
     } else if (entity.velocity.y < 0) {
-      y = entity.y
+      y = entity.bounds.top
     }
 
     const matches = this.tileResolver.searchByRange(
-      entity.x,
-      entity.x + entity.size.w,
+      entity.bounds.left,
+      entity.bounds.right,
       y,
       y,
     )
 
     matches.forEach(match => {
-      if (match.tile.type !== 'wall') {
-        return
-      }
+      if (match.tile.type !== 'wall') return
 
       if (entity.velocity.y > 0) {
-        if (entity.y + entity.size.h > match.y1) {
-          entity.y = match.y1 - entity.size.h
+        if (entity.bounds.bottom > match.y1) {
+          entity.bounds.top = match.y1 - entity.size.h
           entity.velocity.y = 0
         }
       } else if (entity.velocity.y < 0) {
-        if (entity.y < match.y2) {
-          entity.y = match.y2
+        if (entity.bounds.top < match.y2) {
+          entity.bounds.top = match.y2
           entity.velocity.y = 0
         }
       }
