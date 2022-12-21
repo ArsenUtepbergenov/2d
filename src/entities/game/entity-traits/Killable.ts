@@ -12,9 +12,13 @@ export default class Killable extends EntityTrait {
     this.isDead = true
   }
 
+  public revive() {
+    this.isDead = false
+    this.deadTime = 0
+  }
+
   public update(entity: SpriteEntity, dTime: number, level: Level): void {
     if (this.isDead) {
-      console.log('isDead')
       this.deadTime += dTime
       if (this.deadTime > this.removeAfter) {
         level.entities.delete(entity)

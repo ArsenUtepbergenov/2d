@@ -1,5 +1,5 @@
 import { Sides } from '@/models/enums'
-import { C2D } from '@/models/game'
+import { C2D, TileByIndex } from '@/models/game'
 import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
 import Level from './Level'
@@ -29,10 +29,10 @@ export default abstract class SpriteEntity {
     }
   }
 
-  public obstruct(side: Sides) {
+  public obstruct(side: Sides, match: TileByIndex) {
     for (const t of this.traits) {
       if (!('obstruct' in t)) continue
-      t.obstruct(side)
+      t.obstruct(this, side, match)
     }
   }
 

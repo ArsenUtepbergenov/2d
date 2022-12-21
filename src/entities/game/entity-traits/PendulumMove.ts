@@ -4,12 +4,15 @@ import EntityTrait, { IObstructable } from './EntityTrait'
 
 export default class PendulumMove extends EntityTrait implements IObstructable {
   public name = 'pendulumMove'
+  public enabled = true
   public directionX = 0
   public distanceX = 0
   public speed = -100
   public heading = HeadingSides.DOWN
 
   public update(entity: SpriteEntity, dTime: number): void {
+    if (!this.enabled) return
+
     entity.velocity.x = this.speed * dTime
 
     if (entity.velocity.x > 0) {
@@ -30,7 +33,7 @@ export default class PendulumMove extends EntityTrait implements IObstructable {
     }
   }
 
-  public obstruct(side: Sides): void {
+  public obstruct(entity: SpriteEntity, side: Sides): void {
     if (side === Sides.LEFT || side === Sides.RIGHT) this.speed = -this.speed
   }
 }

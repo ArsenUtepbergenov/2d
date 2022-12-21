@@ -41,7 +41,7 @@ function createEnemyFactory() {
 class Behavior extends EntityTrait {
   public name = 'behavior'
 
-  public collides(us: SpriteEntity, them: SpriteEntity): void {
+  public collides(us: SpriteEntity): void {
     if (us.killable.isDead) return
 
     us.killable.kill()

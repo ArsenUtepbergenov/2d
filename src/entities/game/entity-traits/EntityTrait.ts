@@ -1,4 +1,5 @@
 import { Sides } from '@/models/enums'
+import { TileByIndex } from '@/models/game'
 import Level from '../Level'
 import SpriteEntity from '../SpriteEntity'
 
@@ -7,7 +8,7 @@ export interface ICollidable {
 }
 
 export interface IObstructable {
-  obstruct(side: Sides): void
+  obstruct(entity: SpriteEntity, side: Sides, match?: TileByIndex): void
 }
 
 export interface IUpdatable {

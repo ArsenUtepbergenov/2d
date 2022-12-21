@@ -7,6 +7,7 @@ import SpriteSheet from './SpriteSheet'
 import { goRight, goLeft, goDown, goUp, stands } from './animation'
 import Killable from './entity-traits/Killable'
 import Move from './entity-traits/Move'
+import Solid from './entity-traits/Solid'
 
 export const createPlayer = createPlayerFactory()
 
@@ -39,6 +40,7 @@ function createPlayerFactory() {
     p.applyRouteFrame(currentFrame)
     p.addTrait(new Move())
     p.addTrait(new Killable())
+    p.addTrait(new Solid())
     return p
   }
 }
