@@ -5,8 +5,7 @@ import Level from './Level'
 import { Player, createPlayer } from './Player'
 import { createEnemy, Enemy } from './enemies/Enemy'
 import { setupPlayerKeyboard } from './input'
-
-// import { createCollisionLayer } from './layers'
+import { createCollisionLayer } from './layers/collision'
 
 export default class Game {
   private parentElement: HTMLElement
@@ -43,7 +42,7 @@ export default class Game {
     const input = setupPlayerKeyboard(this.player)
     input.listenTo()
 
-    // this.level.compositor.layers.push(createCollisionLayer(this.level))
+    this.level.compositor.layers.push(createCollisionLayer(this.level))
   }
 
   public async run() {

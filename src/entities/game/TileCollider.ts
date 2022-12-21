@@ -1,8 +1,16 @@
-import { Sides } from '@/models/enums'
-import { Tile } from '@/models/game'
+import { Tile, TileByIndex } from '@/models/game'
 import { Matrix } from '../math/Matrix'
 import SpriteEntity from './SpriteEntity'
 import TileResolver from './TileResolver'
+import { wall } from './tiles/wall'
+
+type Handlers = {
+  [key: string]: ((entity: SpriteEntity, match: TileByIndex) => void)[]
+}
+
+const handlers: Handlers = {
+  wall,
+}
 
 export default class TileCollider {
   public tileResolver: TileResolver
@@ -12,15 +20,13 @@ export default class TileCollider {
   }
 
   public checkX(entity: SpriteEntity) {
-    if (entity.velocity.x === 0) return
+    const vx = entity.velocity.x
+    if (vx === 0) return
 
     let x = -1
 
-    if (entity.velocity.x > 0) {
-      x = entity.bounds.right
-    } else if (entity.velocity.x < 0) {
-      x = entity.bounds.left
-    }
+    if (vx > 0) x = entity.bounds.right
+    else if (vx < 0) x = entity.bounds.left
 
     const matches = this.tileResolver.searchByRange(
       x,
@@ -29,31 +35,17 @@ export default class TileCollider {
       entity.bounds.bottom,
     )
 
-    matches.forEach(match => {
-      if (match.tile.type !== 'wall') return
-
-      if (entity.velocity.x > 0) {
-        if (entity.bounds.right > match.x1) {
-          entity.obstruct(Sides.RIGHT, match)
-        }
-      } else if (entity.velocity.x < 0) {
-        if (entity.bounds.left < match.x2) {
-          entity.obstruct(Sides.LEFT, match)
-        }
-      }
-    })
+    matches.forEach(match => this.handle(0, entity, match))
   }
 
   public checkY(entity: SpriteEntity) {
-    if (entity.velocity.y === 0) return
+    const vy = entity.velocity.y
+    if (vy === 0) return
 
     let y = -1
 
-    if (entity.velocity.y > 0) {
-      y = entity.bounds.bottom
-    } else if (entity.velocity.y < 0) {
-      y = entity.bounds.top
-    }
+    if (vy > 0) y = entity.bounds.bottom
+    else if (vy < 0) y = entity.bounds.top
 
     const matches = this.tileResolver.searchByRange(
       entity.bounds.left,
@@ -62,18 +54,14 @@ export default class TileCollider {
       y,
     )
 
-    matches.forEach(match => {
-      if (match.tile.type !== 'wall') return
+    matches.forEach(match => this.handle(1, entity, match))
+  }
 
-      if (entity.velocity.y > 0) {
-        if (entity.bounds.bottom > match.y1) {
-          entity.obstruct(Sides.BOTTOM, match)
-        }
-      } else if (entity.velocity.y < 0) {
-        if (entity.bounds.top < match.y2) {
-          entity.obstruct(Sides.TOP, match)
-        }
-      }
-    })
+  private handle(index: number, entity: SpriteEntity, match: TileByIndex) {
+    const hs = handlers[match.tile.type as string]
+
+    if (hs) {
+      hs[index](entity, match)
+    }
   }
 }

@@ -68,48 +68,6 @@ export function createSpriteLayer(entities: Set<SpriteEntity>, w = 64, h = 64) {
   }
 }
 
-export function createCollisionLayer(level: Level) {
-  const tileResolver = level.tileCollider!.tileResolver
-
-  const tileSize = tileResolver.tileSize
-  const resolvedTiles = new Matrix()
-
-  const getByIndexOriginal = tileResolver.getByIndex
-
-  tileResolver.getByIndex = function getByIndexFake(x, y) {
-    resolvedTiles.set(x, y, true)
-    return getByIndexOriginal.call(tileResolver, x, y)
-  }
-
-  return function drawCollisions(context: C2D, camera: Camera) {
-    context.strokeStyle = 'blue'
-    resolvedTiles.forEach((_, x, y) => {
-      context.beginPath()
-      context.rect(
-        x * tileSize - camera.position.x,
-        y * tileSize - camera.position.y,
-        tileSize,
-        tileSize,
-      )
-      context.stroke()
-    })
-
-    context.strokeStyle = 'red'
-    level.entities.forEach(entity => {
-      context.beginPath()
-      context.rect(
-        entity.bounds.left - camera.position.x,
-        entity.bounds.top - camera.position.y,
-        entity.size.w,
-        entity.size.h,
-      )
-      context.stroke()
-    })
-
-    resolvedTiles.clear()
-  }
-}
-
 export function createCameraLayer(cameraToDraw: Camera) {
   return function drawCameraRect(context: C2D, fromCamera: Camera) {
     context.strokeStyle = 'purple'
