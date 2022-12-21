@@ -1,11 +1,19 @@
 import { Sides } from '@/models/enums'
+import Level from '../Level'
 import SpriteEntity from '../SpriteEntity'
 
-export default abstract class EntityTrait {
-  constructor(public name: string) {
-    this.name = name
-  }
+export interface ICollidable {
+  collides(us: SpriteEntity, them: SpriteEntity): void
+}
 
-  public abstract update(entity: SpriteEntity, dTime: number): void
-  public abstract obstruct(side: Sides): void
+export interface IObstructable {
+  obstruct(side: Sides): void
+}
+
+export interface IUpdatable {
+  update(entity: SpriteEntity, dTime: number, level?: Level): void
+}
+
+export default abstract class EntityTrait {
+  public abstract name: string
 }

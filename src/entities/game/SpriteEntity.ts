@@ -2,6 +2,7 @@ import { Sides } from '@/models/enums'
 import { C2D } from '@/models/game'
 import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
+import Level from './Level'
 import EntityTrait from './entity-traits/EntityTrait'
 
 export default abstract class SpriteEntity {
@@ -10,16 +11,29 @@ export default abstract class SpriteEntity {
   public velocity = new Vector2(0, 0)
   public size = { w: 0, h: 0 }
   public bounds = new BoundingBox(this.position, this.size, this.offset)
-  protected traits: EntityTrait[] = []
+  protected traits: any[] = []
 
   public abstract draw(context: C2D): void
 
-  public update(dTime: number): void {
-    this.traits.forEach(t => t.update(this, dTime))
+  public update(dTime: number, level?: Level): void {
+    for (const t of this.traits) {
+      if (!('update' in t)) continue
+      t.update(this, dTime, level)
+    }
+  }
+
+  public collides(candidate: SpriteEntity) {
+    for (const t of this.traits) {
+      if (!('collides' in t)) continue
+      t.collides(this, candidate)
+    }
   }
 
   public obstruct(side: Sides) {
-    this.traits.forEach(t => t.obstruct(side))
+    for (const t of this.traits) {
+      if (!('obstruct' in t)) continue
+      t.obstruct(side)
+    }
   }
 
   public addTrait(trait: EntityTrait): void {

@@ -1,4 +1,4 @@
-import { HeadingSides, Sides } from '@/models/enums'
+import { HeadingSides } from '@/models/enums'
 import SpriteEntity from '../SpriteEntity'
 import EntityTrait from './EntityTrait'
 
@@ -9,10 +9,7 @@ export default class Move extends EntityTrait {
   public distanceX = 0
   public distanceY = 0
   public heading = HeadingSides.DOWN
-
-  constructor() {
-    super('move')
-  }
+  public name = 'move'
 
   public update(entity: SpriteEntity, dTime: number): void {
     entity.velocity.x = this.speed * this.directionX * dTime
@@ -39,6 +36,4 @@ export default class Move extends EntityTrait {
       this.distanceY = 0
     }
   }
-
-  public obstruct(side: Sides): void {}
 }

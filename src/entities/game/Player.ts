@@ -5,6 +5,7 @@ import Vector2 from '../math/Vector2'
 import SpriteEntity from './SpriteEntity'
 import SpriteSheet from './SpriteSheet'
 import { goRight, goLeft, goDown, goUp, stands } from './animation'
+import Killable from './entity-traits/Killable'
 import Move from './entity-traits/Move'
 
 export const createPlayer = createPlayerFactory()
@@ -37,6 +38,7 @@ function createPlayerFactory() {
     p.bounds = new BoundingBox(p.position, p.size, p.offset)
     p.applyRouteFrame(currentFrame)
     p.addTrait(new Move())
+    p.addTrait(new Killable())
     return p
   }
 }

@@ -4,6 +4,8 @@ import { C2D } from '@/models/game'
 import SpriteEntity from '../SpriteEntity'
 import SpriteSheet from '../SpriteSheet'
 import { goRight, goLeft, stands } from '../animation'
+import EntityTrait from '../entity-traits/EntityTrait'
+import Killable from '../entity-traits/Killable'
 import PendulumMove from '../entity-traits/PendulumMove'
 
 export const createEnemy = createEnemyFactory()
@@ -30,7 +32,20 @@ function createEnemyFactory() {
     e.bounds = new BoundingBox(e.position, e.size, e.offset)
     e.applyRouteFrame(currentFrame)
     e.addTrait(new PendulumMove())
+    e.addTrait(new Behavior())
+    e.addTrait(new Killable())
     return e
+  }
+}
+
+class Behavior extends EntityTrait {
+  public name = 'behavior'
+
+  public collides(us: SpriteEntity, them: SpriteEntity): void {
+    if (us.killable.isDead) return
+
+    us.killable.kill()
+    us.pendulumMove.speed = 0
   }
 }
 
@@ -48,9 +63,5 @@ export class Enemy extends SpriteEntity {
 
   public draw(context: C2D): void {
     this.sprite?.draw(context, this.currentFrame!(this), 0, 0)
-  }
-
-  public update(dTime: number): void {
-    super.update(dTime)
   }
 }

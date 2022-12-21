@@ -1,16 +1,13 @@
 import { HeadingSides, Sides } from '@/models/enums'
 import SpriteEntity from '../SpriteEntity'
-import EntityTrait from './EntityTrait'
+import EntityTrait, { IObstructable } from './EntityTrait'
 
-export default class PendulumMove extends EntityTrait {
+export default class PendulumMove extends EntityTrait implements IObstructable {
+  public name = 'pendulumMove'
   public directionX = 0
-  public speed = -100
   public distanceX = 0
+  public speed = -100
   public heading = HeadingSides.DOWN
-
-  constructor() {
-    super('pendulumMove')
-  }
 
   public update(entity: SpriteEntity, dTime: number): void {
     entity.velocity.x = this.speed * dTime
