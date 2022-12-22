@@ -1,5 +1,6 @@
-import { Sides } from '@/models/enums'
+import { Sides, Sounds } from '@/models/enums'
 import { GameContext, TileByIndex } from '@/models/game'
+import AudioBoard from '../AudioBoard'
 import Level from '../Level'
 import SpriteEntity from '../SpriteEntity'
 
@@ -17,4 +18,11 @@ export interface IUpdatable {
 
 export default abstract class EntityTrait {
   public abstract name: string
+  public sounds = new Set<Sounds>()
+
+  public playSounds(audioBoard: AudioBoard, context: AudioContext) {
+    this.sounds.forEach(sound => audioBoard.play(sound, context))
+
+    this.sounds.clear()
+  }
 }

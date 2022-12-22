@@ -21,6 +21,7 @@ export default abstract class SpriteEntity {
     for (const t of this.traits) {
       if (!('update' in t)) continue
       t.update(this, gameContext, level)
+      t.playSounds(this.audio, gameContext.audioContext)
     }
   }
 

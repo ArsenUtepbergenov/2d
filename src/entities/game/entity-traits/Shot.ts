@@ -9,12 +9,12 @@ export default class Shot extends EntityTrait implements IUpdatable {
   private fireballDuration = 1.73
   private ready = 0
 
-  public update(entity: SpriteEntity, { dTime, audioContext }: GameContext): void {
+  public update(_: SpriteEntity, { dTime }: GameContext): void {
     this.ready += dTime
 
     if (this.ready > this.fireballDuration) {
       if (this.fireball > 0) {
-        entity.audio?.play(Sounds.SHOT_FIREBALL, audioContext)
+        this.sounds.add(Sounds.SHOT_FIREBALL)
         this.ready = 0
       }
     }
