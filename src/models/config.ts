@@ -6,6 +6,7 @@ export default abstract class Config {
   public static readonly ENEMY = 'src/assets/enemy.json'
   public static readonly PLAYER = 'src/assets/player.json'
   public static readonly CHARACTERS = 'src/assets/characters.png'
+  public static readonly FONT_URL = 'src/assets/font.png'
   public static readonly TILE_SIZE = 32 as const
   public static readonly WORLD_WIDTH = Config.TILE_SIZE * 14 // 448
   public static readonly WORLD_HEIGHT = Config.TILE_SIZE * 12 // 384

@@ -6,6 +6,8 @@ import { Player, createPlayer } from './Player'
 import { createEnemy, Enemy } from './enemies/Enemy'
 import { setupPlayerKeyboard } from './input'
 import { createCollisionLayer } from './layers/collision'
+import { createDashboardLayer } from './layers/dashboard'
+import { Font, loadFont } from './loaders/font'
 
 export default class Game {
   private parentElement: HTMLElement
@@ -17,6 +19,7 @@ export default class Game {
   private lastTime = 0
   private accumulatedTime = 0
   private camera = new Camera()
+  private font: Font | null = null
 
   constructor(parent: HTMLElement) {
     this.parentElement = parent
@@ -26,14 +29,16 @@ export default class Game {
   }
 
   private async init() {
-    const [playerSprite, enemySprite, level] = await Promise.all([
+    const [playerSprite, enemySprite, font, level] = await Promise.all([
       loadPlayer(),
       loadEnemy(),
+      loadFont(),
       loadLevel(),
     ])
 
     this.player.sprite = playerSprite
     this.enemy.sprite = enemySprite
+    this.font = font
     this.level = level
 
     this.level.entities.add(this.player)
@@ -43,6 +48,7 @@ export default class Game {
     input.listenTo()
 
     this.level.compositor.layers.push(createCollisionLayer(this.level))
+    this.level.compositor.layers.push(createDashboardLayer(this.font))
   }
 
   public async run() {
