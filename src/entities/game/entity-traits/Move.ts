@@ -1,8 +1,9 @@
 import { HeadingSides } from '@/models/enums'
+import { GameContext } from '@/models/game'
 import SpriteEntity from '../SpriteEntity'
-import EntityTrait from './EntityTrait'
+import EntityTrait, { IUpdatable } from './EntityTrait'
 
-export default class Move extends EntityTrait {
+export default class Move extends EntityTrait implements IUpdatable {
   public directionX = 0
   public directionY = 0
   public speed = 160
@@ -11,7 +12,7 @@ export default class Move extends EntityTrait {
   public heading = HeadingSides.DOWN
   public name = 'move'
 
-  public update(entity: SpriteEntity, dTime: number): void {
+  public update(entity: SpriteEntity, { dTime }: GameContext): void {
     entity.velocity.x = this.speed * this.directionX * dTime
     entity.velocity.y = this.speed * this.directionY * dTime
 

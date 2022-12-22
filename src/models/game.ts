@@ -33,3 +33,8 @@ export type TileByIndex = {
 export type MatrixCallback<Type> = {
   (value: Type, x: number, y: number): void
 }
+
+export type GameContext = {
+  dTime: number
+  audioContext: AudioContext
+}

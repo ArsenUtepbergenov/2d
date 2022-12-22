@@ -7,6 +7,7 @@ import SpriteSheet from './SpriteSheet'
 import { goRight, goLeft, goDown, goUp, stands } from './animation'
 import Killable from './entity-traits/Killable'
 import Move from './entity-traits/Move'
+import Shot from './entity-traits/Shot'
 import Solid from './entity-traits/Solid'
 
 export const createPlayer = createPlayerFactory()
@@ -41,6 +42,7 @@ function createPlayerFactory() {
     p.addTrait(new Move())
     p.addTrait(new Killable())
     p.addTrait(new Solid())
+    p.addTrait(new Shot())
     return p
   }
 }
@@ -64,9 +66,5 @@ export class Player extends SpriteEntity {
 
   public draw(context: C2D): void {
     this.sprite?.draw(context, this.currentFrame!(this), 0, 0)
-  }
-
-  public update(dTime: number): void {
-    super.update(dTime)
   }
 }

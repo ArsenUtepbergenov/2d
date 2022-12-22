@@ -1,8 +1,12 @@
 import { HeadingSides, Sides } from '@/models/enums'
+import { GameContext } from '@/models/game'
 import SpriteEntity from '../SpriteEntity'
-import EntityTrait, { IObstructable } from './EntityTrait'
+import EntityTrait, { IObstructable, IUpdatable } from './EntityTrait'
 
-export default class PendulumMove extends EntityTrait implements IObstructable {
+export default class PendulumMove
+  extends EntityTrait
+  implements IObstructable, IUpdatable
+{
   public name = 'pendulumMove'
   public enabled = true
   public directionX = 0
@@ -10,7 +14,7 @@ export default class PendulumMove extends EntityTrait implements IObstructable {
   public speed = -100
   public heading = HeadingSides.DOWN
 
-  public update(entity: SpriteEntity, dTime: number): void {
+  public update(entity: SpriteEntity, { dTime }: GameContext): void {
     if (!this.enabled) return
 
     entity.velocity.x = this.speed * dTime

@@ -1,5 +1,5 @@
 import { Sides } from '@/models/enums'
-import { TileByIndex } from '@/models/game'
+import { GameContext, TileByIndex } from '@/models/game'
 import Level from '../Level'
 import SpriteEntity from '../SpriteEntity'
 
@@ -12,7 +12,7 @@ export interface IObstructable {
 }
 
 export interface IUpdatable {
-  update(entity: SpriteEntity, dTime: number, level?: Level): void
+  update(entity: SpriteEntity, gameContext: GameContext, level?: Level): void
 }
 
 export default abstract class EntityTrait {

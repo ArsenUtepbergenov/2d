@@ -1,4 +1,4 @@
-import { Tile } from '@/models/game'
+import { GameContext, Tile } from '@/models/game'
 import { Matrix } from '../math/Matrix'
 import Compositor from './Compositor'
 import EntityCollider from './EntityCollider'
@@ -19,9 +19,9 @@ export default class Level {
     this.tileCollider = new TileCollider(matrix)
   }
 
-  public update(dTime: number) {
+  public update(gameContext: GameContext) {
     this.entities.forEach(entity => {
-      entity.update(dTime, this)
+      entity.update(gameContext, this)
 
       entity.position.x += entity.velocity.x
       this.tileCollider?.checkX(entity)

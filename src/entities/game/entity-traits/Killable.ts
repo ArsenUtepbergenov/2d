@@ -1,8 +1,9 @@
+import { GameContext } from '@/models/game'
 import Level from '../Level'
 import SpriteEntity from '../SpriteEntity'
-import EntityTrait from './EntityTrait'
+import EntityTrait, { IUpdatable } from './EntityTrait'
 
-export default class Killable extends EntityTrait {
+export default class Killable extends EntityTrait implements IUpdatable {
   public name = 'killable'
   public isDead = false
   public deadTime = 0
@@ -17,7 +18,7 @@ export default class Killable extends EntityTrait {
     this.deadTime = 0
   }
 
-  public update(entity: SpriteEntity, dTime: number, level: Level): void {
+  public update(entity: SpriteEntity, { dTime }: GameContext, level: Level): void {
     if (this.isDead) {
       this.deadTime += dTime
       if (this.deadTime > this.removeAfter) {

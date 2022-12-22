@@ -1,5 +1,6 @@
 export default abstract class Config {
   public static readonly FONT = '1rem Calibri'
+  public static readonly AUDIO_FIREBALL = 'src/assets/fireball.mp3'
   public static readonly TILES = 'src/assets/tiles.png'
   public static readonly WORLD = 'src/assets/world.json'
   public static readonly WORLD_SPRITES = 'src/assets/world-sprites.json'

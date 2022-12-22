@@ -8,6 +8,7 @@ export function setupPlayerKeyboard(player: Player) {
   input.addMapping('KeyD', keyState => (player.move.directionX += keyState ? 1 : -1))
   input.addMapping('KeyW', keyState => (player.move.directionY += keyState ? -1 : 1))
   input.addMapping('KeyS', keyState => (player.move.directionY += keyState ? 1 : -1))
+  input.addMapping('Space', keyState => (player.shot.fireball += keyState ? 1 : -1))
 
   return input
 }

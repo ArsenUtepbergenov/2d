@@ -22,3 +22,7 @@ export const enum HeadingSides {
   RIGHT,
   UP,
 }
+
+export const enum Sounds {
+  SHOT_FIREBALL = 'shot-fireball',
+}
