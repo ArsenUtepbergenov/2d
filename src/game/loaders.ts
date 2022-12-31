@@ -1,5 +1,5 @@
-import Level from '@/entities/game/Level'
-import { createBackgroundLayer, createSpriteLayer } from '@/entities/game/layers'
+import Level from '@/game/Level'
+import { createBackgroundLayer, createSpriteLayer } from '@/game/layers'
 import Config from '@/models/config'
 import { FrameSpec, TileSpec } from '@/models/game'
 import SpriteSheet from './SpriteSheet'

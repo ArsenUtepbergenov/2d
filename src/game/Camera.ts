@@ -1,5 +1,5 @@
 import Config from '@/models/config'
-import Vector2 from '../math/Vector2'
+import Vector2 from '../entities/math/Vector2'
 
 export default class Camera {
   public position = new Vector2(0, 0)

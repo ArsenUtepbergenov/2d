@@ -1,6 +1,6 @@
 import Config from '@/models/config'
 import { C2D, Tile } from '@/models/game'
-import { Matrix } from '../math/Matrix'
+import { Matrix } from '../entities/math/Matrix'
 import Camera from './Camera'
 import Level from './Level'
 import SpriteEntity from './SpriteEntity'

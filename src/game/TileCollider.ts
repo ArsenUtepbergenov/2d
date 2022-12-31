@@ -1,5 +1,5 @@
 import { Tile, TileByIndex } from '@/models/game'
-import { Matrix } from '../math/Matrix'
+import { Matrix } from '../entities/math/Matrix'
 import SpriteEntity from './SpriteEntity'
 import TileResolver from './TileResolver'
 import { wall } from './tiles/wall'

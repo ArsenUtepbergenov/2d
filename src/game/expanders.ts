@@ -1,5 +1,5 @@
 import { ExpandedTile, Patterns, Tile } from '@/models/game'
-import { Matrix } from '../math/Matrix'
+import { Matrix } from '../entities/math/Matrix'
 
 export function createCollisionGrid(tiles: Tile[], patterns: Patterns) {
   const grid = new Matrix<Tile>()

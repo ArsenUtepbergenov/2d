@@ -1,4 +1,4 @@
-import KeyboardState from '../KeyboardState'
+import KeyboardState from '../entities/KeyboardState'
 import { Player } from './Player'
 
 export function setupPlayerKeyboard(player: Player) {

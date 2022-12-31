@@ -1,4 +1,4 @@
-import Camera from '@/entities/game/Camera'
+import Camera from '@/game/Camera'
 
 export type C2D = CanvasRenderingContext2D
 

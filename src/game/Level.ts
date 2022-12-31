@@ -1,5 +1,5 @@
 import { GameContext, Tile } from '@/models/game'
-import { Matrix } from '../math/Matrix'
+import { Matrix } from '../entities/math/Matrix'
 import Compositor from './Compositor'
 import EntityCollider from './EntityCollider'
 import SpriteEntity from './SpriteEntity'
