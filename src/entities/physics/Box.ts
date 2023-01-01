@@ -1,15 +1,16 @@
-import { ParticleParams } from '@/models'
-import BoundingCircle from '../BoundingCircle'
+import { BoxParams } from '@/models'
+import BoundingBox from '../BoundingBox'
 import Vector2 from '../math/Vector2'
 import { distanceTo } from '../math/common'
 import Entity from './Entity'
 
-export default class Particle extends Entity {
-  public bounds: BoundingCircle
-  public params: ParticleParams = {
+export default class Box extends Entity {
+  public bounds: BoundingBox
+  public params: BoxParams = {
     x: 0,
     y: 0,
-    radius: 0,
+    w: 0,
+    h: 0,
     velocity: new Vector2(0, 0),
     speed: 0,
     direction: 0,
@@ -20,8 +21,8 @@ export default class Particle extends Entity {
     alpha: 1,
   }
 
-  constructor(params: Partial<ParticleParams>) {
-    super('circle')
+  constructor(params: Partial<BoxParams>) {
+    super('rect')
     this.params = {
       ...this.params,
       ...params,
@@ -41,15 +42,15 @@ export default class Particle extends Entity {
     this.y += this.velocity.y
   }
 
-  public angleTo(particle: Particle): number {
+  public angleTo(particle: Box): number {
     return Math.atan2(particle.y - this.y, particle.x - this.x)
   }
 
-  public distanceTo(particle: Particle): number {
+  public distanceTo(particle: Box): number {
     return distanceTo(particle.x - this.x, particle.y - this.y)
   }
 
-  public gravitateTo(particle: Particle): void {
+  public gravitateTo(particle: Box): void {
     const gravity = new Vector2(0, 0)
     const distance = this.distanceTo(particle)
 
@@ -60,12 +61,12 @@ export default class Particle extends Entity {
   }
 
   public getBounds() {
-    const { radius } = this.params
-    return new BoundingCircle(this.position, radius)
+    const { w, h } = this.params
+    return new BoundingBox(this.position, { w, h })
   }
 
   public get formParams() {
-    const { radius, mode, style, alpha } = this.params
-    return { radius, mode, style, alpha }
+    const { w, h, mode, style, alpha } = this.params
+    return { w, h, mode, style, alpha }
   }
 }

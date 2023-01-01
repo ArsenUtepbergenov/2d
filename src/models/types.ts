@@ -25,3 +25,7 @@ export type EntityFormType = 'rect' | 'circle'
 export interface IDrawable {
   draw(): void
 }
+
+export interface IUpdatable {
+  update(): void
+}

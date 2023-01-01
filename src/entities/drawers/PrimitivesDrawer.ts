@@ -9,15 +9,10 @@ export default class PrimitivesDrawer extends Drawer {
     super(c2d, params)
   }
 
-  public rect(
-    { x, y }: Point,
-    rect: IRect,
-    mode: 'fill' | 'stroke' = 'stroke',
-  ): void {
+  public rect({ x, y }: Point, rect: IRect, mode: 'fill' | 'stroke' = 'stroke'): void {
     const c = this.c2d
-    const { w, h } = rect
     c.beginPath()
-    c.rect(x, y, w, h)
+    c.rect(x, y, rect.w, rect.h)
     mode === 'stroke' ? c.stroke() : c.fill()
   }
 
