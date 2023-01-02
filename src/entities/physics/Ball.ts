@@ -1,8 +1,9 @@
 import { BallParams, StyleParams } from '@/models'
+import { Circle } from '@/models/types'
 import BoundingCircle from '../BoundingCircle'
 import Entity from './Entity'
 
-export default class Ball extends Entity {
+export default class Ball extends Entity implements Circle {
   public bounds: BoundingCircle
   public radius = 0
   public elasticity = 0.5
@@ -25,7 +26,9 @@ export default class Ball extends Entity {
   public update(): void {
     if (Math.abs(this.velocity.x) < this.friction) return
 
-    this.velocity.y += this.gravity
+    if (this.y + this.gravity < 700) {
+      this.velocity.y += this.gravity
+    }
 
     this.velocity.x -= this.velocity.x * this.friction
 

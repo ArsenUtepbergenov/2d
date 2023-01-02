@@ -1,4 +1,5 @@
 import { Point } from './Point'
+import { distanceTo } from './common'
 
 export default class Vector2 {
   public x: number
@@ -29,7 +30,7 @@ export default class Vector2 {
   }
 
   public get length(): number {
-    return Math.sqrt(this.x * this.x + this.y * this.y)
+    return distanceTo(this.x, this.y)
   }
 
   public set length(value: number) {

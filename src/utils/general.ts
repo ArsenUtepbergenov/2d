@@ -41,18 +41,38 @@ export default abstract class Utils {
     while (h--) matrix.push(new Array(w).fill(0))
     return matrix
   }
+
+  public static getMouseCoordinates(event: MouseEvent) {
+    const target = event.target as HTMLElement
+    const rect = target.getBoundingClientRect()
+
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    }
+  }
 }
 
 /**
  * The utility for checking collision.
  */
 export abstract class Collider {
+  public static checkCircleToCircle(circle1: Circle, circle2: Circle): boolean {
+    const dx = circle1.x - circle2.x
+    const dy = circle1.y - circle2.y
+    const distance = dx * dx + dy * dy
+
+    return (
+      distance <= (circle1.radius + circle2.radius) * (circle1.radius + circle2.radius)
+    )
+  }
+
   public static checkRectToCircle(rect: Rectangle, circle: Circle): boolean {
     return (
-      rect.x < circle.x + circle.r &&
-      rect.x + rect.w > circle.x - circle.r &&
-      rect.y < circle.y + circle.r &&
-      rect.y + rect.h > circle.y - circle.r
+      rect.x < circle.x + circle.radius &&
+      rect.x + rect.w > circle.x - circle.radius &&
+      rect.y < circle.y + circle.radius &&
+      rect.y + rect.h > circle.y - circle.radius
     )
   }
 

@@ -18,7 +18,7 @@ export interface ICircleArc {
 }
 
 export type Rectangle = IPoint2 & IRect
-export type Circle = IPoint2 & { r: number }
+export type Circle = IPoint2 & { radius: number }
 
 export type EntityFormType = 'rect' | 'circle'
 

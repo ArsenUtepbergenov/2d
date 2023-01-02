@@ -2,20 +2,20 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes = [
   {
-    path: '/',
+    path: '/rpg',
     name: 'PRG',
     component: () => import('@/pages/PRG.vue'),
-    alias: '/rpg',
+    alias: '/game',
   },
   {
-    path: '/test',
+    path: '/',
     name: 'TestSpot',
     component: () => import('@/pages/TestSpot.vue'),
     alias: '/test-spot',
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: { name: 'PRG' },
+    redirect: { name: 'TestSpot' },
   },
 ]
 

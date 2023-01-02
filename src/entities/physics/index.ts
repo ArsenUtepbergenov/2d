@@ -8,13 +8,14 @@ import Box from './Box'
 import Particle from './Particle'
 
 export function createBall(x = 0, y = 0, radius = 0): Ball {
+  const r = radius || Utils.getRandomIntByInterval(15, 40)
   const params = {
     x,
     y,
-    radius,
+    radius: r,
     velocity: new Vector2(0, 0),
     acceleration: new Vector2(0, 0),
-    mass: 0,
+    mass: Utils.getRandomIntByInterval(r, 2 * r),
   }
   const styles: StyleParams = {
     style: Utils.getRandomColor(),
