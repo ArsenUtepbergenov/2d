@@ -1,12 +1,13 @@
 import { CanvasParams } from '@/models'
-import Utils, { Collider } from '@/utils/general'
+import { Collider } from '@/utils/collider'
+import Utils from '@/utils/general'
 import BallsLockedArea from './BallsLockedArea'
 import PrimitiveRenderer from './PrimitiveRenderer'
-import { Point } from './math/Point'
-import { distanceTo } from './math/common'
+import { QuadTree } from './QuadTree'
 import { createBall } from './physics'
 import Ball from './physics/Ball'
 import Entity from './physics/Entity'
+import Rect from './primitives/Rect'
 
 export default class Scene {
   private canvas: HTMLCanvasElement
@@ -23,19 +24,24 @@ export default class Scene {
     this.init()
   }
 
-  public handleClick = (e: MouseEvent) => {
-    this.createBall(Utils.getMouseCoordinates(e))
-  }
-
   public init(): void {
-    this.canvas.onclick = this.handleClick
-  }
+    const qt = new QuadTree(new Rect(0, 0, 300, 300), 4)
 
-  public createBall({ x, y }: Point): void {
-    const ball = createBall(x, y)
-    ball.velocity.length = 7
-    ball.velocity.angle = -Math.PI / 4
-    this.entities.push(ball)
+    for (let b = 0; b < 20; b++) {
+      const ball = createBall(
+        Utils.getRandomIntByInterval(0, 300),
+        Utils.getRandomIntByInterval(0, 300),
+        10,
+      )
+      ball.velocity.length = 1
+      ball.velocity.angle = Utils.getRandomRad()
+      this.entities.push(ball)
+      qt.insert(ball)
+    }
+
+    qt.show(this.renderer.c2d)
+
+    console.log(qt)
   }
 
   public freeze(): void {
@@ -52,9 +58,9 @@ export default class Scene {
     const that = this
 
     function loop() {
-      that.renderer.clear()
+      // that.renderer.clear()
 
-      that.updateEntities()
+      // that.updateEntities()
       that.renderEntities()
 
       that.rafId = requestAnimationFrame(loop)
@@ -75,35 +81,9 @@ export default class Scene {
     for (let j = i + 1; j < this.entities.length; j++) {
       const ball2 = this.entities[j] as Ball
       if (Collider.checkCircleToCircle(ball1, ball2)) {
-        this.collideBalls(ball1, ball2)
+        Collider.collideBalls(ball1, ball2)
       }
     }
-  }
-
-  private collideBalls(ball1: Ball, ball2: Ball) {
-    const dx = ball2.x - ball1.x
-    const dy = ball2.y - ball1.y
-    const distance = distanceTo(dx, dy)
-
-    const n = { x: dx / distance, y: dy / distance }
-    const rv = {
-      x: ball1.velocity.x - ball2.velocity.x,
-      y: ball1.velocity.y - ball2.velocity.y,
-    }
-
-    const speed = n.x * rv.x + n.y * rv.y
-
-    if (speed < 0) return
-
-    const impulse = (2 * speed) / (ball1.mass + ball2.mass)
-
-    ball1.velocity.x -= impulse * ball2.mass * n.x
-    ball1.velocity.y -= impulse * ball2.mass * n.y
-    ball2.velocity.x += impulse * ball1.mass * n.x
-    ball2.velocity.y += impulse * ball1.mass * n.y
-
-    ball1.velocity.y = ball1.velocity.y * ball1.elasticity
-    ball2.velocity.y = ball2.velocity.y * ball2.elasticity
   }
 
   private updateEntities(): void {

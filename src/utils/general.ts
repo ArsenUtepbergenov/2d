@@ -1,5 +1,5 @@
 import Vector2 from '@/entities/math/Vector2'
-import { Rectangle, Circle, Size } from '@/models/types'
+import { Rectangle, Size } from '@/models/types'
 
 /**
  * The general utilities.
@@ -11,6 +11,10 @@ export default abstract class Utils {
 
   public static getRandomColor(): string {
     return '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7)
+  }
+
+  public static getRandomRad() {
+    return Math.random() * (Math.PI * 2)
   }
 
   public static getRandomIntByInterval(min: number, max: number) {
@@ -50,38 +54,5 @@ export default abstract class Utils {
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
     }
-  }
-}
-
-/**
- * The utility for checking collision.
- */
-export abstract class Collider {
-  public static checkCircleToCircle(circle1: Circle, circle2: Circle): boolean {
-    const dx = circle1.x - circle2.x
-    const dy = circle1.y - circle2.y
-    const distance = dx * dx + dy * dy
-
-    return (
-      distance <= (circle1.radius + circle2.radius) * (circle1.radius + circle2.radius)
-    )
-  }
-
-  public static checkRectToCircle(rect: Rectangle, circle: Circle): boolean {
-    return (
-      rect.x < circle.x + circle.radius &&
-      rect.x + rect.w > circle.x - circle.radius &&
-      rect.y < circle.y + circle.radius &&
-      rect.y + rect.h > circle.y - circle.radius
-    )
-  }
-
-  public static checkRectToRect(rect1: Rectangle, rect2: Rectangle): boolean {
-    return (
-      rect1.x < rect2.x + rect2.w &&
-      rect1.x + rect1.w > rect2.x &&
-      rect1.y < rect2.y + rect2.h &&
-      rect1.y + rect1.h > rect2.y
-    )
   }
 }

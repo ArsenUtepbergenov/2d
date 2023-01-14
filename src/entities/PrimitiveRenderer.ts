@@ -1,4 +1,4 @@
-import { CanvasParams, FormParams } from '@/models'
+import { CanvasParams } from '@/models'
 import { Colors } from '@/models/enums'
 import { EntityFormType } from '@/models/types'
 import Entities from '@/utils/entities'
@@ -14,7 +14,7 @@ export default class PrimitiveRenderer extends Renderer {
     w: 0,
     h: 0,
     radius: 0,
-  } as Required<FormParams>
+  }
 
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {
     super(ref, params)
@@ -28,7 +28,7 @@ export default class PrimitiveRenderer extends Renderer {
   }
 
   public render(entity: Entity): void {
-    const { form, position, formParams } = entity
+    const { form, position } = entity
 
     this.params = { ...formParams } as Required<FormParams>
 

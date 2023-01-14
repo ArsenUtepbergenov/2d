@@ -1,4 +1,4 @@
-export interface IPoint2 {
+export interface Point2 {
   x: number
   y: number
 }
@@ -17,8 +17,8 @@ export interface ICircleArc {
   counterclockwise?: boolean
 }
 
-export type Rectangle = IPoint2 & IRect
-export type Circle = IPoint2 & { radius: number }
+export type Rectangle = Point2 & IRect
+export type Circle = Point2 & { radius: number }
 
 export type EntityFormType = 'rect' | 'circle'
 

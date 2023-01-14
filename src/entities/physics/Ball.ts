@@ -24,14 +24,6 @@ export default class Ball extends Entity implements Circle {
   }
 
   public update(): void {
-    if (Math.abs(this.velocity.x) < this.friction) return
-
-    if (this.y + this.gravity < 700) {
-      this.velocity.y += this.gravity
-    }
-
-    this.velocity.x -= this.velocity.x * this.friction
-
     this.x += this.velocity.x
     this.y += this.velocity.y
   }

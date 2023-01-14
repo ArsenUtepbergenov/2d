@@ -15,7 +15,7 @@ export function createBall(x = 0, y = 0, radius = 0): Ball {
     radius: r,
     velocity: new Vector2(0, 0),
     acceleration: new Vector2(0, 0),
-    mass: Utils.getRandomIntByInterval(r, 2 * r),
+    mass: r,
   }
   const styles: StyleParams = {
     style: Utils.getRandomColor(),
