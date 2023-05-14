@@ -1,0 +1,45 @@
+{
+  "imageURL": "src/assets/tiles.png",
+  "tiles": [
+    {
+      "name": "ground",
+      "index": [9, 22]
+    },
+    {
+      "name": "brickWall",
+      "index": [21, 22]
+    },
+    {
+      "name": "groundAboutWallTop",
+      "index": [9, 21]
+    },
+    {
+      "name": "groundAboutWallTopRight",
+      "index": [10, 21]
+    },
+    {
+      "name": "groundAboutWallTopLeft",
+      "index": [8, 21]
+    },
+    {
+      "name": "groundAboutWallLeft",
+      "index": [8, 22]
+    },
+    {
+      "name": "rockTopLeft",
+      "index": [26, 21]
+    },
+    {
+      "name": "rockTopRight",
+      "index": [27, 21]
+    },
+    {
+      "name": "rockBottomLeft",
+      "index": [26, 22]
+    },
+    {
+      "name": "rockBottomRight",
+      "index": [27, 22]
+    }
+  ]
+}

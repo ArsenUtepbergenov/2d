@@ -1,5 +1,5 @@
 import Vector2 from '@/entities/math/Vector2'
-import { Rectangle, Circle, ISize } from '@/models/types'
+import { Rectangle, Size } from '@/models/types'
 
 /**
  * The general utilities.
@@ -10,9 +10,11 @@ export default abstract class Utils {
   }
 
   public static getRandomColor(): string {
-    return (
-      '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7)
-    )
+    return '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7)
+  }
+
+  public static getRandomRad() {
+    return Math.random() * (Math.PI * 2)
   }
 
   public static getRandomIntByInterval(min: number, max: number) {
@@ -25,10 +27,7 @@ export default abstract class Utils {
     return new Vector2(x, y)
   }
 
-  public static getRandomPositionInsideArea(
-    objectSize: ISize,
-    area: Rectangle,
-  ) {
+  public static getRandomPositionInsideArea(objectSize: Size, area: Rectangle) {
     const x = Utils.getRandomIntByInterval(
       area.x + objectSize.w / 2,
       area.w - objectSize.w / 2,
@@ -46,27 +45,14 @@ export default abstract class Utils {
     while (h--) matrix.push(new Array(w).fill(0))
     return matrix
   }
-}
 
-/**
- * The utility for checking collision.
- */
-export abstract class Collider {
-  public static checkRectToCircle(rect: Rectangle, circle: Circle): boolean {
-    return (
-      rect.x < circle.x + circle.r &&
-      rect.x + rect.w > circle.x - circle.r &&
-      rect.y < circle.y + circle.r &&
-      rect.y + rect.h > circle.y - circle.r
-    )
-  }
+  public static getMouseCoordinates(event: MouseEvent) {
+    const target = event.target as HTMLElement
+    const rect = target.getBoundingClientRect()
 
-  public static checkRectToRect(rect1: Rectangle, rect2: Rectangle): boolean {
-    return (
-      rect1.x < rect2.x + rect2.w &&
-      rect1.x + rect1.w > rect2.x &&
-      rect1.y < rect2.y + rect2.h &&
-      rect1.y + rect1.h > rect2.y
-    )
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    }
   }
 }

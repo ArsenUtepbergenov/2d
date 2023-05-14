@@ -15,3 +15,14 @@ export const enum Sides {
 }
 
 export const Primitives = ['rect', 'circle'] as const
+
+export const enum HeadingSides {
+  DOWN = 0,
+  LEFT,
+  RIGHT,
+  UP,
+}
+
+export const enum Sounds {
+  SHOT_FIREBALL = 'shot-fireball',
+}

@@ -38,7 +38,7 @@ watch(
 )
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 canvas {
   position: absolute;
   top: 0;

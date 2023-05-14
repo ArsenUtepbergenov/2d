@@ -62,10 +62,7 @@ export default class Drawer {
     c.fillText(text, x, y)
   }
 
-  public strokeLine(
-    to: Point = { x: 0, y: 0 },
-    from: Point = { x: 0, y: 0 },
-  ): void {
+  public strokeLine(to: Point = { x: 0, y: 0 }, from: Point = { x: 0, y: 0 }): void {
     const c = this.c2d
 
     c.beginPath()
@@ -82,15 +79,15 @@ export default class Drawer {
     this.c2d.globalAlpha = this.params.globalAlpha || 1
   }
 
-  protected scale({ x, y }: Point): void {
+  public scale({ x, y }: Point): void {
     this.c2d.scale(x, y)
   }
 
-  protected translate({ x, y }: Point): void {
+  public translate({ x, y }: Point): void {
     this.c2d.translate(x, y)
   }
 
-  protected toCartesian(): void {
+  public toCartesian(): void {
     this.translate(CS.center)
     this.scale({ x: 1, y: -1 })
   }

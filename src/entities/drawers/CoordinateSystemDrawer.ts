@@ -2,7 +2,7 @@ import { CS } from '@/models/cs'
 import { Colors } from '@/models/enums'
 import { C2D } from '@/models/game'
 import { System } from '@/models/system'
-import { ISize } from '@/models/types'
+import { Size } from '@/models/types'
 import Drawer from './Drawer'
 
 export default class CoordinateSystemDrawer extends Drawer {
@@ -10,7 +10,7 @@ export default class CoordinateSystemDrawer extends Drawer {
     super(c2d)
   }
 
-  public draw({ w, h }: ISize): void {
+  public draw({ w, h }: Size): void {
     const c = this.c2d
 
     c.setLineDash([1, 1])
@@ -27,7 +27,7 @@ export default class CoordinateSystemDrawer extends Drawer {
     this.drawAxisY(h)
   }
 
-  private drawGrid({ w, h }: ISize): void {
+  private drawGrid({ w, h }: Size): void {
     const c = this.c2d
 
     const step = System.HCM

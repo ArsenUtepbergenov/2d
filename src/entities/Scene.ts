@@ -1,48 +1,47 @@
 import { CanvasParams } from '@/models'
-import { Colors } from '@/models/enums'
-import { C2D } from '@/models/game'
-import { System } from '@/models/system'
-import AreaLimiter from './AreaLimiter'
+import { Collider } from '@/utils/collider'
+import Utils from '@/utils/general'
+import BallsLockedArea from './BallsLockedArea'
 import PrimitiveRenderer from './PrimitiveRenderer'
-import PrimitivesDrawer from './drawers/PrimitivesDrawer'
-import Particle from './physics/Particle'
-import LockedInsideArea from './traits/LockedInsideArea'
+import { QuadTree } from './QuadTree'
+import { createBall } from './physics'
+import Ball from './physics/Ball'
+import Entity from './physics/Entity'
+import Rect from './primitives/Rect'
 
 export default class Scene {
-  private element: HTMLCanvasElement
+  private canvas: HTMLCanvasElement
   private renderer: PrimitiveRenderer
-  private particles: Particle[] = []
-  private c2d: C2D
-  private areaLimiter: AreaLimiter
+  private entities: Entity[] = []
+  private ballsLockedArea: BallsLockedArea
   private rafId: number = 0
 
   constructor(ref: HTMLCanvasElement, params: CanvasParams) {
-    this.element = ref
-    this.element.focus()
+    this.canvas = ref
+    this.canvas.focus()
     this.renderer = new PrimitiveRenderer(ref, params)
-    this.c2d = this.renderer.c2d
-    this.areaLimiter = new AreaLimiter(this.renderer.rect)
+    this.ballsLockedArea = new BallsLockedArea(this.renderer.rect)
     this.init()
   }
 
   public init(): void {
-    this.renderer.applyDrawer(
-      new PrimitivesDrawer(this.c2d, {
-        isCartesian: false,
-        fillStyle: Colors.green,
-      }),
-    )
-    const box = new Particle('rect', {
-      x: 50,
-      y: 10,
-      w: System.CM,
-      h: System.CM,
-      speed: 3,
-      mode: 'fill',
-      alpha: 0.6,
-    })
-    box.addTrait(new LockedInsideArea())
-    this.particles.push(box)
+    const qt = new QuadTree(new Rect(0, 0, 300, 300), 4)
+
+    for (let b = 0; b < 20; b++) {
+      const ball = createBall(
+        Utils.getRandomIntByInterval(0, 300),
+        Utils.getRandomIntByInterval(0, 300),
+        10,
+      )
+      ball.velocity.length = 1
+      ball.velocity.angle = Utils.getRandomRad()
+      this.entities.push(ball)
+      qt.insert(ball)
+    }
+
+    qt.show(this.renderer.c2d)
+
+    console.log(qt)
   }
 
   public freeze(): void {
@@ -59,10 +58,10 @@ export default class Scene {
     const that = this
 
     function loop() {
-      that.renderer.clear()
+      // that.renderer.clear()
 
-      that.updateParticles()
-      that.renderParticles()
+      // that.updateEntities()
+      that.renderEntities()
 
       that.rafId = requestAnimationFrame(loop)
     }
@@ -74,20 +73,32 @@ export default class Scene {
     this.update()
   }
 
-  private updateParticles(): void {
-    this.particles.forEach(p => {
-      this.areaLimiter.limit(p)
+  private checkBallsCollision(i: number): void {
+    if (this.entities.length < 2) return
 
-      p.update()
+    const ball1 = this.entities[i] as Ball
+
+    for (let j = i + 1; j < this.entities.length; j++) {
+      const ball2 = this.entities[j] as Ball
+      if (Collider.checkCircleToCircle(ball1, ball2)) {
+        Collider.collideBalls(ball1, ball2)
+      }
+    }
+  }
+
+  private updateEntities(): void {
+    this.entities.forEach((e, i) => {
+      e.update()
+      this.ballsLockedArea.lock(e as Ball)
+      this.checkBallsCollision(i)
     })
   }
 
-  private renderParticles(): void {
-    this.particles.forEach(p => this.renderer.render(p))
+  private renderEntities(): void {
+    this.entities.forEach(e => this.renderer.render(e))
   }
 
   public setSize(w: number = 0, h: number = 0): void {
     this.renderer.setSize(w, h)
-    this.areaLimiter.setRectArea(this.renderer.rect)
   }
 }

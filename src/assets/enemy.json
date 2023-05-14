@@ -1,0 +1,53 @@
+{
+  "imageURL": "src/assets/characters.png",
+  "frames": [
+    {
+      "name": "stand-down",
+      "rect": [34, 128, 28, 32]
+    },
+    {
+      "name": "go-down-1",
+      "rect": [2, 128, 28, 32]
+    },
+    {
+      "name": "go-down-2",
+      "rect": [66, 128, 28, 32]
+    },
+    {
+      "name": "stand-up",
+      "rect": [34, 224, 28, 32]
+    },
+    {
+      "name": "go-up-1",
+      "rect": [2, 224, 28, 32]
+    },
+    {
+      "name": "go-up-2",
+      "rect": [66, 224, 28, 32]
+    },
+    {
+      "name": "stand-left",
+      "rect": [34, 160, 26, 32]
+    },
+    {
+      "name": "go-left-1",
+      "rect": [2, 160, 26, 32]
+    },
+    {
+      "name": "go-left-2",
+      "rect": [66, 160, 26, 32]
+    },
+    {
+      "name": "stand-right",
+      "rect": [34, 192, 26, 32]
+    },
+    {
+      "name": "go-right-1",
+      "rect": [2, 192, 26, 32]
+    },
+    {
+      "name": "go-right-2",
+      "rect": [66, 192, 26, 32]
+    }
+  ]
+}

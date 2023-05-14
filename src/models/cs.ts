@@ -1,6 +1,6 @@
 import { Point } from '@/entities/math/Point'
 import { System } from './system'
-import { ISize } from './types'
+import { Size } from './types'
 
 /**
  * Coordinate system.
@@ -25,7 +25,7 @@ export abstract class CS {
    * Set center of the coordinate system by window's size.
    * @param size original size (width, height)
    */
-  public static setCenter({ w, h }: ISize) {
+  public static setCenter({ w, h }: Size) {
     CS.cX = CS.getAxisCenter(CS.getCMsBy(w))
     CS.cY = CS.getAxisCenter(CS.getCMsBy(h))
   }

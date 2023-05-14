@@ -1,16 +1,14 @@
-import { EntityParams, FormParams } from '@/models'
 import { Sides } from '@/models/enums'
 import { EntityFormType } from '@/models/types'
 import BoundingBox from '../BoundingBox'
+import BoundingCircle from '../BoundingCircle'
 import getPoint, { Point } from '../math/Point'
 import Vector2 from '../math/Vector2'
 import Trait from '../traits/Trait'
 
 export default abstract class Entity {
   public form: EntityFormType
-  public abstract params: EntityParams
-  public abstract formParams: FormParams
-  public abstract bounds: BoundingBox
+  public abstract bounds: BoundingBox | BoundingCircle
   private traits: Map<string, Trait> = new Map()
   private _position = getPoint()
   private _velocity = new Vector2(0, 0)
@@ -21,9 +19,7 @@ export default abstract class Entity {
     this.form = form
   }
 
-  public update(): void {
-    // this.traits.forEach(t => t.update(this))
-  }
+  public abstract update(): void
 
   public addTrait(trait: Trait): void {
     if (this.hasTrait(trait.name)) return

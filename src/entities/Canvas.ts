@@ -30,7 +30,7 @@ export default class Canvas {
 
   public clear(): void {
     this._c2d.save()
-    this._c2d.setTransform(1, 0, 0, 1, 0, 0)
+    this._c2d.resetTransform()
     this._c2d.clearRect(0, 0, this.w, this.h)
     this._c2d.restore()
   }

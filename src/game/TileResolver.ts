@@ -1,6 +1,6 @@
 import Config from '@/models/config'
 import { Tile, TileByIndex } from '@/models/game'
-import { Matrix } from '../math/Matrix'
+import { Matrix } from '../entities/math/Matrix'
 
 export default class TileResolver {
   constructor(

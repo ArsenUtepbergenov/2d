@@ -20,9 +20,7 @@ export type TextParams = {
   align?: CanvasTextAlign
 }
 
-export type EventHandler =
-  | ((this: GlobalEventHandlers, ev: Event) => any)
-  | null
+export type EventHandler = ((this: GlobalEventHandlers, ev: Event) => any) | null
 export type MouseEventHandler =
   | ((this: GlobalEventHandlers, ev: MouseEvent) => any)
   | null
@@ -33,9 +31,9 @@ export type KeyboardEventHandler =
 export type EntityParams = {
   x: number
   y: number
-  w: number
-  h: number
-  radius: number
+  w?: number
+  h?: number
+  radius?: number
   velocity: Vector2
   acceleration: Vector2
   speed: number
@@ -46,7 +44,19 @@ export type EntityParams = {
   alpha: number
 }
 
-export type FormParams = Pick<
-  EntityParams,
-  'w' | 'h' | 'radius' | 'mode' | 'style' | 'alpha'
->
+export type ParticleParams = Omit<Required<EntityParams>, 'w' | 'h'>
+export type BoxParams = Omit<Required<EntityParams>, 'radius'>
+export type BallParams = {
+  x: number
+  y: number
+  radius: number
+  velocity: Vector2
+  acceleration: Vector2
+  mass: number
+}
+
+export type StyleParams = {
+  mode: 'fill' | 'stroke'
+  style: string | CanvasGradient | CanvasPattern
+  alpha: number
+}

@@ -30,7 +30,7 @@ onUpdated(() => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 canvas {
   border: 2px solid #795548;
 }
