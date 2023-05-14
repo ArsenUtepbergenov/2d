@@ -1,1 +1,1 @@
-# The test project with Vue 3, Vite, Pinia
+## The test 2d game with typescript
